@@ -1,33 +1,45 @@
-estrutura msg = : 03 05 01 FF00 F8
+Formato de todas as msgs:
+
+: 03 05 01 FF00 F8 (exemplo padrao)
+
+":" // caracter de inicio ; "03" // numero do escrado ; "05" // o que vai ser executado ; "01" // qual a saida/entrada ; "FF00" // dado recebido/enviado ; "F8" // LRC
 
 Lendo   saida   digital: 0X01
+
+// nenhum a principio 
+
 Lendo entrada   digital: 0X02
+
+IO11  = : 03 02 01 DADO LRC (sensor DS18B20)
+IO12  = : 03 02 02 DADO LRC (sensor   porta)
+
 Escreve saida   digital: 0X05
+
+IO2  = : 03 05 01 DADO LRC (SENTIDO HORARIO 		- FECHA JANELA SALA DE JANTAR)
+IO3  = : 03 05 02 DADO LRC (SENTIDO ANTI-HORARIO 	- ABRE  JANELA SALA DE JANTAR)
+IO4  = : 03 05 03 DADO LRC (SENTIDO HORARIO 		- FECHA JANELA SALA DE  ESTAR)
+IO5  = : 03 05 04 DADO LRC (SENTIDO ANTI-HORARIO 	- ABRE  JANELA SALA DE  ESTAR)
+IO6  = : 03 05 05 DADO LRC (Enable nos motores). //por enquanto padrao HIGH e LOW, 
+IO7  = : 03 05 06 DADO LRC mas pode ser usado como pwm para ter o controle da velocidade dos motores.
+IO8  = : 03 05 07 DADO LRC (solenoide tranca)
+IO9  = : 03 05 08 DADO LRC (aquecedor)
+IO10 = : 03 05 09 DADO LRC (sirene) 
+
 Lendo entrada analogica: 0X06
+
+AD0 = : 03 06 01 DADO LRC (Anemômetro) // 0,5V é equivalente a 5 km/h e 4,5V é 150 km/h.
+AD1 = : 03 06 02 DADO LRC (LM35) // Quando temperatura inferior a 17 graus liga aquecedor 
+AD2 = : 03 06 03 DADO LRC (sensores cortina sala jantar e estar) // sendo 1V para totalmente fechado
+AD3 = : 03 06 04 DADO LRC  e 4V totalmente aberto. fazer offset para 0 a 3.
+
 Escreve saida analogica: 0X07
 
-pinos saidas digitais: 
-OK * IO2(SENTIDO HORARIO 		- FECHA JANELA SALA DE JANTAR)
-OK * IO3(SENTIDO ANTI-HORARIO 	- ABRE  JANELA SALA DE JANTAR)
-OK * IO4(SENTIDO HORARIO 		- FECHA JANELA SALA DE  ESTAR)
-OK * IO5(SENTIDO ANTI-HORARIO 	- ABRE  JANELA SALA DE  ESTAR)
-OK * IO6 e IO7(Enable nos motores). //por enquanto padrao HIGH e LOW, 
-mas pode ser usado como pwm para ter o controle da velocidade dos motores.
-OK * IO8(solenoide tranca)
-OK * IO9(aquecedor)
-OK * IO10(sirene) 
+AD4 = : 03 07 01 DADO LRC (atuadores para lampadas da sala estar e quarto) dimerizadas, 
+AD5 = : 03 07 02 DADO LRC sendo 0V para desligado e 5V como brilho max
+AD6 = : 03 07 03 DADO LRC (atuador de ajuste do AC) // 1,7V igual a 17 graus celsius, 2,5V 25 graus celsius...
 
-pinos entradas digitais: 
-OK * IO11(sensor DS18B20)
-OK * IO12(sensor   porta)
 
-pinos saidas analogica: 
-OK *AD4 e AD5(atuadores para lampadas da sala estar e quarto) dimerizadas, 
-sendo 0V para desligado e 5V como brilho max
-OK *AD6(atuador de ajuste do AC) // 1,7V igual a 17 graus celsius, 2,5V 25 graus celsius...
 
-pinos entradas analogica: 
-OK * AD0(Anemômetro) // 0,5V é equivalente a 5 km/h e 4,5V é 150 km/h.
-OK * AD1(LM35) // Quando temperatura inferior a 17 graus liga aquecedor 
-OK * AD2 e AD3(sensores cortina sala jantar e estar) // sendo 1V para 
-totalmente fechado e 4V totalmente aberto. fazer offset para 0 a 3
+
+
+

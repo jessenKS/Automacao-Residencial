@@ -5,12 +5,12 @@
 
         <script>
             var socket = io();
-
+            /*
             function LeSaida(x)
             {         
                 socket.emit('state', ['01', '0'+ x, '0000'] );
 				console.log('Lendo saida digital '+ x);
-            }
+            }*/
 
             function LeEntrada(x)
             {         
@@ -36,23 +36,23 @@
 				console.log('Lendo entrada digital '+ x);
             }
 
-            function atualizaPWM()
+            function atualizaPWM(x)
             {
                 var novoPWM = document.getElementById("valorPWM").value;
                 
                 if (novoPWM >= 0 && novoPWM < 10) 
                 {
-                    socket.emit('state', ['07', '01', '000'+novoPWM] );
+                    socket.emit('state', ['07', '0' + x, '000'+novoPWM] );
                     console.log('Novo valor PWM '+ novoPWM);
                 }
                 else if(novoPWM < 100)
                 {
-                    socket.emit('state', ['07', '01', '00'+novoPWM] );
+                    socket.emit('state', ['07', '0' + x, '00'+novoPWM] );
                     console.log('Novo valor PWM '+ novoPWM);
                 }
                 else if(novoPWM < 256)
                 {
-                    socket.emit('state', ['07', '01', '0'+novoPWM] );
+                    socket.emit('state', ['07', '0' + x, '0'+novoPWM] );
                     console.log('Novo valor PWM '+ novoPWM);
                 }
 
@@ -88,8 +88,6 @@
             Ler estado atual das Entradas Digitais
             <br> Entrada Digital 1: <input type="text" id="leitura0201"></input> <button onclick="LeEntrada(1)">Ler entrada 1</button>
             <br> Entrada Digital 2: <input type="text" id="leitura0202"></input> <button onclick="LeEntrada(2)">Ler entrada 2</button>
-            <br> Entrada Digital 3: <input type="text" id="leitura0203"></input> <button onclick="LeEntrada(3)">Ler entrada 3</button>
-            <br> Entrada Digital 4: <input type="text" id="leitura0204"></input> <button onclick="LeEntrada(4)">Ler entrada 4</button>
         </div>
 
         <div>
@@ -108,21 +106,27 @@
             <br> Sa&iacuteda 2: <button onclick="turnOn(2)">Ligar</button> <button onclick="turnOff(2)">Desligar</button>
             <br> Sa&iacuteda 3: <button onclick="turnOn(3)">Ligar</button> <button onclick="turnOff(3)">Desligar</button>
             <br> Sa&iacuteda 4: <button onclick="turnOn(4)">Ligar</button> <button onclick="turnOff(4)">Desligar</button>
+            <br> Sa&iacuteda 5: <button onclick="turnOn(5)">Ligar</button> <button onclick="turnOff(5)">Desligar</button> 
+            <br> Sa&iacuteda 6: <button onclick="turnOn(6)">Ligar</button> <button onclick="turnOff(6)">Desligar</button>
+            <br> Sa&iacuteda 7: <button onclick="turnOn(7)">Ligar</button> <button onclick="turnOff(7)">Desligar</button>
+            <br> Sa&iacuteda 8: <button onclick="turnOn(8)">Ligar</button> <button onclick="turnOff(8)">Desligar</button>
+            <br> Sa&iacuteda 9: <button onclick="turnOn(9)">Ligar</button> <button onclick="turnOff(9)">Desligar</button>
         </div>
 
+        <!-- 
         <div>
             <br>
             Ler estado atual das Sa&iacutedas Digitais
             <br> Sa&iacuteda Digital 1: <input type="text" id="leitura0101"></input> <button onclick="LeSaida(1)">Ler Sa&iacuteda 1</button>
             <br> Sa&iacuteda Digital 2: <input type="text" id="leitura0102"></input> <button onclick="LeSaida(2)">Ler Sa&iacuteda 2</button>
-            <br> Sa&iacuteda Digital 3: <input type="text" id="leitura0103"></input> <button onclick="LeSaida(3)">Ler Sa&iacuteda 3</button>
-            <br> Sa&iacuteda Digital 4: <input type="text" id="leitura0104"></input> <button onclick="LeSaida(4)">Ler Sa&iacuteda 4</button>
         </div>
-
+        -->
         <div>
             <br>
             Escrever valor na Sa&iacuteda Anal&oacutegica
-            <br> Sa&iacuteda Analogica 1: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM()">Modificar Sa&iacuteda</button>
+            <br> Sa&iacuteda Analogica 1: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM(1)">Modificar Sa&iacuteda</button>
+            <br> Sa&iacuteda Analogica 2: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM(2)">Modificar Sa&iacuteda</button>
+            <br> Sa&iacuteda Analogica 3: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM(3)">Modificar Sa&iacuteda</button>
         </div>
 
     </body>

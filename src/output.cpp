@@ -7,6 +7,9 @@ void init_output()
         pinMode(i ,OUTPUT);
         digitalWrite(i, OFF);
     }
+    pinMode(LAM_D ,OUTPUT);
+    pinMode(LAM_R ,OUTPUT);
+    pinMode(ARC   ,OUTPUT);
 }
 
 void read_output(String msg)
@@ -69,7 +72,7 @@ void write_output(String msg)
     Serial.println(msg);
 }
 
-void analog_read_output(String msg)
+void analog_write_output(String msg)
 {
     // decodifica entrada a ser lida
     int aon = ((msg[5]-'0')*10 + (msg[6]-'0')) + ANALOG_OUTPUT_OFFSET;
@@ -82,8 +85,20 @@ void analog_read_output(String msg)
     Serial.print("Valor: ");
     Serial.println(value);
 
-    // escreve na saída
+    /* escreve na saída
     analogWrite(aon, value);
+    */
+    //TESTES
+    if (aon == LAM_D || aon == LAM_R)
+    {
+        digitalWrite(aon, value);
+    }
+    else
+    {
+        analogWrite(aon, value);
+    }
+    
+    
 
     // Para esse caso, a resposta é um simples echo da mensagem original
     Serial.print("Resposta do Escravo: ");

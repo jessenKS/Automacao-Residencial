@@ -113,7 +113,7 @@ void msgHandler()
 
 						case WRITE_ANALOG:
 						{
-							analog_read_output(msg);
+							analog_write_output(msg);
 							break;
 						}
 					}

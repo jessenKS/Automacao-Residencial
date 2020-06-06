@@ -9,14 +9,14 @@
 enum{OUTPUT_OFFSET = 1, OUT1, OUT2, OUT3, OUT4, EN1, EN2, SOLE, HEAT, SIR};
 
 /* mapeamento da saída analógica */
-#define ANALOG_OUTPUT_OFFSET 5
-#define LAM_D A4
-#define LAM_R A5
-#define ARC   A6
+#define ANALOG_OUTPUT_OFFSET 57
+#define LAM_D 58
+#define LAM_R 59
+#define ARC   60
 
 extern void init_output();
 extern void read_output(String msg);
 extern void write_output(String msg);
-extern void analog_read_output(String msg);
+extern void analog_write_output(String msg);
 
 #endif

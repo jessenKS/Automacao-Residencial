@@ -47,7 +47,7 @@ void analog_read_input(String msg)
 
     // debug
     Serial.print("Leitura na Entrada Analogica ");
-    Serial.println(ain+1);
+    Serial.println(ain-ANALOG_INPUT_OFFSET);
 
     // executao comando
     uint16_t value = analogRead(ain);

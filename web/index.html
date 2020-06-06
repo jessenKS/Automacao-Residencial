@@ -86,31 +86,30 @@
         <div>
             <br>
             Ler estado atual das Entradas Digitais
-            <br> Entrada Digital 1: <input type="text" id="leitura0201"></input> <button onclick="LeEntrada(1)">Ler entrada 1</button>
-            <br> Entrada Digital 2: <input type="text" id="leitura0202"></input> <button onclick="LeEntrada(2)">Ler entrada 2</button>
+            <br> Entrada Digital(sensor porta) 1: <input type="text" id="leitura0201"></input> <button onclick="LeEntrada(1)">Ler entrada 1</button>
+            <br> Entrada Digital(ds18b20) 2: <input type="text" id="leitura0202"></input> <button onclick="LeEntrada(2)">Ler entrada 2</button>
         </div>
 
         <div>
             <br>
             Ler estado atual das Entradas Anal&oacutegicas
-            <br> Entrada Anal&oacutegica 1: <input type="text" id="leitura0601"></input> <button onclick="EntradaAnalog(1)">Ler entrada 1</button>
-            <br> Entrada Anal&oacutegica 2: <input type="text" id="leitura0602"></input> <button onclick="EntradaAnalog(2)">Ler entrada 2</button>
-            <br> Entrada Anal&oacutegica 3: <input type="text" id="leitura0603"></input> <button onclick="EntradaAnalog(3)">Ler entrada 3</button>
-            <br> Entrada Anal&oacutegica 4: <input type="text" id="leitura0604"></input> <button onclick="EntradaAnalog(4)">Ler entrada 4</button>
+            <br> Entrada Anal&oacutegica(Anemometro) 1: <input type="text" id="leitura0601"></input> <button onclick="EntradaAnalog(1)">Ler entrada 1</button>
+            <br> Entrada Anal&oacutegica(sensor jantar) 2: <input type="text" id="leitura0602"></input> <button onclick="EntradaAnalog(2)">Ler entrada 2</button>
+            <br> Entrada Anal&oacutegica(sensor estar) 3: <input type="text" id="leitura0603"></input> <button onclick="EntradaAnalog(3)">Ler entrada 3</button>
         </div>
     
         <div>
             <br>
             Ligar/Desligar Sa&iacutedas
-            <br> Sa&iacuteda 1: <button onclick="turnOn(1)">Ligar</button> <button onclick="turnOff(1)">Desligar</button> 
-            <br> Sa&iacuteda 2: <button onclick="turnOn(2)">Ligar</button> <button onclick="turnOff(2)">Desligar</button>
-            <br> Sa&iacuteda 3: <button onclick="turnOn(3)">Ligar</button> <button onclick="turnOff(3)">Desligar</button>
-            <br> Sa&iacuteda 4: <button onclick="turnOn(4)">Ligar</button> <button onclick="turnOff(4)">Desligar</button>
-            <br> Sa&iacuteda 5: <button onclick="turnOn(5)">Ligar</button> <button onclick="turnOff(5)">Desligar</button> 
-            <br> Sa&iacuteda 6: <button onclick="turnOn(6)">Ligar</button> <button onclick="turnOff(6)">Desligar</button>
-            <br> Sa&iacuteda 7: <button onclick="turnOn(7)">Ligar</button> <button onclick="turnOff(7)">Desligar</button>
-            <br> Sa&iacuteda 8: <button onclick="turnOn(8)">Ligar</button> <button onclick="turnOff(8)">Desligar</button>
-            <br> Sa&iacuteda 9: <button onclick="turnOn(9)">Ligar</button> <button onclick="turnOff(9)">Desligar</button>
+            <br> Sa&iacuteda(jantar-hora) 1: <button onclick="turnOn(1)">Ligar</button> <button onclick="turnOff(1)">Desligar</button> 
+            <br> Sa&iacuteda(jantar-anti) 2: <button onclick="turnOn(2)">Ligar</button> <button onclick="turnOff(2)">Desligar</button>
+            <br> Sa&iacuteda(estar-hora) 3: <button onclick="turnOn(3)">Ligar</button> <button onclick="turnOff(3)">Desligar</button>
+            <br> Sa&iacuteda(estar-anti) 4: <button onclick="turnOn(4)">Ligar</button> <button onclick="turnOff(4)">Desligar</button>
+            <br> Sa&iacuteda(enable1) 5: <button onclick="turnOn(5)">Ligar</button> <button onclick="turnOff(5)">Desligar</button> 
+            <br> Sa&iacuteda(enable2) 6: <button onclick="turnOn(6)">Ligar</button> <button onclick="turnOff(6)">Desligar</button>
+            <br> Sa&iacuteda(tranca) 7: <button onclick="turnOn(7)">Ligar</button> <button onclick="turnOff(7)">Desligar</button>
+            <br> Sa&iacuteda(aquecedor) 8: <button onclick="turnOn(8)">Ligar</button> <button onclick="turnOff(8)">Desligar</button>
+            <br> Sa&iacuteda(sirene) 9: <button onclick="turnOn(9)">Ligar</button> <button onclick="turnOff(9)">Desligar</button>
         </div>
 
         <!-- 
@@ -124,9 +123,9 @@
         <div>
             <br>
             Escrever valor na Sa&iacuteda Anal&oacutegica
-            <br> Sa&iacuteda Analogica 1: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM(1)">Modificar Sa&iacuteda</button>
-            <br> Sa&iacuteda Analogica 2: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM(2)">Modificar Sa&iacuteda</button>
-            <br> Sa&iacuteda Analogica 3: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM(3)">Modificar Sa&iacuteda</button>
+            <br> Sa&iacuteda Analogica(lampada1) 1: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM(1)">Modificar Sa&iacuteda</button>
+            <br> Sa&iacuteda Analogica(lampada2) 2: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM(2)">Modificar Sa&iacuteda</button>
+            <br> Sa&iacuteda Analogica(AC) 3: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM(3)">Modificar Sa&iacuteda</button>
         </div>
 
     </body>

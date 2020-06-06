@@ -27,8 +27,8 @@ IO10 = : 03 05 09 DADO LRC (sirene)
 
 Lendo entrada analogica: 0X06
 
-AD0 = : 03 06 01 DADO LRC (Anemômetro) // 0,5V é equivalente a 5 km/h e 4,5V é 150 km/h.
-AD1 = : 03 06 02 DADO LRC (LM35) // Quando temperatura inferior a 17 graus liga aquecedor 
+AD0 = : 03 06 02 DADO LRC (LM35) // Quando temperatura inferior a 17 graus liga aquecedor 
+AD1 = : 03 06 01 DADO LRC (Anemômetro) // 0,5V é equivalente a 5 km/h e 4,5V é 150 km/h.
 AD2 = : 03 06 03 DADO LRC (sensores cortina sala jantar e estar) // sendo 1V para totalmente fechado
 AD3 = : 03 06 04 DADO LRC  e 4V totalmente aberto. fazer offset para 0 a 3.
 

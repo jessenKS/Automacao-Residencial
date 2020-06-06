@@ -8,13 +8,12 @@
 #define INPUT_OFFSET 11 // offset entradas 
 #define DOOR 12 // sensor porta
 
-/* mapeamento das entradas analógicas */
-#define ANALOG_INPUT_OFFSET 1
-#define WIND A0 //Anemômetro - ler continuamente 
+#define ANALOG_INPUT_OFFSET 54
+#define WIND 55 //Anemômetro - ler continuamente 
 
 // sensores cortinas
-#define DINE A2
-#define ROOM A3
+#define DINE 56
+#define ROOM 57
 
 extern void init_input();
 extern void read_input(String msg);

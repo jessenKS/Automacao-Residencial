@@ -1,3 +1,4 @@
 {
-    "platformio-ide.customPATH": ""
+    "platformio-ide.customPATH": "",
+    "C_Cpp.errorSquiggles": "Disabled"
 }

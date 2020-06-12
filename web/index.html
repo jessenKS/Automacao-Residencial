@@ -1,0 +1,158 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="/socket.io/socket.io.js"></script>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <div class="container">
+            <h2>Dynamic Tabs</h2>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+                <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+                <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <h3>HOME</h3>
+                    <p>AUTOMACAO</p>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <h3>CONF</h3>
+                    
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <h3>MONIT</h3>
+                    <div>
+                        <br>
+                        Ler estado atual das Entradas Digitais
+                        <br> Entrada Digital 1: <input type="text" id="leitura0201"></input> <button onclick="LeEntrada(1)">Ler entrada 1</button>
+                        <br> Entrada Digital 2: <input type="text" id="leitura0202"></input> <button onclick="LeEntrada(2)">Ler entrada 2</button>
+                        <br> Entrada Digital 3: <input type="text" id="leitura0203"></input> <button onclick="LeEntrada(3)">Ler entrada 3</button>
+                        <br> Entrada Digital 4: <input type="text" id="leitura0204"></input> <button onclick="LeEntrada(4)">Ler entrada 4</button>
+                    </div>
+            
+                    <div>
+                        <br>
+                        Ler estado atual das Entradas Anal&oacutegicas
+                        <br> Entrada Anal&oacutegica 1: <input type="text" id="leitura0601"></input> <button onclick="EntradaAnalog(1)">Ler entrada 1</button>
+                        <br> Entrada Anal&oacutegica 2: <input type="text" id="leitura0602"></input> <button onclick="EntradaAnalog(2)">Ler entrada 2</button>
+                        <br> Entrada Anal&oacutegica 3: <input type="text" id="leitura0603"></input> <button onclick="EntradaAnalog(3)">Ler entrada 3</button>
+                        <br> Entrada Anal&oacutegica 4: <input type="text" id="leitura0604"></input> <button onclick="EntradaAnalog(4)">Ler entrada 4</button>
+                    </div>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                    <h3>CONTR</h3>
+                    <div>
+                        <br>
+                        Ligar/Desligar Sa&iacutedas
+                        <br> Sa&iacuteda 1: <button onclick="turnOn(1)">Ligar</button> <button onclick="turnOff(1)">Desligar</button> 
+                        <br> Sa&iacuteda 2: <button onclick="turnOn(2)">Ligar</button> <button onclick="turnOff(2)">Desligar</button>
+                        <br> Sa&iacuteda 3: <button onclick="turnOn(3)">Ligar</button> <button onclick="turnOff(3)">Desligar</button>
+                        <br> Sa&iacuteda 4: <button onclick="turnOn(4)">Ligar</button> <button onclick="turnOff(4)">Desligar</button>
+                    </div>
+            
+                    <div>
+                        <br>
+                        Ler estado atual das Sa&iacutedas Digitais
+                        <br> Sa&iacuteda Digital 1: <input type="text" id="leitura0101"></input> <button onclick="LeSaida(1)">Ler Sa&iacuteda 1</button>
+                        <br> Sa&iacuteda Digital 2: <input type="text" id="leitura0102"></input> <button onclick="LeSaida(2)">Ler Sa&iacuteda 2</button>
+                        <br> Sa&iacuteda Digital 3: <input type="text" id="leitura0103"></input> <button onclick="LeSaida(3)">Ler Sa&iacuteda 3</button>
+                        <br> Sa&iacuteda Digital 4: <input type="text" id="leitura0104"></input> <button onclick="LeSaida(4)">Ler Sa&iacuteda 4</button>
+                    </div>
+            
+                    <div>
+                        <br>
+                        Escrever valor na Sa&iacuteda Anal&oacutegica
+                        <br> Sa&iacuteda Analogica 1: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM()">Modificar Sa&iacuteda</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <button class="btn btn-default">Ir para Tab Home</button>
+
+        <script>
+            var socket = io();
+
+            function LeSaida(x)
+            {         
+                socket.emit('state', ['01', '0'+ x, '0000'] );
+				console.log('Lendo saida digital '+ x);
+            }
+
+            function LeEntrada(x)
+            {         
+                socket.emit('state', ['02', '0'+ x, '0000'] );
+				console.log('Lendo entrada digital '+ x);
+            }
+
+            function turnOn(x)
+            {         
+                socket.emit('state', ['05', '0'+ x, 'FF00'] );
+				console.log('Ligando saida '+ x);
+            }
+			
+			function turnOff(x)
+            {         
+                socket.emit('state', ['05', '0'+ x, '0000'] );
+				console.log('Desligando saida '+ x);
+            }
+            
+            function EntradaAnalog(x)
+            {         
+                socket.emit('state', ['06', '0'+ x, '0000'] );
+				console.log('Lendo entrada digital '+ x);
+            }
+
+            function atualizaPWM()
+            {
+                var novoPWM = document.getElementById("valorPWM").value;
+                
+                if (novoPWM >= 0 && novoPWM < 10) 
+                {
+                    socket.emit('state', ['07', '01', '000'+novoPWM] );
+                    console.log('Novo valor PWM '+ novoPWM);
+                }
+                else if(novoPWM < 100)
+                {
+                    socket.emit('state', ['07', '01', '00'+novoPWM] );
+                    console.log('Novo valor PWM '+ novoPWM);
+                }
+                else if(novoPWM < 256)
+                {
+                    socket.emit('state', ['07', '01', '0'+novoPWM] );
+                    console.log('Novo valor PWM '+ novoPWM);
+                }
+
+                else
+                    console.log('Valor PWM invalido');
+            }
+
+            socket.on('novoEstado', function(data){ 
+                var id = data.substring(4, 0)
+                id+=""
+                console.log('Recebendo algum valor: ' + data);
+                console.log('id: ' + id);
+                if(data.substring(4, 8) == '0000' && data[1] != '6') 
+                {
+                    document.getElementById("leitura"+id).value = 'Desligado';
+                }
+                else if(data.substring(4, 8) == 'FF00')
+                {
+                    document.getElementById("leitura"+id).value = 'Ligado';
+                }
+                else
+                {
+                    document.getElementById("leitura"+id).value = data.substring(4, 8);
+                }
+            });
+        </script>
+    </head>
+</html>

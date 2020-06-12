@@ -6,9 +6,8 @@ var   fs = require('fs')
 // porta
 const port = 3000
 // pagina principal
-const mainPage = 'tabs.html'
-const myStyle  = 'assets/css/style.min.css'
-const myFonts = 'assets/fonts/fontawesome5-overrides.min.css'
+const mainPage = 'index.html'
+const myStyle  = 'assets/css/style.css'
 
 // servidor ouvindo em 'port'
 var app = http.createServer(function(req, res) {
@@ -20,15 +19,7 @@ var app = http.createServer(function(req, res) {
         content = fs.readFileSync(mainPage);      
         type = 'text/html';
     }
-    else if(req.url === '/assets/fonts/fontawesome5-overrides.min.css') {
-      content = fs.readFileSync(myFonts);	// load css
-      type = 'text/css';
-    }
-    else if(req.url === '/assets/fonts/script.min.js') {
-      content = fs.readFileSync('script.min.js');	// load css
-      type = 'application/javascript';
-    }
-    else if(req.url === '/assets/css/style.min.css') {
+    else if(req.url === '/assets/css/style.css') {
         content = fs.readFileSync(myStyle);	// load css
         type = 'text/css';
     }

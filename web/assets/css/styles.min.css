@@ -567,6 +567,11 @@ body {
   transition: border-color .08s ease-in-out,box-shadow .08s ease-in-out;
 }
 
+.table th, .table td {
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
 .footer-dark {
   padding: 50px 0;
   color: #f0f9ff;
@@ -1407,6 +1412,92 @@ p {
   right: -60%;
   transform: rotate(-19deg);
   opacity: 0.2;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  color: #555;
+  cursor: default;
+  border: none;
+  border-bottom: solid 5px red;
+  line-height: normal;
+}
+
+.nav > li > a:focus, .nav > li > a {
+  text-decoration: none;
+  margin: 0;
+  line-height: normal;
+  border: none;
+  border-bottom: solid 5px gray;
+}
+
+.nav-tabs > li > a:hover {
+  border: none;
+  border-bottom: solid 5px gray;
+}
+
+.tab-content {
+  padding: 10px;
+}
+
+.nav-tabs > li > a {
+  border-radius: 0;
+  margin: 0;
+  line-height: normal;
+  color: black;
+  font-size: 20px;
+}
+
+.nav-tabs > li {
+  float: left;
+  margin-bottom: -1px;
+  width: 33.33%;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  color: #555;
+  cursor: default;
+  border: none;
+  border-bottom: solid 5px red;
+  line-height: normal;
+}
+
+.nav > li > a:focus, .nav > li > a {
+  text-decoration: none;
+  margin: 0;
+  line-height: normal;
+  border: none;
+  border-bottom: solid 5px gray;
+}
+
+.nav-tabs > li > a:hover {
+  border: none;
+  border-bottom: solid 5px gray;
+}
+
+.tab-content {
+  padding: 10px;
+}
+
+.nav-tabs > li > a {
+  border-radius: 0;
+  margin: 0;
+  line-height: normal;
+  color: black;
+  font-size: 20px;
+}
+
+.nav-tabs > li {
+  float: left;
+  margin-bottom: -1px;
+  width: 33.33%;
 }
 
 .navbar.navbar-light.navbar-expand-md {

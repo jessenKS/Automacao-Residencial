@@ -3,16 +3,12 @@
 // modulos
 var http = require('http')
 var   fs = require('fs')
-var express = require('express')
 // porta
 const port = 3000
 // pagina principal
-const mainPage = 'inicial.html'
-const configPage = 'configuracao.html'
-const controlePage = 'controle.html'
-const monitPage = 'monitoracao.html'
+const mainPage = 'tabs.html'
 const myStyle  = 'assets/css/style.min.css'
-const imageInicial = 'assets/img/domotica.jpg'
+const myFonts = 'assets/fonts/fontawesome5-overrides.min.css'
 
 // servidor ouvindo em 'port'
 var app = http.createServer(function(req, res) {
@@ -24,36 +20,23 @@ var app = http.createServer(function(req, res) {
         content = fs.readFileSync(mainPage);      
         type = 'text/html';
     }
-    else if(req.url === 'assets/css/style.min.css') {
+    else if(req.url === '/assets/fonts/fontawesome5-overrides.min.css') {
+      content = fs.readFileSync(myFonts);	// load css
+      type = 'text/css';
+    }
+    else if(req.url === '/assets/fonts/script.min.js') {
+      content = fs.readFileSync('script.min.js');	// load css
+      type = 'application/javascript';
+    }
+    else if(req.url === '/assets/css/style.min.css') {
         content = fs.readFileSync(myStyle);	// load css
         type = 'text/css';
     }
-    else if(req.url === '/configuracao.html') {
-      content = fs.readFileSync(configPage);      
-      type = 'text/html';
-    }
-    else if(req.url === '/controle.html') {
-      content = fs.readFileSync(controlePage);      
-      type = 'text/html';
-    }
-    else if(req.url === '/monitoracao.html') {
-      content = fs.readFileSync(monitPage);      
-      type = 'text/html';
-    }
-    else if(req.url === '/inicial.html') {
-      content = fs.readFileSync(mainPage);      
-      type = 'text/html';
-    }
-    else if(req.url === '/assets/img/domotica.jpg') {
-      content = fs.readFileSync(imageInicial);
-      type = 'text/html'
-    }
+    
     console.log(req.url) // tipo de requisição realizada
     res.writeHead(200, {'Content-Type': type}); // responde com tipo
     res.end(content + '\n'); // envia conteúdo 
 }).listen(port)
-
-
 
 var socket = require('socket.io').listen(app);
 
@@ -114,7 +97,7 @@ function LRC(str)
 /*****   Porta Serial *****/
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
-const sPort = new SerialPort('COM6', {
+const sPort = new SerialPort('COM12', {
   baudRate: 9600
 })
 const parser = new Readline();

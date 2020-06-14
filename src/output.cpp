@@ -97,9 +97,6 @@ void analog_write_output(String msg)
     {
         analogWrite(aon, value);
     }
-    
-    
-
     // Para esse caso, a resposta é um simples echo da mensagem original
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);

@@ -23,11 +23,11 @@ void msgHandler()
 			Serial.println(msg);
 			
 			//teste temperatura
-			/*
+			
 			Serial.print("Temperatura: ");
 			Le_temperatura();
-			Serial.println(temperatura);*/
-			
+			Serial.println(temperatura);
+			/*
 			while(msg[tam] != '\0')
 				++tam;
 			
@@ -76,7 +76,7 @@ void msgHandler()
 				{
 					Serial.println("LRC incorreto");
 					break;
-				}*/
+				}/!
 				
 				//ve para qual escravo é a mensagem
 				if(msg[1]==SLAVE_ADR[0] && msg[2]==SLAVE_ADR[1] )
@@ -123,6 +123,7 @@ void msgHandler()
 			}
 			else
 				Serial.println("Comando desconhecido");
+			*/
 		}
 	}
 }

@@ -117,4 +117,9 @@ parser.on('data', (data) => {
     if('1' || '2' || '6' == resposta[1])
       socket.emit('novoEstado', resposta);  
   }
+  else
+  {
+    var resposta = data.substring(13)
+    socket.emit('temperatura', resposta); 
+  }
 })

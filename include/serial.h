@@ -14,8 +14,8 @@
 #define WRITE_ANALOG 0X07
 
 /* lÃ³gica negada para saÃ­das */
-#define ON  0
-#define OFF 1
+#define ON  1
+#define OFF 0
 
 /* Parametros */
 #define SLAVE_ADR       "03"

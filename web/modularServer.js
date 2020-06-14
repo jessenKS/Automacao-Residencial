@@ -2,12 +2,12 @@
 
 // modulos
 var http = require('http')
-var   fs = require('fs')
+var   fs = require('fs');
 // porta
 const port = 3000
 // pagina principal
 const mainPage = 'index.html'
-const myStyle  = 'assets/css/style.css'
+const myStyle  = 'style.css'
 
 // servidor ouvindo em 'port'
 var app = http.createServer(function(req, res) {
@@ -19,7 +19,7 @@ var app = http.createServer(function(req, res) {
         content = fs.readFileSync(mainPage);      
         type = 'text/html';
     }
-    else if(req.url === '/assets/css/style.css') {
+    else if(req.url === '/style.css') {
         content = fs.readFileSync(myStyle);	// load css
         type = 'text/css';
     }
@@ -88,7 +88,7 @@ function LRC(str)
 /*****   Porta Serial *****/
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
-const sPort = new SerialPort('COM12', {
+const sPort = new SerialPort('COM25', {
   baudRate: 9600
 })
 const parser = new Readline();

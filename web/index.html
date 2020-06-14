@@ -1,157 +1,278 @@
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script src="/socket.io/socket.io.js"></script>
-        
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html lang="pt-br">
 
-        <div class="container">
-            <h2>Projeto Final</h2>
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-                <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-                <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
-            </ul>
+<head>
+    <meta charset="utf-8">
+    <title>Automação Residencial</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <!--FontAwesome-->
+    <script src="https://kit.fontawesome.com/45278e1b1e.js" crossorigin="anonymous"></script>
+</head>
 
-            <div class="tab-content">
-                <div id="home" class="tab-pane fade in active">
-                    <h3>HOME</h3>
-                    <p>AUTOMACAO</p>
-                </div>
-                <div id="menu1" class="tab-pane fade">
-                    <h3>CONF</h3>
-                    
-                </div>
-                <div id="menu2" class="tab-pane fade">
-                    <h3>MONIT</h3>
-                    <div>
-                        <br>
-                        Ler estado atual das Entradas Digitais
-                        <br> Entrada Digital 1: <input type="text" id="leitura0201"></input> <button onclick="LeEntrada(1)">Ler entrada 1</button>
-                        <br> Entrada Digital 2: <input type="text" id="leitura0202"></input> <button onclick="LeEntrada(2)">Ler entrada 2</button>
-                        <br> Entrada Digital 3: <input type="text" id="leitura0203"></input> <button onclick="LeEntrada(3)">Ler entrada 3</button>
-                        <br> Entrada Digital 4: <input type="text" id="leitura0204"></input> <button onclick="LeEntrada(4)">Ler entrada 4</button>
-                    </div>
-            
-                    <div>
-                        <br>
-                        Ler estado atual das Entradas Anal&oacutegicas
-                        <br> Entrada Anal&oacutegica 1: <input type="text" id="leitura0601"></input> <button onclick="EntradaAnalog(1)">Ler entrada 1</button>
-                        <br> Entrada Anal&oacutegica 2: <input type="text" id="leitura0602"></input> <button onclick="EntradaAnalog(2)">Ler entrada 2</button>
-                        <br> Entrada Anal&oacutegica 3: <input type="text" id="leitura0603"></input> <button onclick="EntradaAnalog(3)">Ler entrada 3</button>
-                        <br> Entrada Anal&oacutegica 4: <input type="text" id="leitura0604"></input> <button onclick="EntradaAnalog(4)">Ler entrada 4</button>
+<body class="text-center">
+    <div id="minimal-tabs" style="background-color: rgb(88,67,15);">
+        <ul class="nav nav-tabs text-center" style="margin-top: 0px;padding-top: 26px;margin-right: 0px;margin-left: 0px;background-color: rgb(40,45,50);padding-bottom: 26px;">
+            <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link active" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-1">TELA INICIAL</a></li>
+            <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-2">CONFIGURAÇÃO</a></li>
+            <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link" style="width: 304px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-3">CONTROLE  E MONITORAÇÃO</a></li>
+        </ul>
+        <div class="tab-content" style="height: 685px;background-color: rgba(88,67,15,0);margin-top: -5px;margin-left: 182px;">
+
+            <!--TAB TELA INICIAL-->
+            <div role="tabpanel" class="tab-pane active" id="tab-1" style="height: 340px;background-color: rgb(88,67,15);">
+                <div class="container" style="background-color: rgb(88,67,15);height: 332px;margin-left: 0px;margin-top: -103px;">
+                    <div class="row" style="margin-left: 0px;height: 297px;margin-right: 0px;margin-top: 242px;">
+                        <div class="col-md-8" style="height: 238px;width: 447px;margin-top: 14px;">
+                            <div class="intro" style="margin-top: 52px;">
+                                <h2 style="color: rgb(255,255,255);font-family: Bitter, serif;margin-top: 0px;">Automação Residencial</h2>
+                                <p style="color: rgb(255,255,255);font-family: Bitter, serif;width: 680px;margin-top: 28px;">Página WEB para parametrização, monitoração e atuação sobre o sistema automatizado de controle de um apartamento.</p>
+                            </div>
+                        </div>
+                            <div class="col-sm-4" style="width: 386px;height: 286px;margin: -13px;"><img src="https://www.hometheater.com.br/portal/wp-content/uploads/2020/01/exclusif.jpg" style="height: 290px;width: 431px;margin-top: 23px;" />
+                        </div>
                     </div>
                 </div>
-                <div id="menu3" class="tab-pane fade">
-                    <h3>CONTR</h3>
-                    <div>
-                        <br>
-                        Ligar/Desligar Sa&iacutedas
-                        <br> Sa&iacuteda 1: <button onclick="turnOn(1)">Ligar</button> <button onclick="turnOff(1)">Desligar</button> 
-                        <br> Sa&iacuteda 2: <button onclick="turnOn(2)">Ligar</button> <button onclick="turnOff(2)">Desligar</button>
-                        <br> Sa&iacuteda 3: <button onclick="turnOn(3)">Ligar</button> <button onclick="turnOff(3)">Desligar</button>
-                        <br> Sa&iacuteda 4: <button onclick="turnOn(4)">Ligar</button> <button onclick="turnOff(4)">Desligar</button>
+            </div>
+
+            <!--TAB CONFIGURAÇÃO-->
+            <div role="tabpanel" class="tab-pane" id="tab-2" style="height: 432px;margin-top: 82px;">
+                <div class="container" style="height: 374px; margin-left: -10px;">
+                    <div class="row" style="width: 1228px;height: 340px;font-size: 16px;margin-left: 0px;margin-right: -0px;">
+
+                        <!--COLUNA CONFIGURAÇÕES DE CORTINA-->
+                        <div class="col-md-4 offset-0" style="height: 300px;background-color: rgb(58,56,36);width: 419px;margin-top: 20px;margin-left: -33px;">
+                            <header class="text-center border rounded" style="width: 407px;margin-left: -14px;">
+                                <i class="icon ion-clock" style="padding: 0px 10px 0px 0px;font-size: 24px;padding-left: 6px;color: rgb(255,255,255);"> </i>
+                                <label class="text-left" style="font-size: 19px;padding: 0px;padding-left: 10px;color: rgb(255,255,255);">
+                                    <strong>Configurações de horários da cortina</strong>
+                                </label>
+                            </header>
+                            <label class="border rounded-0" style="font-size: 15px;padding: 0px;margin: 0px 0px 0px 0px;margin-right: 0px;width: 375px;color: rgb(255,255,255);margin-top: 30px;margin-left: 0px;padding-left: 7px;height: 47px;">
+                                <strong>Abertura na metade do seu curso:</strong>
+                                <!--INPUT ABERTURA METADE-->
+                                <input type="time" style="width: 100px;height: 44px;background-color: rgb(255,255,255);padding-right: 1px;padding-left: 10px;margin-left: 18px;" />   
+                            </label>
+                            <label class="border rounded-0"style="font-size: 15px;padding: 0px;margin: 0px 0px 0px 0px;margin-right: 0px;width: 375px;color: rgb(255,255,255);margin-top: 30px;margin-left: 0px;padding-left: 7px;height: 47px;">
+                                <strong>Abertura total:</strong>
+                                <!--INPUT ABERTURA TOTAL-->
+                                <input type="time" style="width: 100px;height: 44px;background-color: rgb(255,255,255);padding-right: 1px;padding-left: 12px;margin-left: 152px;" />
+                            </label>
+                            <label class="border rounded-0" style="font-size: 15px;padding: 0px;margin: 0px 0px 0px 0px;margin-right: 0px;width: 375px;color: rgb(255,255,255);margin-top: 30px;margin-left: 0px;padding-left: 7px;height: 47px;">
+                                <strong>Fechamento total:</strong>
+                                <!--INPUT FECHAMENTO TOTAL-->
+                                <input type="time" style="width: 100px;height: 44px;background-color: rgb(255,255,255);padding-right: 1px;padding-left: 12px;margin-left: 131px;" />
+                            </label>
+                        </div>
+
+                        <!--COLUNA CONFIGURAÇÕES DA PORTA-->
+                        <div class="col-md-4" style="background-color: rgb(58,56,36);padding-left: 20px;padding-right: 20px;margin-left: 15px;margin-top: 20px;height: 300px;">
+                            <header class="text-center border rounded" style="width: 407px;margin-left: -19px;">
+                                <i class="fas fa-door-closed" style="padding: 0px 10px 0px 0px;font-size: 24px;padding-left: 6px;color: rgb(255,255,255);padding-top: 5px;"></i>
+                                <label class="text-left" style="font-size: 19px;padding: 0px;padding-left: 10px;color: rgb(255,255,255);">
+                                    <strong>Configurações da porta</strong>
+                                </label>
+                            </header>
+                            <label style="font-size: 15px;padding: 0px;margin: 0px 20px 0px 0px;width: 366px;color: rgb(255,255,255);margin-top: 31px;">
+                                <strong>Senha para porta de entrada</strong>
+                            </label>
+                            <!--INPUT SENHA-->
+                            <input type="password" class="form-control-lg" id="inputSenha" name="password-input" style="background-color: rgb(255,255,255);margin-top: 8px;width: 370px;" />
+                            <label style="font-size: 15px;color: rgb(255,255,255);margin-top: 22px;">
+                                <strong>Tempo máximo para porta permanecer aberta (minutos)</strong>
+                            </label>
+                            <!--INPUT TEMPO PORTA ABERTA-->
+                            <input type="number" class="form-control-lg" id="inputTempoAberta" tabindex="-1" name="from_name" required style="font-size: 21px;background-color: rgb(255,255,255);height: 48px;width: 370px;" />
+                        </div>
+
+                        <!--COLUNA CONFIGURAÇÕES DE TEMPERATURA-->
+                        <div class="col-md-4" style="background-color: rgb(58,56,36);padding-left: 20px;padding-right: 20px;margin-left: 15px;margin-top: 20px;height: 300px;">
+                            <header class="text-center border rounded" style="width: 407px;margin-left: -19px;">
+                                <i class="fas fa-temperature-low" style="padding: 0px 10px 0px 0px;font-size: 24px;padding-left: 6px;color: rgb(255,255,255);padding-top: 5px;"></i>
+                                <label class="text-left" style="font-size: 19px;padding: 0px;padding-left: 10px;color: rgb(255,255,255);">
+                                    <strong>Configurações de temperatura</strong>
+                                </label>
+                            </header>
+                            <label style="font-size: 15px;padding: 0px;margin: 0px 20px 0px 0px;width: 366px;color: rgb(255,255,255);margin-top: 31px;">
+                                <strong>Temperatura padrão do ar-condicionado (17ºC a 25ºC)</strong>
+                            </label>
+                            <!--INPUT TEMPERATURA PADRÃO-->
+                            <div class="input-group mb-3 edtFormMarg">
+                                <select class="custom-select" id="temperaturaPadrao">
+                                    <option selected>Escolha...</option>
+                                    <option value="1">17ºC</option>
+                                    <option value="2">18ºC</option>
+                                    <option value="3">19ºC</option>
+                                    <option value="4">20ºC</option>
+                                    <option value="5">21ºC</option>
+                                    <option value="6">22ºC</option>
+                                    <option value="7">23ºC</option>
+                                    <option value="8">24ºC</option>
+                                    <option value="9">25ºC</option>
+                                </select>
+                            </div>
+                            <label style="font-size: 15px;padding: 0px;margin: 0px 20px 0px 0px;width: 366px;color: rgb(255,255,255);margin-top: 31px;">
+                                <strong>Faixa da Banda Morta (temperatura Banheiro)</strong>
+                            </label>
+                            <!--INPUT BANDA MORTA-->
+                            <input type="number" class="form-control-lg" id="inputBandaMorta" tabindex="-1" name="from_name" required style="font-size: 21px;background-color: rgb(255,255,255);height: 48px;width: 370px;" />
+                        </div>
                     </div>
-            
-                    <div>
-                        <br>
-                        Ler estado atual das Sa&iacutedas Digitais
-                        <br> Sa&iacuteda Digital 1: <input type="text" id="leitura0101"></input> <button onclick="LeSaida(1)">Ler Sa&iacuteda 1</button>
-                        <br> Sa&iacuteda Digital 2: <input type="text" id="leitura0102"></input> <button onclick="LeSaida(2)">Ler Sa&iacuteda 2</button>
-                        <br> Sa&iacuteda Digital 3: <input type="text" id="leitura0103"></input> <button onclick="LeSaida(3)">Ler Sa&iacuteda 3</button>
-                        <br> Sa&iacuteda Digital 4: <input type="text" id="leitura0104"></input> <button onclick="LeSaida(4)">Ler Sa&iacuteda 4</button>
+
+                    <!--BOTÕES CONFIGURAÇÃO-->
+                    <div class="col" style="height: 76px;">
+                        <button class="btn btn-primary border rounded" data-toggle="modal" data-target="#modal1" type="button" 
+                            style="background-color: rgb(39,84,18);margin: 40px;margin-right: 0px;margin-bottom: 40px;margin-left: 50px;margin-top: 15px;">FINALIZAR CONFIGURAÇÃO</button>
+                        <button class="btn btn-primary border rounded" data-toggle="modal" data-target="#modal1" type="button" 
+                            style="background-color: rgb(174,21,21);margin: 40px 0px 0px 0px;margin-left: 0px;margin-bottom: 40px;margin-top: 15px;">CANCELAR CONFIGURAÇÃO</button>
                     </div>
-            
-                    <div>
-                        <br>
-                        Escrever valor na Sa&iacuteda Anal&oacutegica
-                        <br> Sa&iacuteda Analogica 1: <input type = "text" id = "valorPWM"></input> <button onclick="atualizaPWM()">Modificar Sa&iacuteda</button>
+                </div>
+            </div>
+
+            <!--TAB CONTROLE E MONITORAMENTO-->
+            <div role="tabpanel" class="tab-pane" id="tab-3" style="height: 714px;padding-top: 0px;">
+                <div class="container" style="margin-top: 30px; margin-right: 200px;">
+                    <div class="row" style="font-family: Bitter, serif;background-color: rgb(88,67,15);">
+                        <!--COLUNA DE MONITORAMENTO-->
+                        <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2" style="filter: grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%);height: 652px;margin-left: -235px;">
+                            <h1 class="text-center border rounded" style="color: rgb(255,255,255);padding-top: 10px;padding-bottom: 10px;background-color: rgb(123,103,52);font-size: 17px;height: 38px;">Planta do apartamento</h1>
+                            <!--DIV COM A PLANTA DE FUNDO-->
+                            <div class="intro" style="background-image: url('https://i.ibb.co/QbckhHJ/planta.png');height: 619px;width: 545px;filter: saturate(200%);margin-left: 95px;">
+                                <!--DIV ANEMOMETRO-->
+                                <div style="width: 119px;margin-left: 354px;">
+                                    <i class="fas fa-fan" style="font-size: 44px;color: rgb(0,0,0);padding-top: 0px;margin-top: 13px;margin-right: 10px;"> </i>
+                                    <!--INPUT ANEMOMETRO-->
+                                    <input type="text" class="border rounded border-dark" style="width: 60px;height: 50px;margin-bottom: 0px;padding-top: 24px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;background-color: rgba(238,238,238,0);"/>
+                                </div>
+                                <!--DIV CORTINA 1-->
+                                <div style="width: 187px;margin-left: 357px;margin-top: 23px;">
+                                    <label class="border rounded" style="background-color: rgb(194,183,177);color: rgb(255,255,255);"> Cortina 1 </label>
+                                    <div class="progress border rounded-0 border-dark" style="background-color: rgb(203,181,169);">
+                                        <!--PROGRESS BAR CORTINA 1-->
+                                        <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 98%;"> 98% </div>
+                                    </div>
+                                </div>
+                                <!--DIV TEMPERATURA BANHEIRO-->
+                                <div style="width: 100px;margin-left: 36px;margin-top: 40px;">
+                                    <i class="fa fa-thermometer-3" style="font-size: 50px;color: rgb(0,0,0);padding-top: 0px;margin-top: 0px;margin-right: 10px;margin-left: -3px;"> </i>
+                                    <!--INPUT TEMPERATURA BANHEIRO-->
+                                    <input type="text" style="width: 60px;height: 50px;margin-bottom: 0px;padding-top: 27px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;background-color: rgba(238,238,238,0);" /> 
+                                </div>
+                                <!--DIV CORTINA 2-->
+                                <div style="width: 187px;margin-left: 354px;"><label class="border rounded" style="background-color: rgb(194,183,177);color: rgb(255,255,255);"> Cortina 2 </label>
+                                    <div class="progress border rounded-0 border-dark" style="background-color: rgb(203,181,169);">
+                                        <!--PROGRESS BAR CORTINA 2-->
+                                        <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 2%;"> 2% </div>
+                                    </div>
+                                </div>
+                                <!--DIV TEMPERATURA SALA-->
+                                <div style="width: 100px;margin-top: 109px;margin-left: 191px;">
+                                    <i class="fa fa-thermometer-3" style="font-size: 50px;color: rgb(0,0,0);padding-top: 0px;margin-top: 0px;margin-right: 10px;"> </i>
+                                    <input type="text" style="width: 60px;height: 50px;margin-bottom: 0px;padding-top: 24px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;background-color: rgba(238,238,238,0);"/>
+                                </div>
+                                <!--DIV PORTA FECHADA-->
+                                <div style="width: 569px;margin-top: 85px;margin-left: -111px;padding-right: 61px;">
+                                    <i class="fas fa-door-closed" style="font-size: 38px;color: rgb(0,0,0);margin-left: 138px;"></i>
+                                    <input type="checkbox" checked style="width: 51px;height: 23px;margin-right: 0px;" />
+                                    <i class="fas fa-volume-off" style="font-size: 41px;color: rgb(217,54,54);margin-left: 116px;padding-right: 0px;"></i>
+                                    <input type="checkbox" checked style="height: 23px;width: 36px;margin-left: 3px;"/>
+                                </div>
+                                <!--DIV PORTA ABERTA-->
+                                <div style="width: 569px;margin-top: 0px;margin-left: -67px;">
+                                    <i class="fas fa-door-open" style="font-size: 38px;color: rgb(0,0,0);padding-top: 0px;margin-top: 0px;margin-right: 10px;padding-right: 0px;"></i>
+                                    <input type="checkbox" style="height: 23px;width: 51px;" />
+                                    <i class="fas fa-volume-up" style="font-size: 41px;color: rgb(217,54,54);padding-top: 0px;margin-top: 0px;margin-right: 0px;margin-left: 115px;"></i>
+                                    <input type="checkbox" style="height: 23px;width: 36px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--COLUNA DE CONTROLE-->
+                        <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2" style="filter: grayscale(0%) hue-rotate(0deg) invert(0%) sepia(0%);height: 558px;margin-left: -152px;width: 386px;padding: -1px;padding-right: 93px;padding-left: 34px;">
+                            <h1 class="text-center border rounded" style="color: rgb(255,255,255);padding-top: 10px;padding-bottom: 10px;background-color: rgb(123,103,52);font-size: 17px;height: 38px;width: 528px;margin-left: 195px;"> Menu de Controle </h1>
+                            <!--DIV COM O MENU-->
+                            <div style="width: 648px;height: 619px;background-color: rgb(123,103,52);padding-left: 0px;margin-left: 139px;">
+                                <!--CORTINA 1-->
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 1 </label>
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 26px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Fechado </label>
+                                <!--RANGE CORTINA 1-->
+                                <input type="range" class="border rounded shadow custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Aberto </label>
+                                <!--CORTINA 2-->
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 2 </label>
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 26px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Fechado </label>
+                                <!--RANGE CORTINA 2-->
+                                <input type="range" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Aberto </label>
+                                <!--LUZ DA SALA-->
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Luz da Sala </label>
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 53px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente desligada </label>
+                                <!--RANGE LUZ DA SALA-->
+                                <input type="range" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente ligada </label>
+                                <!--LUZ DO QUARTO-->
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Luz do Quarto </label>
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 53px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente desligada </label>
+                                <!--RANGE LUZ DO QUARTO-->
+                                <input type="range" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente ligada </label>
+                                <!--CHECKBOX AR-CONDICIONADO-->
+                                <div class="form-check custom-control custom-switch" style="width: 280px;margin-top: 23px;">
+                                    <input type="checkbox" class="form-check-input custom-control-input" id="customSwitch1" />
+                                    <label class="form-check-label border rounded custom-control-label" for="customSwitch1" style="background-color: rgb(88,67,15);color: rgb(255,255,255);width: 191px;"> Ligar Ar-condicionado </label>
+                                </div>
+                                <!--ESCOLHE TEMPERATURA-->
+                                <div style="width: 165px;height: 70px;margin-left: 66px;margin-top: 2px;">
+                                    <div class="input-group mb-3 edtFormMarg">
+                                        <div class="input-group-prepend"> </div>
+                                            <select class="custom-select" id="inputGroupSelect01">
+                                                <option selected>Escolha...</option>
+                                                    <option value="1">17ºC</option>
+                                                    <option value="2">18ºC</option>
+                                                    <option value="3">19ºC</option>
+                                                    <option value="4">20ºC</option>
+                                                    <option value="5">21ºC</option>
+                                                    <option value="6">22ºC</option>
+                                                    <option value="7">23ºC</option>
+                                                    <option value="8">24ºC</option>
+                                                    <option value="9">25ºC</option>
+                                            </select>
+                                        </div>
+                                    <!--CHECKBOX TRANCAR PORTA-->
+                                    <div style="width: 184px;margin-top: -98px;margin-left: 295px;">
+                                        <label class="switch">
+                                            <input type="checkbox" />
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <label class="border rounded" style="background-color: rgb(88,67,15);color: rgb(255,255,255);"> Trancar Porta </label>
+                                    </div>
+                                    <!--SENHA PORTA-->
+                                    <label style="font-size: 15px;padding: 0px;margin: 0px 20px 0px 0px;width: 366px;color: rgb(255,255,255);margin-top: -54px;margin-left: 227px;">
+                                        <strong> Senha para porta de entrada </strong> 
+                                    </label>
+                                    <!--INPUT SENHA-->
+                                    <input type="password" class="form-control-lg" id="senhaPortaMenu" name="password-input" style="background-color: rgb(255,255,255);margin-top: -3px;width: 282px;height: 31px;margin-left: 261px;" />
+                                    <button class="btn btn-primary" type="button" style="width: 210px;margin-left: 305px;background-color: rgb(88,67,15);margin-top: 5px;"> Desbloquear porta </button>
+                                </div>
+                                <div style="width: 280px;margin-top: -10px;">
+                                    <label style="font-size: 15px;color: rgb(255,255,255);">
+                                        <strong>Controle de Alarme</strong>
+                                    </label>
+                                    <button class="btn btn-primary" type="button" style="background-color: rgb(88,67,15);"> Desligar Alarme </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <!--scripts utlização do bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-        
-
-        <script>
-            var socket = io();
-
-            function LeSaida(x)
-            {         
-                socket.emit('state', ['01', '0'+ x, '0000'] );
-				console.log('Lendo saida digital '+ x);
-            }
-
-            function LeEntrada(x)
-            {         
-                socket.emit('state', ['02', '0'+ x, '0000'] );
-				console.log('Lendo entrada digital '+ x);
-            }
-
-            function turnOn(x)
-            {         
-                socket.emit('state', ['05', '0'+ x, 'FF00'] );
-				console.log('Ligando saida '+ x);
-            }
-			
-			function turnOff(x)
-            {         
-                socket.emit('state', ['05', '0'+ x, '0000'] );
-				console.log('Desligando saida '+ x);
-            }
-            
-            function EntradaAnalog(x)
-            {         
-                socket.emit('state', ['06', '0'+ x, '0000'] );
-				console.log('Lendo entrada digital '+ x);
-            }
-
-            function atualizaPWM()
-            {
-                var novoPWM = document.getElementById("valorPWM").value;
-                
-                if (novoPWM >= 0 && novoPWM < 10) 
-                {
-                    socket.emit('state', ['07', '01', '000'+novoPWM] );
-                    console.log('Novo valor PWM '+ novoPWM);
-                }
-                else if(novoPWM < 100)
-                {
-                    socket.emit('state', ['07', '01', '00'+novoPWM] );
-                    console.log('Novo valor PWM '+ novoPWM);
-                }
-                else if(novoPWM < 256)
-                {
-                    socket.emit('state', ['07', '01', '0'+novoPWM] );
-                    console.log('Novo valor PWM '+ novoPWM);
-                }
-
-                else
-                    console.log('Valor PWM invalido');
-            }
-
-            socket.on('novoEstado', function(data){ 
-                var id = data.substring(4, 0)
-                id+=""
-                console.log('Recebendo algum valor: ' + data);
-                console.log('id: ' + id);
-                if(data.substring(4, 8) == '0000' && data[1] != '6') 
-                {
-                    document.getElementById("leitura"+id).value = 'Desligado';
-                }
-                else if(data.substring(4, 8) == 'FF00')
-                {
-                    document.getElementById("leitura"+id).value = 'Ligado';
-                }
-                else
-                {
-                    document.getElementById("leitura"+id).value = data.substring(4, 8);
-                }
-            });
-        </script>
-    </head>
+</body>
 </html>

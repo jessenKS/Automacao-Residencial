@@ -143,6 +143,7 @@ parser.on('data', (data) => {
       socket.emit('novoEstado', resposta);  
   }
   else if(data.length == 45){
+    console.log("Volta arduino");
     console.log(data.substring(14));
   }
   else

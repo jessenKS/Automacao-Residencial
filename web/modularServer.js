@@ -59,7 +59,12 @@ socket.on('connection', function(client) {
       mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
       console.log(mensagem);
       sPort.write(mensagem);
-    })
+    });
+
+    client.on('atualizaTela', function(data){
+      console.log(data);
+      sPort.write(data);
+    });
 })
 
 

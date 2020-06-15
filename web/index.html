@@ -51,7 +51,7 @@
                 alert("Preencher todos os valores");
             else {
                 flag = true;
-                aux.classList.remove("disabled");
+                //aux.classList.remove("disabled");
                 socket.emit('configInicial', [cortinaMet, cortinaAbert, cortinaFech, portSenha, portTemp, tempPadrao, tempBanheiro]);
                 alert("Configuração concluida com sucesso!");
             }
@@ -62,6 +62,13 @@
                 alert("Complete a configuração antes!");
             }
         }
+
+        function atualizaTela(){
+            socket.on('atualizaTela', function(data){
+                console.log("Dado:" + data);
+            })
+        }
+        setInterval(atualizaTela, 1000);
         
     </script>
 </head>
@@ -71,7 +78,7 @@
         <ul class="nav nav-tabs text-center" style="margin-top: 0px;padding-top: 26px;margin-right: 0px;margin-left: 0px;background-color: rgb(40,45,50);padding-bottom: 26px;">
             <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link active" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-1">TELA INICIAL</a></li>
             <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-2">CONFIGURAÇÃO</a></li>
-            <li onclick="validateConfig()" class="nav-item" style="width: 298.25px;"><a id="tabMonit" role="tab" data-toggle="tab" class="nav-link disabled" style="width: 304px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-3">CONTROLE  E MONITORAÇÃO</a></li>
+            <li onclick="validateConfig()" class="nav-item" style="width: 298.25px;"><a id="tabMonit" role="tab" data-toggle="tab" class="nav-link" style="width: 304px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-3">CONTROLE  E MONITORAÇÃO</a></li>
         </ul>
         <div class="tab-content" style="height: 685px;background-color: rgba(88,67,15,0);margin-top: -5px;margin-left: 182px;">
 
@@ -226,20 +233,15 @@
                                     <i class="fa fa-thermometer-3" style="font-size: 50px;color: rgb(0,0,0);padding-top: 0px;margin-top: 0px;margin-right: 10px;"> </i>
                                     <input type="text" style="width: 60px;height: 50px;margin-bottom: 0px;padding-top: 24px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;background-color: rgba(238,238,238,0);"/>
                                 </div>
-                                <!--DIV PORTA FECHADA-->
-                                <div style="width: 569px;margin-top: 85px;margin-left: -111px;padding-right: 61px;">
-                                    <i class="fas fa-door-closed" style="font-size: 38px;color: rgb(0,0,0);margin-left: 138px;"></i>
-                                    <input type="checkbox" checked style="width: 51px;height: 23px;margin-right: 0px;" />
-                                    <i class="fas fa-volume-off" style="font-size: 41px;color: rgb(217,54,54);margin-left: 116px;padding-right: 0px;"></i>
-                                    <input type="checkbox" checked style="height: 23px;width: 36px;margin-left: 3px;"/>
+                                <!--DIV SIRENE -->
+                                <div style="width: 569px;margin-top: 85px;margin-left: -230px;padding-right: 61px;">
+                                    <i id="sirene" class="fas fa-volume-off" style="font-size: 38px;color: rgb(217,54,54);margin-left: 138px;"></i>
                                 </div>
-                                <!--DIV PORTA ABERTA-->
-                                <div style="width: 569px;margin-top: 0px;margin-left: -67px;">
-                                    <i class="fas fa-door-open" style="font-size: 38px;color: rgb(0,0,0);padding-top: 0px;margin-top: 0px;margin-right: 10px;padding-right: 0px;"></i>
-                                    <input type="checkbox" style="height: 23px;width: 51px;" />
-                                    <i class="fas fa-volume-up" style="font-size: 41px;color: rgb(217,54,54);padding-top: 0px;margin-top: 0px;margin-right: 0px;margin-left: 115px;"></i>
-                                    <input type="checkbox" style="height: 23px;width: 36px;" />
+                                <!--DIV PORTA -->
+                                <div style="width: 569px;margin-top: 0px;margin-left: -186px;">
+                                    <i id="porta" class="fas fa-door-closed" style="font-size: 38px;color: rgb(0,0,0);padding-top: 0px;margin-top: 0px;margin-right: 10px;padding-right: 0px;"></i>
                                 </div>
+
                             </div>
                         </div>
 

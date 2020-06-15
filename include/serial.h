@@ -5,6 +5,7 @@
 #include "input.h"
 #include "output.h"
 #include "lm35.h"
+#include "ds18b20.h"
 
 /* Estrutura da mensagem */
 #define READ_COIL    0X01

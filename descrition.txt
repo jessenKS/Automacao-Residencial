@@ -13,6 +13,10 @@ Lendo entrada   digital: 0X02
 IO11  = : 03 02 01 DADO LRC (sensor DS18B20)
 IO12  = : 03 02 02 DADO LRC (sensor   porta)
 
+Atualiza dados: 0X03
+
+msg = : 03 03 00 Anemômetro(000) cortina1(000) temperaturaBanheiro(00) cortina2(000) temperaturaSala(00) sirene(0) porta(0) LRC
+
 Escreve saida   digital: 0X05
 
 IO2  = : 03 05 01 DADO LRC (SENTIDO HORARIO 		- FECHA JANELA SALA DE JANTAR)

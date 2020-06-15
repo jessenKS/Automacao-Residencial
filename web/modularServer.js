@@ -42,8 +42,25 @@ socket.on('connection', function(client) {
         mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
 		sPort.write(mensagem)
 		console.log(mensagem)
+    });
+
+    client.on('configInicial', function(data){
+      console.log(data);
+
+      if(data[6] < 10)
+        slaveState = data[5] + '0' + data[6];
+      else 
+        slaveState = data[5] + data[6];
+
+      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState//":030501FF00";
+      lrc = LRC(mensagem)
+      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
+      console.log(mensagem);
+      sPort.write(mensagem);
     })
 })
+
+
 
 function LRC(str) 
 {

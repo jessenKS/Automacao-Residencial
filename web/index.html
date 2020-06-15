@@ -10,6 +10,33 @@
     <!--FontAwesome-->
     <script src="https://kit.fontawesome.com/45278e1b1e.js" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+        var socket = io();
+        var cortinaAbert, cortinaFech, cortinaMet, portSenha, portTemp, tempPadrao, tempBanheiro;
+
+        function testeValores(){
+            console.log(document.getElementById("cortinaAberturaMetade").value);
+            console.log(document.getElementById("cortinaAberturaTotal").value);
+            console.log(document.getElementById("cortinaFechamentoTotal").value);
+            console.log(document.getElementById("senhaPorta").value);
+            console.log(document.getElementById("tempoPorta").value);
+            console.log(document.getElementById("temperaturaPadrao").value);
+            console.log(document.getElementById("temperaturaBanheiro").value);
+        }
+
+        function configInicial(){
+            cortinaAbert = document.getElementById("cortinaAberturaTotal").value;
+            cortinaFech = document.getElementById("cortinaFechamentoTotal").value;
+            cortinaMet = document.getElementById("cortinaAberturaMetade").value;
+            portSenha = document.getElementById("senhaPorta").value;
+            portTemp = document.getElementById("tempoPorta").value;
+            tempPadrao = document.getElementById("temperaturaPadrao").value;
+            tempBanheiro = document.getElementById("temperaturaBanheiro").value;
+            socket.emit('configInicial', [cortinaMet, cortinaAbert, cortinaFech, portSenha, portTemp, tempPadrao, tempBanheiro]);
+        }
+        
+    </script>
 </head>
 
 <body class="text-center">
@@ -53,17 +80,17 @@
                             <label class="border rounded-0" style="font-size: 15px;padding: 0px;margin: 0px 0px 0px 0px;margin-right: 0px;width: 375px;color: rgb(255,255,255);margin-top: 30px;margin-left: 0px;padding-left: 7px;height: 47px;">
                                 <strong>Abertura na metade do seu curso:</strong>
                                 <!--INPUT ABERTURA METADE-->
-                                <input type="time" style="width: 100px;height: 44px;background-color: rgb(255,255,255);padding-right: 1px;padding-left: 10px;margin-left: 18px;" />   
+                                <input id="cortinaAberturaMetade" type="time" style="width: 100px;height: 44px;background-color: rgb(255,255,255);padding-right: 1px;padding-left: 10px;margin-left: 18px;" />   
                             </label>
                             <label class="border rounded-0"style="font-size: 15px;padding: 0px;margin: 0px 0px 0px 0px;margin-right: 0px;width: 375px;color: rgb(255,255,255);margin-top: 30px;margin-left: 0px;padding-left: 7px;height: 47px;">
                                 <strong>Abertura total:</strong>
                                 <!--INPUT ABERTURA TOTAL-->
-                                <input type="time" style="width: 100px;height: 44px;background-color: rgb(255,255,255);padding-right: 1px;padding-left: 12px;margin-left: 152px;" />
+                                <input id="cortinaAberturaTotal" type="time" style="width: 100px;height: 44px;background-color: rgb(255,255,255);padding-right: 1px;padding-left: 12px;margin-left: 152px;" />
                             </label>
                             <label class="border rounded-0" style="font-size: 15px;padding: 0px;margin: 0px 0px 0px 0px;margin-right: 0px;width: 375px;color: rgb(255,255,255);margin-top: 30px;margin-left: 0px;padding-left: 7px;height: 47px;">
                                 <strong>Fechamento total:</strong>
                                 <!--INPUT FECHAMENTO TOTAL-->
-                                <input type="time" style="width: 100px;height: 44px;background-color: rgb(255,255,255);padding-right: 1px;padding-left: 12px;margin-left: 131px;" />
+                                <input id="cortinaFechamentoTotal" type="time" style="width: 100px;height: 44px;background-color: rgb(255,255,255);padding-right: 1px;padding-left: 12px;margin-left: 131px;" />
                             </label>
                         </div>
 
@@ -79,12 +106,12 @@
                                 <strong>Senha para porta de entrada</strong>
                             </label>
                             <!--INPUT SENHA-->
-                            <input type="password" class="form-control-lg" id="inputSenha" name="password-input" style="background-color: rgb(255,255,255);margin-top: 8px;width: 370px;" />
+                            <input id="senhaPorta" type="password" class="form-control-lg" id="inputSenha" name="password-input" style="background-color: rgb(255,255,255);margin-top: 8px;width: 370px;" />
                             <label style="font-size: 15px;color: rgb(255,255,255);margin-top: 22px;">
                                 <strong>Tempo máximo para porta permanecer aberta (minutos)</strong>
                             </label>
                             <!--INPUT TEMPO PORTA ABERTA-->
-                            <input type="number" class="form-control-lg" id="inputTempoAberta" tabindex="-1" name="from_name" required style="font-size: 21px;background-color: rgb(255,255,255);height: 48px;width: 370px;" />
+                            <input id="tempoPorta" type="number" class="form-control-lg" id="inputTempoAberta" tabindex="-1" name="from_name" required style="font-size: 21px;background-color: rgb(255,255,255);height: 48px;width: 370px;" />
                         </div>
 
                         <!--COLUNA CONFIGURAÇÕES DE TEMPERATURA-->
@@ -102,28 +129,28 @@
                             <div class="input-group mb-3 edtFormMarg">
                                 <select class="custom-select" id="temperaturaPadrao">
                                     <option selected>Escolha...</option>
-                                    <option value="1">17ºC</option>
-                                    <option value="2">18ºC</option>
-                                    <option value="3">19ºC</option>
-                                    <option value="4">20ºC</option>
-                                    <option value="5">21ºC</option>
-                                    <option value="6">22ºC</option>
-                                    <option value="7">23ºC</option>
-                                    <option value="8">24ºC</option>
-                                    <option value="9">25ºC</option>
+                                    <option value="17">17ºC</option>
+                                    <option value="18">18ºC</option>
+                                    <option value="19">19ºC</option>
+                                    <option value="20">20ºC</option>
+                                    <option value="21">21ºC</option>
+                                    <option value="22">22ºC</option>
+                                    <option value="23">23ºC</option>
+                                    <option value="24">24ºC</option>
+                                    <option value="25">25ºC</option>
                                 </select>
                             </div>
                             <label style="font-size: 15px;padding: 0px;margin: 0px 20px 0px 0px;width: 366px;color: rgb(255,255,255);margin-top: 31px;">
                                 <strong>Faixa da Banda Morta (temperatura Banheiro)</strong>
                             </label>
                             <!--INPUT BANDA MORTA-->
-                            <input type="number" class="form-control-lg" id="inputBandaMorta" tabindex="-1" name="from_name" required style="font-size: 21px;background-color: rgb(255,255,255);height: 48px;width: 370px;" />
+                            <input id="temperaturaBanheiro" type="number" class="form-control-lg" id="inputBandaMorta" tabindex="-1" name="from_name" required style="font-size: 21px;background-color: rgb(255,255,255);height: 48px;width: 370px;" />
                         </div>
                     </div>
 
                     <!--BOTÕES CONFIGURAÇÃO-->
                     <div class="col" style="height: 76px;">
-                        <button class="btn btn-primary border rounded" data-toggle="modal" data-target="#modal1" type="button" 
+                        <button onclick="configInicial()" class="btn btn-primary border rounded" data-toggle="modal" data-target="#modal1" type="button" 
                             style="background-color: rgb(39,84,18);margin: 40px;margin-right: 0px;margin-bottom: 40px;margin-left: 50px;margin-top: 15px;">FINALIZAR CONFIGURAÇÃO</button>
                         <button class="btn btn-primary border rounded" data-toggle="modal" data-target="#modal1" type="button" 
                             style="background-color: rgb(174,21,21);margin: 40px 0px 0px 0px;margin-left: 0px;margin-bottom: 40px;margin-top: 15px;">CANCELAR CONFIGURAÇÃO</button>

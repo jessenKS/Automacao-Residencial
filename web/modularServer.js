@@ -52,6 +52,8 @@ socket.on('connection', function(client) {
       else 
         slaveState = data[5] + data[6];
 
+      slaveCmd = '01';
+
       mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState//":030501FF00";
       lrc = LRC(mensagem)
       mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";

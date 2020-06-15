@@ -14,6 +14,7 @@
     <script>
         var socket = io();
         var cortinaAbert, cortinaFech, cortinaMet, portSenha, portTemp, tempPadrao, tempBanheiro;
+        var flag = false;
 
         function testeValores(){
             console.log(document.getElementById("cortinaAberturaMetade").value);
@@ -26,6 +27,7 @@
         }
 
         function configInicial(){
+            var aux = document.getElementById("tabMonit");
             cortinaAbert = document.getElementById("cortinaAberturaTotal").value;
             cortinaFech = document.getElementById("cortinaFechamentoTotal").value;
             cortinaMet = document.getElementById("cortinaAberturaMetade").value;
@@ -33,7 +35,32 @@
             portTemp = document.getElementById("tempoPorta").value;
             tempPadrao = document.getElementById("temperaturaPadrao").value;
             tempBanheiro = document.getElementById("temperaturaBanheiro").value;
-            socket.emit('configInicial', [cortinaMet, cortinaAbert, cortinaFech, portSenha, portTemp, tempPadrao, tempBanheiro]);
+            if(cortinaAbert == '') 
+                alert("Preencher todos os valores");
+            else if(cortinaFech == '') 
+                alert("Preencher todos os valores");
+            else if(cortinaMet == '') 
+                alert("Preencher todos os valores");
+            else if(portSenha == '') 
+                alert("Preencher todos os valores");
+            else if(portTemp == '') 
+                alert("Preencher todos os valores");
+            else if(tempPadrao == '') 
+                alert("Preencher todos os valores");
+            else if(tempBanheiro == '') 
+                alert("Preencher todos os valores");
+            else {
+                flag = true;
+                aux.classList.remove("disabled");
+                socket.emit('configInicial', [cortinaMet, cortinaAbert, cortinaFech, portSenha, portTemp, tempPadrao, tempBanheiro]);
+                alert("Configuração concluida com sucesso!");
+            }
+        }
+
+        function validateConfig(x){
+            if(flag == false) {
+                alert("Complete a configuração antes!");
+            }
         }
         
     </script>
@@ -44,7 +71,7 @@
         <ul class="nav nav-tabs text-center" style="margin-top: 0px;padding-top: 26px;margin-right: 0px;margin-left: 0px;background-color: rgb(40,45,50);padding-bottom: 26px;">
             <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link active" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-1">TELA INICIAL</a></li>
             <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-2">CONFIGURAÇÃO</a></li>
-            <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link" style="width: 304px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-3">CONTROLE  E MONITORAÇÃO</a></li>
+            <li onclick="validateConfig()" class="nav-item" style="width: 298.25px;"><a id="tabMonit" role="tab" data-toggle="tab" class="nav-link disabled" style="width: 304px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-3">CONTROLE  E MONITORAÇÃO</a></li>
         </ul>
         <div class="tab-content" style="height: 685px;background-color: rgba(88,67,15,0);margin-top: -5px;margin-left: 182px;">
 

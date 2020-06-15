@@ -90,7 +90,7 @@ void msgHandler()
 					{
 						case READ_COIL:
 						{
-							read_output(msg);
+							read_init_output(msg);
 							break;
 						}
 							

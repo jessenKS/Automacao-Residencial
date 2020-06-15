@@ -15,7 +15,7 @@ enum{OUTPUT_OFFSET = 1, OUT1, OUT2, OUT3, OUT4, EN1, EN2, SOLE, HEAT, SIR};
 #define ARC   60
 
 extern void init_output();
-extern void read_output(String msg);
+extern void read_init_output(String msg);
 extern void write_output(String msg);
 extern void analog_write_output(String msg);
 

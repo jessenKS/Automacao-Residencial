@@ -12,28 +12,22 @@ void init_output()
     pinMode(ARC   ,OUTPUT);
 }
 
-void read_output(String msg)
+void read_init_output(String msg)
 {
-    int coil = ((msg[5]-'0')*10 + (msg[6]-'0')) + OUTPUT_OFFSET;						
+    int /*coil = ((msg[5]-'0')*10 + (msg[6]-'0')),*/ ar = ((msg[7]-'0')*10 + (msg[8]-'0')), banda = ((msg[9]-'0')*10 + (msg[10]-'0')); 						
     // debug
-    Serial.print("Leitura na Saida ");
-    Serial.println(coil-OUTPUT_OFFSET);
+    Serial.print("Temp AR: ");
+    Serial.println(ar);
+    Serial.print("Banda morta:");
+    Serial.println(banda);
 
-    // Ligada ou desligada?
-    if(!digitalRead(coil))
+    /*
+
+    if(msg[7]=='F' && msg[8]=='F' && msg[9]=='0' && msg[10]=='0')
     {
-        msg[7]='F';
-        msg[8]='F';
-        msg[9]='0';
-        msg[10]='0';
-    }
-    else
-    {
-        msg[7]='0';
-        msg[8]='0';
-        msg[9]='0';
-        msg[10]='0';
-    }
+        value = ON;
+        Serial.println(" -> Mudar para Ligado");
+    }*/
     
     // Resposta com o valor atual da entrada..
     Serial.print("Resposta do Escravo: ");

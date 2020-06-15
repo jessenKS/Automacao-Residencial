@@ -62,8 +62,9 @@ socket.on('connection', function(client) {
     });
 
     client.on('atualizaTela', function(data){
-      console.log(data);
-      sPort.write(data);
+      mensagem = ':' + data[0] + data[1] + data[2] + data[3] + data[4] + data[5] + data[6] + data[7] + data[8] + data[9] + data[10] + data[11] + data[12];
+      console.log("Mensagem:" + mensagem);
+      sPort.write(mensagem);
     });
 })
 
@@ -133,13 +134,16 @@ sPort.open(function (err) {
 
 parser.on('data', (data) => {
   console.log(data);
+
   if (data.length == 35)
   {
     var resposta = data.substring(24)
-    //console.log('resposta: '+ resposta)
-    //console.log(resposta[1])
+
     if('1' || '2' || '6' == resposta[1])
       socket.emit('novoEstado', resposta);  
+  }
+  else if(data.length == 45){
+    console.log(data.substring(14));
   }
   else
   {

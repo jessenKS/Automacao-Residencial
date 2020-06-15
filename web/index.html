@@ -64,11 +64,11 @@
         }
 
         function atualizaTela(){
-            //msg = : 03 03 00 Anemômetro(000) cortina1(000) temperaturaBanheiro(00) cortina2(000) temperaturaSala(00) sirene(0) porta(0) LRC
+            //msg = : 03 03 00 Anemômetro(000) cortina1(000) temperaturaBanheiro(00) cortina2(000) temperaturaSala(00) sirene(0) porta(0) lampadaQuarto(000) lampadaSala(000) LRC
             document.getElementById('inputTempBanheiro').value = "23°C";
             document.getElementById('inputTempSala').value = "23°C";
             document.getElementById('inputAnemometro').value = "100Km/h";
-            socket.emit('atualizaTela', [':', '03', '03', '00', '000', '000', '00', '000', '00', '0', '0', '00']);
+            socket.emit('atualizaTela', ['03', '03', '00', '000', '000', '00', '000', '00', '0', '0', '000', '000', '00']);
             // socket.on('atualizaTela', function(data){
             //     console.log("Dado:" + data);
             // });

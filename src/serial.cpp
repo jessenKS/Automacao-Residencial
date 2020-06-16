@@ -175,6 +175,11 @@ void update_screen(String msg)
 
 	for (int i = 1; i < 6; i++, aux+=3)
 	{
+		if (i > 3)
+		{
+			analogWrite(porta[i], 255);
+		}
+		
 		atualiza[i] = analogRead(porta[i]);
 		Serial.print("Leitura analogica: ");
 		Serial.println(atualiza[i]);
@@ -205,25 +210,6 @@ void update_screen(String msg)
 	sprintf(envia,"%01d", merda);
 	msg[25]   = envia[0];
 	
-	/*
-    // executao comando
-    uint16_t value = analogRead(ain);
-    
-    // int para string
-    char buf[5];
-    sprintf(buf,"%04d", value);
-
-    // monta valor de retonro
-    msg[7]=buf[0];
-    msg[8]=buf[1];
-    msg[9]=buf[2];
-    msg[10]=buf[3];
-    
-    // Responde para o mestre
-    Serial.print("Resposta do Escravo: ");
-    Serial.println(msg);
-    //default:
-	*/
 	// Responde para o mestre
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);

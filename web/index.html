@@ -86,11 +86,11 @@
             document.getElementById('inputTempBanheiro').value = "23°C";
             document.getElementById('inputTempSala').value = "23°C";
             document.getElementById('inputAnemometro').value = "100Km/h";
-            socket.emit('atualizaTela', ['03', '03', '00', '000', '000', '00', '000', '00', '0', '0', '000', '000', '00']);
+            socket.emit('atualizaTela', [ ':', '03', '03', '00', '00', '000', '000', '000', '000', '000', '0', '0', '00']);
             // socket.on('atualizaTela', function(data){
             //     console.log("Dado:" + data);
             // });
-            console.log("Entrou");
+            console.log("Entrou"); // Foi isso q ela disse
             
         }
         setInterval(atualizaTela, 30000);

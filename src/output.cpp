@@ -79,18 +79,9 @@ void analog_write_output(String msg)
     Serial.print("Valor: ");
     Serial.println(value);
 
-    /* escreve na saída
+    //escreve na saída
     analogWrite(aon, value);
-    */
-    //TESTES
-    if (aon == LAM_D || aon == LAM_R)
-    {
-        digitalWrite(aon, value);
-    }
-    else
-    {
-        analogWrite(aon, value);
-    }
+    
     // Para esse caso, a resposta é um simples echo da mensagem original
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);

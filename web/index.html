@@ -75,6 +75,23 @@
             console.log("Entrou");
         }
         setInterval(atualizaTela, 30000);
+
+        socket.on('updateScreen', function(data){
+            document.getElementById('inputAnemometro').value = data[3];
+            document.getElementById('inputTempBanheiro').value = data[5];
+            document.getElementById('inputTempSala').value = data[7];
+            var sirene = document.getElementById("sirene");
+            var porta = document.getElementById("porta");
+            if(data[8] == '0') //sirene
+                sirene.classList.add("fa-volume-off");
+            else if(data[8] == '1')
+                sirene.classList.add("fa-volume-up");
+
+            if(data[9] == '0') //porta
+                porta.classList.add("fa-door-closed")
+            else if(data[9] == '1')
+                porta.classList.add("fa-door-open")
+        })
         
     </script>
 </head>
@@ -218,7 +235,7 @@
                                     <label class="border rounded" style="background-color: rgb(194,183,177);color: rgb(255,255,255);"> Cortina 1 </label>
                                     <div class="progress border rounded-0 border-dark" style="background-color: rgb(203,181,169);">
                                         <!--PROGRESS BAR CORTINA 1-->
-                                        <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0" aria-valuemax="255" style="width: 98%;">98%</div>
+                                        <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="2" aria-valuemin="0" aria-valuemax="255" style="width: 50%;"></div>
                                     </div>
                                 </div>
                                 <!--DIV LUZ QUARTO-->

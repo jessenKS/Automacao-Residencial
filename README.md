@@ -14,6 +14,6 @@
 
   Utilizando o Modbus ASCII, cada unidade de 8 bits transmite como dois caracteres ASCII. O ASCII pode ter até um segundo entre os caracteres sem criar um erro na comunicação. Quando uma mensagem é enviada entre um mestre e o escravo, o código de função (function code) é o responsável em dizer para o escravo que tipo de ação ele deve fazer. No Modbus ASCII, o function code será 2 caracteres na messagem enviada.
  
- <div algin="center">
+ <div aligin="center">
     <img src="mensagemModbus.png" alt="mensagem" width="50%" height="20%"/></center>
  </div>

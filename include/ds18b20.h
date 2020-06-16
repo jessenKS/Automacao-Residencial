@@ -5,7 +5,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-#define DS18B20 12
+#define DS18B20 15
 
 extern void init_ds18b20();
 extern void read_ds18b20();

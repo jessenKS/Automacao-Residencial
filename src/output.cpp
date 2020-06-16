@@ -2,13 +2,11 @@
 
 void init_output()
 {
-    for(int i = 2; i <= SIR; i++)
+    for(int i = 2; i <= LAM_R; i++)
     {
         pinMode(i ,OUTPUT);
         digitalWrite(i, OFF);
     }
-    pinMode(LAM_D ,OUTPUT);
-    pinMode(LAM_R ,OUTPUT);
     pinMode(ARC   ,OUTPUT);
 }
 

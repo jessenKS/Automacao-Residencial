@@ -6,12 +6,10 @@
 
 /* mapeamento das saÃ­das */
 //enum {OUT1=8, OUT2, OUT3, OUT4} OUTPUTS;
-enum{OUTPUT_OFFSET = 1, OUT1, OUT2, OUT3, OUT4, EN1, EN2, SOLE, HEAT, SIR};
+enum{OUTPUT_OFFSET = 1, OUT1, OUT2, OUT3, OUT4, EN1, EN2, SOLE, HEAT, SIR, LAM_D, LAM_R};
 
 /* mapeamento da saída analógica */
 #define ANALOG_OUTPUT_OFFSET 57
-#define LAM_D 58
-#define LAM_R 59
 #define ARC   60
 
 extern void init_output();

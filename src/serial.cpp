@@ -144,23 +144,23 @@ uint8_t lrc(uint8_t *dado, uint8_t t)
 void update_screen(String msg)
 {
 	/**
-	*?msg = : 03 03 00 
-	*! 54 - temperaturaBanheiro(00) 
-	*! 55 - Anemômetro(000) 
-	*! 56 - cortina1(000) 
-	*! 57 - cortina2(000)
+	*? msg = : 03 03 00 
+	*? 54 - temperaturaBanheiro(00) 
+	*? 55 - Anemômetro(000) 
+	*? 56 - cortina1(000) 
+	*? 57 - cortina2(000)
 	*! 58 - lampadaQuarto(000) 
 	*! 59 - lampadaSala(000)
-	*! 10 - sirene(0) 
-	*! 11 - porta(0)
+	*? 10 - sirene(0) 
+	*? 11 - porta(0)
 	*! 12 - temperaturaSala(00) 
-	*! LRC (00)
+	*? LRC (00)
 	*/
 	Serial.println("Atualizou a tela");
     //int ain = ((msg[5]-'0')*10 + (msg[6]-'0')) + ANALOG_INPUT_OFFSET; //FF00
 	
-	uint16_t atualiza[9];
-	int merda, porta[9] = {54, 55, 56, 57, 58, 59, 10, 11, 12}, aux;
+	uint16_t atualiza[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int merda, porta[9] = {54, 55, 56, 57, 58, 59, 10, 14, 15}, aux;
 	char buf[4], envia[1], temp[2];
 
 	Serial.print("Temperatura: ");
@@ -177,7 +177,14 @@ void update_screen(String msg)
 	{
 		if (i > 3)
 		{
-			analogWrite(porta[i], 255);
+			if (i == 4)
+			{
+				analogWrite(LAM_D, 255);
+			}
+			else
+			{
+				analogWrite(LAM_R, 50);
+			}	
 		}
 		
 		atualiza[i] = analogRead(porta[i]);

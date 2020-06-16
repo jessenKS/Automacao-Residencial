@@ -8,6 +8,10 @@ void init_input()
     pinMode(WIND, INPUT);
     pinMode(DINE, INPUT);
     pinMode(ROOM, INPUT);
+
+    //leitura
+    pinMode(LE_LAM_D ,INPUT);
+    pinMode(LE_LAM_R ,INPUT);
 }
 
 void read_input(String msg)

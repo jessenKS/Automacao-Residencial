@@ -92,7 +92,7 @@
             var cortina1 = document.getElementById("cortina1");
             var cortina2 = document.getElementById("cortina2");
 
-            document.getElementById('inputTempBanheiro').value = data[3];
+            document.getElementById('inputTempBanheiro').value = data[3] + '°C';
             document.getElementById('inputAnemometro').value = data[4] + 'Km/h';
             cortina1.style.width = data[5] + "%";
             cortina2.style.width = data[6] + "%";
@@ -115,7 +115,7 @@
                 }
             }
             if(data[10] == '0')//porta
-            { 
+            {
                 if(porta.classList.value == "fas fa-door-open")
                 {
                     porta.classList.remove("fa-door-open");
@@ -130,7 +130,7 @@
                     porta.classList.add("fa-door-open");
                 }
             }
-            document.getElementById('inputTempSala').value = data[11];
+            document.getElementById('inputTempSala').value = data[11] + '°C';
         })
         
     </script>
@@ -220,21 +220,21 @@
                                 </label>
                             </header>
                             <label style="font-size: 15px;padding: 0px;margin: 0px 20px 0px 0px;width: 366px;color: rgb(255,255,255);margin-top: 31px;">
-                                <strong>Temperatura padrão do ar-condicionado (17ºC a 25ºC)</strong>
+                                <strong>Temperatura padrão do ar-condicionado (17°C a 25°C)</strong>
                             </label>
                             <!--INPUT TEMPERATURA PADRÃO-->
                             <div class="input-group mb-3 edtFormMarg">
                                 <select class="custom-select" id="temperaturaPadrao">
                                     <option selected>Escolha...</option>
-                                    <option value="17">17ºC</option>
-                                    <option value="18">18ºC</option>
-                                    <option value="19">19ºC</option>
-                                    <option value="20">20ºC</option>
-                                    <option value="21">21ºC</option>
-                                    <option value="22">22ºC</option>
-                                    <option value="23">23ºC</option>
-                                    <option value="24">24ºC</option>
-                                    <option value="25">25ºC</option>
+                                    <option value="17">17°C</option>
+                                    <option value="18">18°C</option>
+                                    <option value="19">19°C</option>
+                                    <option value="20">20°C</option>
+                                    <option value="21">21°C</option>
+                                    <option value="22">22°C</option>
+                                    <option value="23">23°C</option>
+                                    <option value="24">24°C</option>
+                                    <option value="25">25°C</option>
                                 </select>
                             </div>
                             <label style="font-size: 15px;padding: 0px;margin: 0px 20px 0px 0px;width: 366px;color: rgb(255,255,255);margin-top: 31px;">
@@ -331,7 +331,7 @@
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 1 </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 26px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Fechado </label>
                                 <!--RANGE CORTINA 1-->
-                                <input type="range" min="0" max="255" step="1" class="border rounded shadow custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="" type="range" min="0" max="255" step="1" class="border rounded shadow custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Aberto </label>
                                 <!--CORTINA 2-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 2 </label>
@@ -362,15 +362,15 @@
                                         <div class="input-group-prepend"> </div>
                                             <select class="custom-select" id="inputGroupSelect01">
                                                 <option selected>Escolha...</option>
-                                                    <option value="1">17ºC</option>
-                                                    <option value="2">18ºC</option>
-                                                    <option value="3">19ºC</option>
-                                                    <option value="4">20ºC</option>
-                                                    <option value="5">21ºC</option>
-                                                    <option value="6">22ºC</option>
-                                                    <option value="7">23ºC</option>
-                                                    <option value="8">24ºC</option>
-                                                    <option value="9">25ºC</option>
+                                                    <option value="1">17°C</option>
+                                                    <option value="2">18°C</option>
+                                                    <option value="3">19°C</option>
+                                                    <option value="4">20°C</option>
+                                                    <option value="5">21°C</option>
+                                                    <option value="6">22°C</option>
+                                                    <option value="7">23°C</option>
+                                                    <option value="8">24°C</option>
+                                                    <option value="9">25°C</option>
                                             </select>
                                         </div>
                                     <!--CHECKBOX TRANCAR PORTA-->

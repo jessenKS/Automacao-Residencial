@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-#define LM35  A0
+#define LM35  54
 #define TAM  100
 
 extern float temperatura;

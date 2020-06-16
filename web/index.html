@@ -92,39 +92,45 @@
             var cortina1 = document.getElementById("cortina1");
             var cortina2 = document.getElementById("cortina2");
 
-            document.getElementById('inputAnemometro').value = data[3] + 'Km/h';
-            cortina1.style.width = data[4] + "%";
-            document.getElementById('inputTempBanheiro').value = data[5];
+            document.getElementById('inputTempBanheiro').value = data[3];
+            document.getElementById('inputAnemometro').value = data[4] + 'Km/h';
+            cortina1.style.width = data[5] + "%";
             cortina2.style.width = data[6] + "%";
-            document.getElementById('inputTempSala').value = data[7];
-            if(data[8] == '0'){ //sirene
-                if(sirene.classList.value == "fas fa-volume-up"){
+            luzQuarto.style.width = data[7] + "%";
+            luzSala.style.width = data[8] + "%";
+            if(data[9] == '0')//sirene
+            { 
+                if(sirene.classList.value == "fas fa-volume-up")
+                {
                     sirene.classList.remove("fa-volume-up");
                     sirene.classList.add("fa-volume-off");
                 }
             }
-            else if(data[8] == '1'){
-                if(sirene.classList.value == "fas fa-volume-off"){
+            else if(data[9] == '1')
+            {
+                if(sirene.classList.value == "fas fa-volume-off")
+                {
                     sirene.classList.remove("fa-volume-off");
                     sirene.classList.add("fa-volume-up");
                 }
             }
-
-            if(data[9] == '0'){ //porta
-                if(porta.classList.value == "fas fa-door-open"){
+            if(data[10] == '0')//porta
+            { 
+                if(porta.classList.value == "fas fa-door-open")
+                {
                     porta.classList.remove("fa-door-open");
                     porta.classList.add("fa-door-closed");
                 }
             }
-            else if(data[9] == '1'){
-                if(porta.classList.value == "fas fa-door-closed"){
+            else if(data[10] == '1')
+            {
+                if(porta.classList.value == "fas fa-door-closed")
+                {
                     porta.classList.remove("fa-door-closed");
                     porta.classList.add("fa-door-open");
                 }
             }
-            luzQuarto.style.width = data[10] + "%";
-            luzSala.style.width = data[11] + "%";
-
+            document.getElementById('inputTempSala').value = data[11];
         })
         
     </script>

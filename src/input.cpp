@@ -40,30 +40,21 @@ void read_input(String msg)
     Serial.println(msg);
 }
 
-void analog_read_input(String msg)
+int analog_read_input(int porta)
 {
-    // decodifica entrada a ser lida
-    int ain = ((msg[5]-'0')*10 + (msg[6]-'0')) + ANALOG_INPUT_OFFSET;
-
-    // debug
-    Serial.print("Leitura na Entrada Analogica ");
-    Serial.println(ain-ANALOG_INPUT_OFFSET);
-
     // executao comando
-    uint16_t value = analogRead(ain);
+    uint16_t value = analogRead(porta);
     
     // int para string
     char buf[5];
     sprintf(buf,"%04d", value);
 
     // monta valor de retonro
+    /*
     msg[7]=buf[0];
     msg[8]=buf[1];
     msg[9]=buf[2];
     msg[10]=buf[3];
-    
-    // Responde para o mestre
-    Serial.print("Resposta do Escravo: ");
-    Serial.println(msg);
-    //default:
+    */
+    return 0;
 }

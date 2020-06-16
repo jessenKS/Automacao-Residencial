@@ -6,7 +6,7 @@
 #include "lm35.h"
 
 #define INPUT_OFFSET 11 // offset entradas 
-#define DOOR 12 // sensor porta
+#define DOOR 11 // sensor porta
 
 #define ANALOG_INPUT_OFFSET 54
 #define WIND 55 //Anemômetro - ler continuamente 
@@ -17,6 +17,6 @@
 
 extern void init_input();
 extern void read_input(String msg);
-extern void analog_read_input(String msg);
+extern int  analog_read_input(int porta);
 
 #endif

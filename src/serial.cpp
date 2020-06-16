@@ -107,7 +107,7 @@ void msgHandler()
 						}
 						case READ_ANALOG:
 						{ 
-							analog_read_input(msg);
+							//analog_read_input(msg);
 							break;
 						}
 
@@ -144,25 +144,34 @@ uint8_t lrc(uint8_t *dado, uint8_t t)
 void update_screen(String msg)
 {
 	/**
-	**msg = : 03 03 00 
-	*!Anemômetro(000) cortina1(000) 
-	*!temperaturaBanheiro(00) cortina2(000) 
-	*!temperaturaSala(00) sirene(0) porta(0) 
-	*!lampadaQuarto(000) lampadaSala(000) LRC*/
+	*?msg = : 03 03 00 
+	*! 54 - temperaturaBanheiro(00) 
+	*! 55 - Anemômetro(000) 
+	*! 56 - cortina1(000) 
+	*! 57 - cortina2(000)
+	*! 58 - lampadaQuarto(000) 
+	*! 59 - lampadaSala(000)
+	*! 10 - sirene(0) 
+	*! 11 - porta(0)
+	*! 12 - temperaturaSala(00) 
+	*/
 	Serial.println("Atualizou a tela");
     //int ain = ((msg[5]-'0')*10 + (msg[6]-'0')) + ANALOG_INPUT_OFFSET; //FF00
-	/*
-	int wind, dine, tempB, room, sir, door, lampQ, lampS;
-
-	wind = ((msg[7]-'0')*100 + (msg[8]-'0')*10 + (msg[9]-'0')); // msg[5]+msg[6]+msg[7]
 	
-	Serial.print("Anemometro: ");
-	Serial.println(wind);
+	int atualiza[9], atual[9], porta[9] = {54, 55, 56, 57, 58, 59, 10, 11, 12};
 
 	Serial.print("Temperatura: ");
 	Le_temperatura();
 	Serial.println(temperatura);
+	atualiza[0] = temperatura;
+
+	for (int i = 1; i < 5; i++)
+	{
+		atualiza[i] = analog_read_input(porta[i]);
+	}
 	
+	
+	/*
     // executao comando
     uint16_t value = analogRead(ain);
     

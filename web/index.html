@@ -16,6 +16,63 @@
         var cortinaAbert, cortinaFech, cortinaMet, portSenha, portTemp, tempPadrao, tempBanheiro;
         var flag = false;
 
+        function LeSaida(x)
+        {         
+            socket.emit('state', ['01', '0'+ x, '0000'] );
+            console.log('Lendo saida digital '+ x);
+        }
+
+        function LeEntrada(x)
+        {         
+            socket.emit('state', ['02', '0'+ x, '0000'] );
+            console.log('Lendo entrada digital '+ x);
+        }
+
+        function turnOn(x)
+        {         
+            socket.emit('state', ['05', '0'+ x, 'FF00'] );
+            console.log('Ligando saida '+ x);
+        }
+        
+        function turnOff(x)
+        {         
+            socket.emit('state', ['05', '0'+ x, '0000'] );
+            console.log('Desligando saida '+ x);
+        }
+        
+        function EntradaAnalog(x)
+        {         
+            socket.emit('state', ['06', '0'+ x, '0000'] );
+            console.log('Lendo entrada digital '+ x);
+        }
+
+        function atualizaPWM(x)
+        {
+            if(x == 1) var novoPWM = document.getElementById("valorCortina1").value;
+            else if(x == 2) var novoPWM = document.getElementById("valorCortina2").value;
+            else if(x == 3) var novoPWM = document.getElementById("valorLuzSala").value;
+            else if(x == 4) var novoPWM = document.getElementById("valorLuzQuarto").value;
+
+            if (novoPWM >= 0 && novoPWM < 10) 
+            {
+                socket.emit('state', ['07', '01', '000'+novoPWM] );
+                console.log('Novo valor PWM '+ novoPWM);
+            }
+            else if(novoPWM < 100)
+            {
+                socket.emit('state', ['07', '01', '00'+novoPWM] );
+                console.log('Novo valor PWM '+ novoPWM);
+            }
+            else if(novoPWM < 256)
+            {
+                socket.emit('state', ['07', '01', '0'+novoPWM] );
+                console.log('Novo valor PWM '+ novoPWM);
+            }
+
+            else
+                console.log('Valor PWM invalido');
+        }
+
         function testeValores(){
             // var sirene = document.getElementById("sirene");
             // var porta = document.getElementById("porta");
@@ -58,7 +115,7 @@
                 alert("Preencher todos os valores");
             else {
                 flag = true;
-                //aux.classList.remove("disabled");
+                aux.classList.remove("disabled");
                 socket.emit('configInicial', [cortinaMet, cortinaAbert, cortinaFech, portSenha, portTemp, tempPadrao, tempBanheiro]);
                 alert("Configuração concluida com sucesso!");
             }
@@ -83,13 +140,7 @@
             *! 11 - porta(0)
             *! 12 - temperaturaSala(00) 
             */
-            document.getElementById('inputTempBanheiro').value = "23°C";
-            document.getElementById('inputTempSala').value = "23°C";
-            document.getElementById('inputAnemometro').value = "100Km/h";
             socket.emit('atualizaTela', [ ':', '03', '03', '00', '00', '000', '000', '000', '000', '000', '0', '0', '00']);
-            // socket.on('atualizaTela', function(data){
-            //     console.log("Dado:" + data);
-            // });
             console.log("Entrou"); // Foi isso q ela disse
             
         }
@@ -105,10 +156,10 @@
             //:03030012100 1 0 0 1 0 0 0 5 4 0 5 4 1 1 0 0 FA
             document.getElementById('inputTempBanheiro').value = data[7] + data[8] + '°C';
             document.getElementById('inputAnemometro').value = data[9] + data[10] + data[11] + 'Km/h';
-            cortina1.style.width = data[12] + data[13] + data[14] + "%";
-            cortina2.style.width = data[15] + data[16] + data[17] + "%";
-            luzQuarto.style.width = data[18] + data[19] + data[20] + "%";
-            luzSala.style.width = data[21] + data[22] + data[23] + "%";
+            cortina1.style.width = cortina1.value = data[12] + data[13] + data[14] + "%";
+            cortina2.style.width = cortina2.value = data[15] + data[16] + data[17] + "%";
+            luzQuarto.style.width = luzQuarto.value = data[18] + data[19] + data[20] + "%";
+            luzSala.style.width = luzSala.value = data[21] + data[22] + data[23] + "%";
             if(data[24] == '0')//sirene
             { 
                 if(sirene.classList.value == "fas fa-volume-up")
@@ -143,6 +194,35 @@
             }
             document.getElementById('inputTempSala').value = data[26] + data[27] + '°C';
         })
+
+        function ligarAr(){
+            console.log(document.getElementById("customSwitch1").checked);
+            if(document.getElementById("inputGroupSelect01").value == '0'){
+                alert("Escolha uma temperatura");
+                document.getElementById("customSwitch1").checked = false;
+            }
+            else{
+                if(document.getElementById("customSwitch1").checked == true)
+                    console.log("Ligar ar na temperatura escolhida");
+
+                else if(document.getElementById("customSwitch1").checked == false)
+                    console.log("Desligar ar");
+            }
+        }
+
+        function desbloquearPorta(){
+            if(document.getElementById("inputSenha").value == document.getElementById("senhaPorta").value)
+                console.log("SENHA CORRETA!");
+            else
+                console.log("SENHA INCORRETA!");
+        }
+
+        function desligarAlarme(){
+            if(document.getElementById("inputSenha").value == document.getElementById("senhaPorta").value)
+                console.log("SENHA CORRETA!");
+            else
+                console.log("SENHA INCORRETA!");
+        }
         
     </script>
 </head>
@@ -152,7 +232,7 @@
         <ul class="nav nav-tabs text-center" style="margin-top: 0px;padding-top: 26px;margin-right: 0px;margin-left: 0px;background-color: rgb(40,45,50);padding-bottom: 26px;">
             <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link active" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-1">TELA INICIAL</a></li>
             <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-2">CONFIGURAÇÃO</a></li>
-            <li onclick="validateConfig()" class="nav-item" style="width: 298.25px;"><a id="tabMonit" role="tab" data-toggle="tab" class="nav-link" style="width: 304px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-3">CONTROLE  E MONITORAÇÃO</a></li>
+            <li onclick="validateConfig()" class="nav-item" style="width: 298.25px;"><a id="tabMonit" role="tab" data-toggle="tab" class="nav-link disabled" style="width: 304px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-3">CONTROLE  E MONITORAÇÃO</a></li>
         </ul>
         <div class="tab-content" style="height: 685px;background-color: rgba(88,67,15,0);margin-top: -5px;margin-left: 182px;">
 
@@ -342,29 +422,29 @@
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 1 </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 26px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Fechado </label>
                                 <!--RANGE CORTINA 1-->
-                                <input id="" type="range" min="0" max="255" step="1" class="border rounded shadow custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorCortina1" onchange=atualizaPWM(1) type="range" min="0" max="255" step="1" class="border rounded shadow custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Aberto </label>
                                 <!--CORTINA 2-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 2 </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 26px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Fechado </label>
                                 <!--RANGE CORTINA 2-->
-                                <input type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorCortina2" onchange=atualizaPWM(2) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Aberto </label>
                                 <!--LUZ DA SALA-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Luz da Sala </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 53px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente desligada </label>
                                 <!--RANGE LUZ DA SALA-->
-                                <input type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorLuzSala" onchange=atualizaPWM(3) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente ligada </label>
                                 <!--LUZ DO QUARTO-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Luz do Quarto </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 53px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente desligada </label>
                                 <!--RANGE LUZ DO QUARTO-->
-                                <input type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorLuzQuarto" onchange=atualizaPWM(4) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente ligada </label>
                                 <!--CHECKBOX AR-CONDICIONADO-->
                                 <div class="form-check custom-control custom-switch" style="width: 280px;margin-top: 23px;">
-                                    <input type="checkbox" class="form-check-input custom-control-input" id="customSwitch1" />
+                                    <input onchange="ligarAr()" type="checkbox" class="form-check-input custom-control-input" id="customSwitch1" />
                                     <label class="form-check-label border rounded custom-control-label" for="customSwitch1" style="background-color: rgb(88,67,15);color: rgb(255,255,255);width: 191px;"> Ligar Ar-condicionado </label>
                                 </div>
                                 <!--ESCOLHE TEMPERATURA-->
@@ -372,7 +452,7 @@
                                     <div class="input-group mb-3 edtFormMarg">
                                         <div class="input-group-prepend"> </div>
                                             <select class="custom-select" id="inputGroupSelect01">
-                                                <option selected>Escolha...</option>
+                                                <option value="0" selected>Escolha...</option>
                                                     <option value="1">17°C</option>
                                                     <option value="2">18°C</option>
                                                     <option value="3">19°C</option>
@@ -397,14 +477,14 @@
                                         <strong> Senha para porta de entrada </strong> 
                                     </label>
                                     <!--INPUT SENHA-->
-                                    <input type="password" class="form-control-lg" id="senhaPortaMenu" name="password-input" style="background-color: rgb(255,255,255);margin-top: -3px;width: 282px;height: 31px;margin-left: 261px;" />
-                                    <button class="btn btn-primary" type="button" style="width: 210px;margin-left: 305px;background-color: rgb(88,67,15);margin-top: 5px;"> Desbloquear porta </button>
+                                    <input id="inputSenha" type="password" class="form-control-lg" id="senhaPortaMenu" name="password-input" style="background-color: rgb(255,255,255);margin-top: -3px;width: 282px;height: 31px;margin-left: 261px;" />
+                                    <button onclick="desbloquearPorta()" class="btn btn-primary" type="button" style="width: 210px;margin-left: 305px;background-color: rgb(88,67,15);margin-top: 5px;"> Desbloquear porta </button>
                                 </div>
                                 <div style="width: 280px;margin-top: -10px;">
                                     <label style="font-size: 15px;color: rgb(255,255,255);">
                                         <strong>Controle de Alarme</strong>
                                     </label>
-                                    <button onclick="testeValores()" class="btn btn-primary" type="button" style="background-color: rgb(88,67,15);"> Desligar Alarme </button>
+                                <button onclick="desligarAlarme()" class="btn btn-primary" type="button" style="background-color: rgb(88,67,15);"> Desligar Alarme </button>
                                 </div>
                             </div>
                         </div>

@@ -154,40 +154,64 @@ void update_screen(String msg)
 	*! 10 - sirene(0) 
 	*! 11 - porta(0)
 	*! 12 - temperaturaSala(00) 
+	*! LRC (00)
 	*/
 	Serial.println("Atualizou a tela");
     //int ain = ((msg[5]-'0')*10 + (msg[6]-'0')) + ANALOG_INPUT_OFFSET; //FF00
 	
-	int atualiza[9], atual[9], porta[9] = {54, 55, 56, 57, 58, 59, 10, 11, 12};
+	uint16_t atualiza[9];
+	int merda, porta[9] = {54, 55, 56, 57, 58, 59, 10, 11, 12}, aux;
+	char buf[4], envia[1], temp[2];
 
 	Serial.print("Temperatura: ");
 	Le_temperatura();
 	Serial.println(temperatura);
 	atualiza[0] = temperatura;
+	sprintf(temp,"%02d", atualiza[0]);
+	msg[7]   = temp[0];
+	msg[8]   = temp[1];
 
-	for (int i = 1; i < 5; i++)
+	aux = 9;
+
+	for (int i = 1; i < 6; i++, aux+=3)
 	{
-		atualiza[i] = analog_read_input(porta[i]);
-	}
-	
-	
-	/*
-    // executao comando
-    uint16_t value = analogRead(ain);
-    
-    // int para string
-    char buf[5];
-    sprintf(buf,"%04d", value);
+		if (i > 3)
+		{
+			analogWrite(porta[i], 255);
+		}
+		
+		atualiza[i] = analogRead(porta[i]);
+		Serial.print("Leitura analogica: ");
+		Serial.println(atualiza[i]);
 
-    // monta valor de retonro
-    msg[7]=buf[0];
-    msg[8]=buf[1];
-    msg[9]=buf[2];
-    msg[10]=buf[3];
-    
-    // Responde para o mestre
+		atualiza[i] = map(atualiza[i], 0, 1023, 0, 100);
+		
+		sprintf(buf,"%03d", atualiza[i]);
+
+		// monta valor de retorno
+		msg[aux]   = buf[0];
+		msg[aux+1] = buf[1];
+		msg[aux+2] = buf[2];
+	}
+	/**
+	*? SIRENE*/
+	digitalWrite(porta[6], ON);
+	merda = digitalRead(porta[6]);
+	Serial.print("Estado saida: ");
+	Serial.println(merda);
+	sprintf(envia,"%01d", merda);
+	msg[24]   = envia[0];
+
+	/**
+	*? PORTA*/
+	merda = digitalRead(porta[7]);
+	Serial.print("Estado entrada: ");
+	Serial.println(merda);
+	sprintf(envia,"%01d", merda);
+	msg[25]   = envia[0];
+	
+	// Responde para o mestre
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);
     //default:
-	*/
 }

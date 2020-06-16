@@ -17,13 +17,20 @@
         var flag = false;
 
         function testeValores(){
-            console.log(document.getElementById("cortinaAberturaMetade").value);
-            console.log(document.getElementById("cortinaAberturaTotal").value);
-            console.log(document.getElementById("cortinaFechamentoTotal").value);
-            console.log(document.getElementById("senhaPorta").value);
-            console.log(document.getElementById("tempoPorta").value);
-            console.log(document.getElementById("temperaturaPadrao").value);
-            console.log(document.getElementById("temperaturaBanheiro").value);
+            // var sirene = document.getElementById("sirene");
+            // var porta = document.getElementById("porta");
+            var cortina2 = document.getElementById("cortina2");
+            cortina2.style.width = 80 + "%";
+
+            // if(sirene.classList.value == "fas fa-volume-off"){
+            //     sirene.classList.remove("fa-volume-off");
+            //     sirene.classList.add("fa-volume-up");
+            // }
+            // if(porta.classList.value == "fas fa-door-closed"){
+            //     porta.classList.remove("fa-door-closed");
+            //     porta.classList.add("fa-door-open");
+            // }
+                
         }
 
         function configInicial(){
@@ -73,24 +80,51 @@
             //     console.log("Dado:" + data);
             // });
             console.log("Entrou");
+            
         }
         setInterval(atualizaTela, 30000);
 
         socket.on('updateScreen', function(data){
-            document.getElementById('inputAnemometro').value = data[3];
-            document.getElementById('inputTempBanheiro').value = data[5];
-            document.getElementById('inputTempSala').value = data[7];
             var sirene = document.getElementById("sirene");
             var porta = document.getElementById("porta");
-            if(data[8] == '0') //sirene
-                sirene.classList.add("fa-volume-off");
-            else if(data[8] == '1')
-                sirene.classList.add("fa-volume-up");
+            var luzQuarto = document.getElementById("luzQuarto");
+            var luzSala = document.getElementById("luzSala");
+            var cortina1 = document.getElementById("cortina1");
+            var cortina2 = document.getElementById("cortina2");
 
-            if(data[9] == '0') //porta
-                porta.classList.add("fa-door-closed")
-            else if(data[9] == '1')
-                porta.classList.add("fa-door-open")
+            document.getElementById('inputAnemometro').value = data[3] + 'Km/h';
+            cortina1.style.width = data[4] + "%";
+            document.getElementById('inputTempBanheiro').value = data[5];
+            cortina2.style.width = data[6] + "%";
+            document.getElementById('inputTempSala').value = data[7];
+            if(data[8] == '0'){ //sirene
+                if(sirene.classList.value == "fas fa-volume-up"){
+                    sirene.classList.remove("fa-volume-up");
+                    sirene.classList.add("fa-volume-off");
+                }
+            }
+            else if(data[8] == '1'){
+                if(sirene.classList.value == "fas fa-volume-off"){
+                    sirene.classList.remove("fa-volume-off");
+                    sirene.classList.add("fa-volume-up");
+                }
+            }
+
+            if(data[9] == '0'){ //porta
+                if(porta.classList.value == "fas fa-door-open"){
+                    porta.classList.remove("fa-door-open");
+                    porta.classList.add("fa-door-closed");
+                }
+            }
+            else if(data[9] == '1'){
+                if(porta.classList.value == "fas fa-door-closed"){
+                    porta.classList.remove("fa-door-closed");
+                    porta.classList.add("fa-door-open");
+                }
+            }
+            luzQuarto.style.width = data[10] + "%";
+            luzSala.style.width = data[11] + "%";
+
         })
         
     </script>
@@ -235,14 +269,14 @@
                                     <label class="border rounded" style="background-color: rgb(194,183,177);color: rgb(255,255,255);"> Cortina 1 </label>
                                     <div class="progress border rounded-0 border-dark" style="background-color: rgb(203,181,169);">
                                         <!--PROGRESS BAR CORTINA 1-->
-                                        <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="2" aria-valuemin="0" aria-valuemax="255" style="width: 50%;"></div>
+                                        <div id="cortina1" class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="2" aria-valuemin="0" aria-valuemax="255"></div>
                                     </div>
                                 </div>
                                 <!--DIV LUZ QUARTO-->
                                 <div style="width: 62px;margin-top: -38px;margin-left: 217px;">
                                     <i class="far fa-lightbulb" style="font-size: 33px;color: rgb(215,189,50);"></i>
                                     <div class="progress border rounded-0 border-dark" style="background-color: rgba(0,0,0,0);width: 60px;color: rgb(84,89,95);">
-                                        <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
+                                        <div id="luzQuarto" class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <!--DIV TEMPERATURA BANHEIRO-->
@@ -255,7 +289,7 @@
                                 <div style="width: 187px;margin-left: 354px;"><label class="border rounded" style="background-color: rgb(194,183,177);color: rgb(255,255,255);"> Cortina 2 </label>
                                     <div class="progress border rounded-0 border-dark" style="background-color: rgb(203,181,169);">
                                         <!--PROGRESS BAR CORTINA 2-->
-                                        <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 2%;"> 2% </div>
+                                        <div id="cortina2" class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">  </div>
                                     </div>
                                 </div>
                                 <!--DIV TEMPERATURA SALA-->
@@ -267,7 +301,7 @@
                                 <div style="width: 62px;margin-top: 5px;margin-left: 218px;">
                                     <i class="far fa-lightbulb" style="font-size: 33px;color: rgb(215,189,50);"></i>
                                     <div class="progress border rounded-0 border-dark" style="background-color: rgba(0,0,0,0);width: 60px;color: rgb(84,89,95);">
-                                        <div class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
+                                        <div id="luzSala" class="progress-bar bg-dark progress-bar-striped progress-bar-animated" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <!--DIV SIRENE -->
@@ -353,7 +387,7 @@
                                     <label style="font-size: 15px;color: rgb(255,255,255);">
                                         <strong>Controle de Alarme</strong>
                                     </label>
-                                    <button class="btn btn-primary" type="button" style="background-color: rgb(88,67,15);"> Desligar Alarme </button>
+                                    <button onclick="testeValores()" class="btn btn-primary" type="button" style="background-color: rgb(88,67,15);"> Desligar Alarme </button>
                                 </div>
                             </div>
                         </div>

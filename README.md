@@ -6,8 +6,14 @@
 
 * <b>Comunicação</b>
 
-  O projeto utiliza o protocolo de comunicação mestre-escravo Modbus em modo ASCII via RS-232 (Recommendad Standart-232), o que só permite dois dispositivos na rede, sendo o Modbus o mestre, e o Arduino o escravo.
+  O projeto utiliza o protocolo de comunicação mestre-escravo Modbus em modo ASCII via RS-232 (Recommendad Standart-232), o que só permite dois dispositivos na rede, comumente conhecido como conexão ponto-a-ponto, sendo o Modbus o mestre, e o Arduino o escravo.
   
  <div align="center">
    <img src="figura1.png" alt="modbus" width="50%" height="20%"/></center>
 </div>
+
+  Utilizando o Modbus ASCII, cada unidade de 8 bits transmite como dois caracteres ASCII. O ASCII pode ter até um segundo entre os caracteres sem criar um erro na comunicação. Quando uma mensagem é enviada entre um mestre e o escravo, o código de função (function code) é o responsável em dizer para o escravo que tipo de ação ele deve fazer. No Modbus ASCII, o function code será 2 caracteres na messagem enviada.
+ 
+ <div algin="center">
+    <img src="mensagemModbus.png" alt="mensagem" width="50%" height="20%"/></center>
+ </div>

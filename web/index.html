@@ -196,17 +196,27 @@
         })
 
         function ligarAr() {
+            var tempPadrao = document.getElementById("temperaturaPadrao").value;
             console.log(document.getElementById("customSwitch1").checked);
             if(document.getElementById("inputGroupSelect01").value == '0'){
                 alert("Escolha uma temperatura");
                 document.getElementById("customSwitch1").checked = false;
             }
             else{
-                if(document.getElementById("customSwitch1").checked == true)
+                if(document.getElementById("customSwitch1").checked == true){
+                    var tempAtual = document.getElementById("inputGroupSelect01").value;
                     console.log("Ligar ar na temperatura escolhida");
+                    socket.emit("state", ['07','01', '00'+tempAtual]);
+                }
+                    
 
-                else if(document.getElementById("customSwitch1").checked == false)
+                else if(document.getElementById("customSwitch1").checked == false){
                     console.log("Desligar ar");
+                    socket.emit("state", ['07','01', '00'+tempPadrao]);
+                }
+                    
+                    
+
             }
         }
 

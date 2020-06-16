@@ -19,6 +19,7 @@ void read_init_output(String msg)
     Serial.print("Banda morta:");
     Serial.println(banda);
 
+
     /*
 
     if(msg[7]=='F' && msg[8]=='F' && msg[9]=='0' && msg[10]=='0')
@@ -70,13 +71,15 @@ void analog_write_output(String msg)
     int aon = ((msg[5]-'0')*10 + (msg[6]-'0')) + ANALOG_OUTPUT_OFFSET;
     // de string para inteito
     int value = (msg[7]-'0')*1000 + (msg[8]-'0')*100 + (msg[9]-'0')*10 +(msg[10]-'0');
-
+    
     // debug
     Serial.print("Escrita na Saida Analogica ");
     Serial.println(aon-ANALOG_OUTPUT_OFFSET);
     Serial.print("Valor: ");
+    value = map(value, 17, 25, 87, 127);
     Serial.println(value);
-
+    Serial.print("porta: ");
+    Serial.println(aon);
     //escreve na saída
     analogWrite(aon, value);
     

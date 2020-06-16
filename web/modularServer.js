@@ -142,9 +142,12 @@ parser.on('data', (data) => {
     if('1' || '2' || '6' == resposta[1])
       socket.emit('novoEstado', resposta);  
   }
-  else if(data.length == 45){
-    console.log("Volta arduino");
-    console.log(data.substring(14));
+  else if(data.length == 52){
+    console.log("Volta arduino: ");
+    console.log(data.substring(21));
+    var resposta = data.substring(21)
+    socket.emit('updateScreen', resposta); 
+
   }
   else
   {

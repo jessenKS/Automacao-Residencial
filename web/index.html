@@ -115,7 +115,7 @@
                 alert("Preencher todos os valores");
             else {
                 flag = true;
-                //aux.classList.remove("disabled");
+                aux.classList.remove("disabled");
                 socket.emit('configInicial', [cortinaMet, cortinaAbert, cortinaFech, portSenha, portTemp, tempPadrao, tempBanheiro]);
                 alert("Configuração concluida com sucesso!");
             }
@@ -196,13 +196,28 @@
         })
 
         function ligarAr(){
+            console.log(document.getElementById("customSwitch1").checked);
             if(document.getElementById("inputGroupSelect01").value == '0'){
                 alert("Escolha uma temperatura");
                 document.getElementById("customSwitch1").checked = false;
             }
             else{
-                document.getElementById("customSwitch1").checked = true;
+                console.log("Entrou");
             }
+        }
+
+        function desbloquearPorta(){
+            if(document.getElementById("inputSenha").value == document.getElementById("senhaPorta").value)
+                console.log("SENHA CORRETA!");
+            else
+                console.log("SENHA INCORRETA!");
+        }
+
+        function desligarAlarme(){
+            if(document.getElementById("inputSenha").value == document.getElementById("senhaPorta").value)
+                console.log("SENHA CORRETA!");
+            else
+                console.log("SENHA INCORRETA!");
         }
         
     </script>
@@ -213,7 +228,7 @@
         <ul class="nav nav-tabs text-center" style="margin-top: 0px;padding-top: 26px;margin-right: 0px;margin-left: 0px;background-color: rgb(40,45,50);padding-bottom: 26px;">
             <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link active" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-1">TELA INICIAL</a></li>
             <li class="nav-item" style="width: 298.25px;"><a role="tab" data-toggle="tab" class="nav-link" style="width: 200px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-2">CONFIGURAÇÃO</a></li>
-            <li onclick="validateConfig()" class="nav-item" style="width: 298.25px;"><a id="tabMonit" role="tab" data-toggle="tab" class="nav-link" style="width: 304px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-3">CONTROLE  E MONITORAÇÃO</a></li>
+            <li onclick="validateConfig()" class="nav-item" style="width: 298.25px;"><a id="tabMonit" role="tab" data-toggle="tab" class="nav-link disabled" style="width: 304px;background-color: rgba(255,255,255,0);color: rgb(255,255,255);" href="#tab-3">CONTROLE  E MONITORAÇÃO</a></li>
         </ul>
         <div class="tab-content" style="height: 685px;background-color: rgba(88,67,15,0);margin-top: -5px;margin-left: 182px;">
 
@@ -458,14 +473,14 @@
                                         <strong> Senha para porta de entrada </strong> 
                                     </label>
                                     <!--INPUT SENHA-->
-                                    <input type="password" class="form-control-lg" id="senhaPortaMenu" name="password-input" style="background-color: rgb(255,255,255);margin-top: -3px;width: 282px;height: 31px;margin-left: 261px;" />
-                                    <button class="btn btn-primary" type="button" style="width: 210px;margin-left: 305px;background-color: rgb(88,67,15);margin-top: 5px;"> Desbloquear porta </button>
+                                    <input id="inputSenha" type="password" class="form-control-lg" id="senhaPortaMenu" name="password-input" style="background-color: rgb(255,255,255);margin-top: -3px;width: 282px;height: 31px;margin-left: 261px;" />
+                                    <button onclick="desbloquearPorta()" class="btn btn-primary" type="button" style="width: 210px;margin-left: 305px;background-color: rgb(88,67,15);margin-top: 5px;"> Desbloquear porta </button>
                                 </div>
                                 <div style="width: 280px;margin-top: -10px;">
                                     <label style="font-size: 15px;color: rgb(255,255,255);">
                                         <strong>Controle de Alarme</strong>
                                     </label>
-                                    <button onclick="testeValores()" class="btn btn-primary" type="button" style="background-color: rgb(88,67,15);"> Desligar Alarme </button>
+                                <button onclick="desligarAlarme()" class="btn btn-primary" type="button" style="background-color: rgb(88,67,15);"> Desligar Alarme </button>
                                 </div>
                             </div>
                         </div>

@@ -202,7 +202,11 @@
                 document.getElementById("customSwitch1").checked = false;
             }
             else{
-                console.log("Entrou");
+                if(document.getElementById("customSwitch1").checked == true)
+                    console.log("Ligar ar na temperatura escolhida");
+
+                else if(document.getElementById("customSwitch1").checked == false)
+                    console.log("Desligar ar");
             }
         }
 

@@ -7,6 +7,8 @@ void init_output()
         pinMode(i ,OUTPUT);
         digitalWrite(i, OFF);
     }
+    digitalWrite(EN1, ON);
+    digitalWrite(EN2, ON);
 }
 
 int ajustaAr(int value)
@@ -64,7 +66,8 @@ void write_output(String msg)
 {
     //Escrever em uma saída          
     // string para inteiro aplicando offset, saida 1 no Arduino está mapeada para o pino 8, saída 2 para o pino 9 ....
-    int value, coil = ((msg[5]-'0')*10 + (msg[6]-'0')) + OUTPUT_OFFSET;
+    int value = (msg[7]-'0')*1000 + (msg[8]-'0')*100 + (msg[9]-'0')*10 +(msg[10]-'0');
+    int coil = ((msg[5]-'0')*10 + (msg[6]-'0')) + OUTPUT_OFFSET;
 
     /** debug 
     *? MSG :03 // validacao e escravo
@@ -82,29 +85,56 @@ void write_output(String msg)
     {
         case LAM_D:
         {
-            value = (msg[7]-'0')*1000 + (msg[8]-'0')*100 + (msg[9]-'0')*10 +(msg[10]-'0');
             analogWrite(coil, value);
             break;
         }
         case LAM_R:
         {
-            value = (msg[7]-'0')*1000 + (msg[8]-'0')*100 + (msg[9]-'0')*10 +(msg[10]-'0');
             analogWrite(coil, value);
             break;
         }
         case EN1:
-            digitalWrite(coil, value);
+        {
+            funcaoTeste(value, coil, DINE);
             break;
+        }
+            
         case EN2:
-            digitalWrite(coil, value);
+        {
+            funcaoTeste(value, coil, ROOM);
             break;
-        
-        default:
-            break;
+        }       
     }
     // Para esse caso, a resposta é um simples echo da mensagem original
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);
+}
+
+void funcaoTeste(int value, int coil, int sensor)
+{
+    int mot, hora[2] = {OUT1, OUT3}, anti[2] = {OUT2, OUT4};
+    if (coil == EN1)
+        mot = 0;
+    else 
+        mot = 1;
+
+    int lado = (analogRead(sensor)/4);
+    if (value > lado) 
+    {
+        digitalWrite(hora[mot],  ON);
+        digitalWrite(anti[mot], OFF);
+    }
+        
+    else if(value < lado)
+    {
+        digitalWrite(anti[mot],  ON);
+        digitalWrite(hora[mot], OFF);
+    }
+    else
+    {
+        digitalWrite(hora[mot], OFF);
+        digitalWrite(anti[mot], OFF);
+    }
 }
 
 void analog_write_output(String msg)

@@ -84,7 +84,7 @@ void msgHandler()
 					{
 						case READ_COIL:
 						{
-							read_init_output(msg);
+							write_init_output(msg);
 							break;
 						}
 							
@@ -123,7 +123,6 @@ void msgHandler()
 			}
 			else
 				Serial.println("Comando desconhecido");
-			
 		}
 	}
 }
@@ -151,16 +150,13 @@ void update_screen(String msg)
 	*? 57 - cortina2(000)
 	*! 58 - lampadaQuarto(000) 
 	*! 59 - lampadaSala(000)
-	*? 10 - sirene(0) 
-	*? 11 - porta(0)
-	*! 12 - temperaturaSala(00) 
+	*? 12 - sirene(0) 
+	*? 14 - porta(0)
+	*! 15 - temperaturaSala(00) 
 	*? LRC (00)
 	*/
-	Serial.println("Atualizou a tela");
-    //int ain = ((msg[5]-'0')*10 + (msg[6]-'0')) + ANALOG_INPUT_OFFSET; //FF00
-	
 	uint16_t atualiza[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-	int merda, porta[9] = {54, 55, 56, 57, 58, 59, 10, 14, 15}, aux;
+	int merda, porta[9] = {LM35, WIND, DINE, ROOM, LE_LAM_D, LE_LAM_R, SIR, DOOR, DS18B20}, aux;
 	char buf[4], envia[1], temp[2];
 
 	Serial.print("Temperatura: ");
@@ -174,19 +170,7 @@ void update_screen(String msg)
 	aux = 9;
 
 	for (int i = 1; i < 6; i++, aux+=3)
-	{
-		if (i > 3)
-		{
-			if (i == 4)
-			{
-				analogWrite(LAM_D, 255);
-			}
-			else
-			{
-				analogWrite(LAM_R, 50);
-			}	
-		}
-		
+	{	
 		atualiza[i] = analogRead(porta[i]);
 		Serial.print("Leitura analogica: ");
 		Serial.println(atualiza[i]);

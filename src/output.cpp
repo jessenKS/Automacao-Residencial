@@ -7,26 +7,53 @@ void init_output()
         pinMode(i ,OUTPUT);
         digitalWrite(i, OFF);
     }
-    pinMode(ARC   ,OUTPUT);
 }
 
-void read_init_output(String msg)
+int ajustaAr(int value)
 {
-    int /*coil = ((msg[5]-'0')*10 + (msg[6]-'0')),*/ ar = ((msg[7]-'0')*10 + (msg[8]-'0')), banda = ((msg[9]-'0')*10 + (msg[10]-'0')); 						
+    switch (value)
+    {
+        case 17:
+            return value = 87;
+            break;
+        case 18:
+            return value = 92;
+            break;
+        case 19:
+            return value = 97;
+            break;
+        case 20:
+            return value = 102;
+            break;
+        case 21:
+            return value = 107;
+            break;
+        case 22:
+            return value = 112;
+            break;
+        case 23:
+            return value = 118;
+            break;
+        case 24:
+            return value = 123;
+            break;
+        case 25:
+            return value = 128;
+            break;
+    }
+    return 0;
+}
+
+void write_init_output(String msg)
+{
+    int ar = ((msg[7]-'0')*10 + (msg[8]-'0')), banda = ((msg[9]-'0')*10 + (msg[10]-'0')); 						
     // debug
     Serial.print("Temp AR: ");
     Serial.println(ar);
+    ar = ajustaAr(ar);
+    analogWrite(ARC, ar);
     Serial.print("Banda morta:");
     Serial.println(banda);
-
-
-    /*
-
-    if(msg[7]=='F' && msg[8]=='F' && msg[9]=='0' && msg[10]=='0')
-    {
-        value = ON;
-        Serial.println(" -> Mudar para Ligado");
-    }*/
     
     // Resposta com o valor atual da entrada..
     Serial.print("Resposta do Escravo: ");
@@ -37,29 +64,44 @@ void write_output(String msg)
 {
     //Escrever em uma saída          
     // string para inteiro aplicando offset, saida 1 no Arduino está mapeada para o pino 8, saída 2 para o pino 9 ....
-    int coil = ((msg[5]-'0')*10 + (msg[6]-'0')) + OUTPUT_OFFSET;
+    int value, coil = ((msg[5]-'0')*10 + (msg[6]-'0')) + OUTPUT_OFFSET;
 
-    // padrao é desligar
-    int value = OFF;
+    /** debug 
+    *? MSG :03 // validacao e escravo
+    *? 05 
+    *! 00   // saida 
+    *! 0255 // (DADO) recebe posicao da cortina ou brilho da lampada
+    *? LRC
+    *  TODO: cortina 1 = OUT1, OUT2, EN1
+    *  TODO: cortina 2 = OUT3, OUT4, EN2
+    */
 
-    // debug
-    Serial.print("Escrita na Saida ");
-    Serial.println(coil-OUTPUT_OFFSET);
-
-    // ligar ou desligar?
-    if(msg[7]=='F' && msg[8]=='F' && msg[9]=='0' && msg[10]=='0')
+    Serial.print("Ligando saida ");
+    Serial.println(coil);
+    switch (coil)
     {
-        value = ON;
-        Serial.println(" -> Mudar para Ligado");
+        case LAM_D:
+        {
+            value = (msg[7]-'0')*1000 + (msg[8]-'0')*100 + (msg[9]-'0')*10 +(msg[10]-'0');
+            analogWrite(coil, value);
+            break;
+        }
+        case LAM_R:
+        {
+            value = (msg[7]-'0')*1000 + (msg[8]-'0')*100 + (msg[9]-'0')*10 +(msg[10]-'0');
+            analogWrite(coil, value);
+            break;
+        }
+        case EN1:
+            digitalWrite(coil, value);
+            break;
+        case EN2:
+            digitalWrite(coil, value);
+            break;
+        
+        default:
+            break;
     }
-    else if(msg[7]=='0' && msg[8]=='0' && msg[9]=='0' && msg[10]=='0')
-    {
-        value = OFF;
-        Serial.println(" Mudar para Desligado");
-    }
-    // executao comando
-    digitalWrite(coil, value);
-    
     // Para esse caso, a resposta é um simples echo da mensagem original
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);
@@ -76,10 +118,10 @@ void analog_write_output(String msg)
     Serial.print("Escrita na Saida Analogica ");
     Serial.println(aon-ANALOG_OUTPUT_OFFSET);
     Serial.print("Valor: ");
-    value = map(value, 17, 25, 87, 127);
     Serial.println(value);
-    Serial.print("porta: ");
-    Serial.println(aon);
+
+    value = ajustaAr(value);
+    
     //escreve na saída
     analogWrite(aon, value);
     

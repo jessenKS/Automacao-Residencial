@@ -46,29 +46,28 @@
             console.log('Lendo entrada digital '+ x);
         }
 
-        function atualizaPWM(x)
+        function atualizaValor(x)
         {
-            if(x == 1) var novoPWM = document.getElementById("valorCortina1").value;
-            else if(x == 2) var novoPWM = document.getElementById("valorCortina2").value;
-            else if(x == 3) var novoPWM = document.getElementById("valorLuzSala").value;
-            else if(x == 4) var novoPWM = document.getElementById("valorLuzQuarto").value;
+            if(x == 1) var novoValor = document.getElementById("valorLuzSala").value;
+            else if(x == 2) var novoValor = document.getElementById("valorLuzQuarto").value;
+            else if(x == 3) var novoValor = document.getElementById("valorCortina1").value;
+            else if(x == 4) var novoValor = document.getElementById("valorCortina2").value;
 
-            if (novoPWM >= 0 && novoPWM < 10) 
+            if (novoValor >= 0 && novoValor < 10) 
             {
-                socket.emit('state', ['07', '01', '000'+novoPWM] );
-                console.log('Novo valor PWM '+ novoPWM);
+                socket.emit('state', ['05', '0'+x, '000'+novoValor] );
+                console.log('Novo valor PWM '+ novoValor);
             }
-            else if(novoPWM < 100)
+            else if(novoValor < 100)
             {
-                socket.emit('state', ['07', '01', '00'+novoPWM] );
-                console.log('Novo valor PWM '+ novoPWM);
+                socket.emit('state', ['05', '0'+x, '00'+novoValor] );
+                console.log('Novo valor PWM '+ novoValor);
             }
-            else if(novoPWM < 256)
+            else if(novoValor < 256)
             {
-                socket.emit('state', ['07', '01', '0'+novoPWM] );
-                console.log('Novo valor PWM '+ novoPWM);
+                socket.emit('state', ['05', '0'+x, '0'+novoValor] );
+                console.log('Novo valor PWM '+ novoValor);
             }
-
             else
                 console.log('Valor PWM invalido');
         }
@@ -144,7 +143,7 @@
             console.log("Entrou"); // Foi isso q ela disse
             
         }
-        setInterval(atualizaTela, 30000);
+        //setInterval(atualizaTela, 30000);
 
         socket.on('updateScreen', function(data){
             var sirene = document.getElementById("sirene");
@@ -214,9 +213,6 @@
                     console.log("Desligar ar");
                     socket.emit("state", ['07','01', '00'+tempPadrao]);
                 }
-                    
-                    
-
             }
         }
 
@@ -432,25 +428,25 @@
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 1 </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 26px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Fechado </label>
                                 <!--RANGE CORTINA 1-->
-                                <input id="valorCortina1" onchange=atualizaPWM(1) type="range" min="0" max="255" step="1" class="border rounded shadow custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorCortina1" onchange=atualizaValor(3) type="range" min="0" max="255" step="1" class="border rounded shadow custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Aberto </label>
                                 <!--CORTINA 2-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 2 </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 26px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Fechado </label>
                                 <!--RANGE CORTINA 2-->
-                                <input id="valorCortina2" onchange=atualizaPWM(2) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorCortina2" onchange=atualizaValor(4) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Aberto </label>
                                 <!--LUZ DA SALA-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Luz da Sala </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 53px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente desligada </label>
                                 <!--RANGE LUZ DA SALA-->
-                                <input id="valorLuzSala" onchange=atualizaPWM(3) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorLuzSala" onchange=atualizaValor(1) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente ligada </label>
                                 <!--LUZ DO QUARTO-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Luz do Quarto </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 53px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente desligada </label>
                                 <!--RANGE LUZ DO QUARTO-->
-                                <input id="valorLuzQuarto" onchange=atualizaPWM(4) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorLuzQuarto" onchange=atualizaValor(2) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente ligada </label>
                                 <!--CHECKBOX AR-CONDICIONADO-->
                                 <div class="form-check custom-control custom-switch" style="width: 280px;margin-top: 23px;">

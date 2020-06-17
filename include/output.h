@@ -6,13 +6,15 @@
 
 /* mapeamento das saÃ­das */
 //enum {OUT1=8, OUT2, OUT3, OUT4} OUTPUTS;
-enum{OUTPUT_OFFSET = 1, OUT1, OUT2, OUT3, OUT4, EN1, EN2, SOLE, ARC, SIR, LAM_D, LAM_R};
+enum{OUTPUT_OFFSET = 1, LAM_D, LAM_R, EN1, EN2, OUT1, OUT2, OUT3, OUT4, SOLE, ARC, SIR};
+
 
 /* mapeamento da saída analógica */
-#define ANALOG_OUTPUT_OFFSET 8
+#define ANALOG_OUTPUT_OFFSET 10
 
 extern void init_output();
-extern void read_init_output(String msg);
+int ajustaAr(int value);
+extern void write_init_output(String msg);
 extern void write_output(String msg);
 extern void analog_write_output(String msg);
 

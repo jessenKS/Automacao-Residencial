@@ -41,7 +41,7 @@ socket.on('connection', function(client) {
         lrc = LRC(mensagem)
         mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
 		sPort.write(mensagem)
-		console.log(mensagem)
+		console.log("Mensagem:" + mensagem)
     });
 
     client.on('configInicial', function(data){
@@ -57,21 +57,24 @@ socket.on('connection', function(client) {
       mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState//":030501FF00";
       lrc = LRC(mensagem)
       mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
-      console.log(mensagem);
+      console.log("Mensagem:" + mensagem);
       sPort.write(mensagem);
     });
 
-    client.on('atualizaTela', function(data){
-      
-      mensagem = data[0] + data[1] + data[2] + data[3] + data[4] + data[5] + data[6] + data[7] + data[8] + data[9] + data[10] + data[11] + data[12];
+    client.on('atualizaTela', function(data)
+    {
+      console.log('Valor de tempo recebido do HTML:' + data);
+      slaveCmd = data[0]
+      slaveOut = data[1]
+      slaveState = data[2]
+
+      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState;
       lrc = LRC(mensagem)
-      mensagem = data[0] + data[1] + data[2] + data[3] + data[4] + data[5] + data[6] + data[7] + data[8] + data[9] + data[10] + data[11] + data[12] + lrc;
+      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc;
       console.log("Mensagem:" + mensagem);
       sPort.write(mensagem);
     });
 })
-
-
 
 function LRC(str) 
 {
@@ -142,8 +145,10 @@ parser.on('data', (data) => {
   {
     var resposta = data.substring(24)
 
-    if('1' || '2' || '6' == resposta[1])
-      socket.emit('novoEstado', resposta);  
+    if(resposta[1] == '5')
+      socket.emit('lampada', resposta);  
+  
+      
   }
   else if(data.length == 52){
     console.log("Volta arduino: ");

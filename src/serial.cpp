@@ -148,20 +148,20 @@ void update_screen(String msg)
 	*? 55 - Anemômetro(000) 
 	*? 56 - cortina1(000) 
 	*? 57 - cortina2(000)
-	*! 58 - lampadaQuarto(000) 
-	*! 59 - lampadaSala(000)
 	*? 12 - sirene(0) 
 	*? 14 - porta(0)
-	*! 15 - temperaturaSala(00) 
+	*! 15 - temperaturaSala(00)
+	* todo Valor range cortina1
+	* todo Valor range cortina2
 	*? LRC (00)
 	*/
-	uint16_t atualiza[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-	int merda, porta[9] = {LM35, WIND, DINE, ROOM, LE_LAM_D, LE_LAM_R, SIR, DOOR, DS18B20}, aux;
+	uint16_t atualiza[7];
+	int merda, aux, porta[7] = {LM35, WIND, DINE, ROOM, SIR, DOOR, DS18B20};
 	char buf[4], envia[1], temp[2];
+	int cortinaRoom = (msg[23]-'0')*100 + (msg[24]-'0')*10 +(msg[25]-'0');
+	int cortinaDine = (msg[26]-'0')*100 + (msg[27]-'0')*10 +(msg[28]-'0');
 
-	Serial.print("Temperatura: ");
 	Le_temperatura();
-	Serial.println(temperatura);
 	atualiza[0] = temperatura;
 	sprintf(temp,"%02d", atualiza[0]);
 	msg[7]   = temp[0];
@@ -169,11 +169,19 @@ void update_screen(String msg)
 
 	aux = 9;
 
-	for (int i = 1; i < 6; i++, aux+=3)
+	for (int i = 1; i < 4; i++, aux+=3)
 	{	
 		atualiza[i] = analogRead(porta[i]);
 		Serial.print("Leitura analogica: ");
 		Serial.println(atualiza[i]);
+
+		//*!colocar funcao anemometro para velocidade max
+
+		if (porta[i] == DINE)
+			funcaoTeste(cortinaDine, porta[i]);
+		if(porta[i] == ROOM)
+			funcaoTeste(cortinaRoom, porta[i]);
+		
 
 		atualiza[i] = map(atualiza[i], 0, 1023, 0, 100);
 		
@@ -186,20 +194,22 @@ void update_screen(String msg)
 	}
 	/**
 	*? SIRENE*/
-	digitalWrite(porta[6], ON);
-	merda = digitalRead(porta[6]);
+	digitalWrite(porta[4], ON);
+	merda = digitalRead(porta[4]);
 	Serial.print("Estado saida: ");
 	Serial.println(merda);
 	sprintf(envia,"%01d", merda);
-	msg[24]   = envia[0];
+	msg[19]   = envia[0];
 
 	/**
 	*? PORTA*/
-	merda = digitalRead(porta[7]);
+	merda = digitalRead(porta[5]);
 	Serial.print("Estado entrada: ");
 	Serial.println(merda);
 	sprintf(envia,"%01d", merda);
-	msg[25]   = envia[0];
+	msg[20]   = envia[0];
+
+	// *!temperatuda ds18b20 para enviar  msg[21]  e msg[22]
 	
 	// Responde para o mestre
     Serial.print("Resposta do Escravo: ");

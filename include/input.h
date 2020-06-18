@@ -7,9 +7,6 @@
 
 #define INPUT_OFFSET 11 // offset entradas 
 #define DOOR 14 
-#define LE_LAM_D 58 
-#define LE_LAM_R 59 // sensor porta
-
 
 #define ANALOG_INPUT_OFFSET 54
 #define WIND 55 //Anemômetro - ler continuamente 

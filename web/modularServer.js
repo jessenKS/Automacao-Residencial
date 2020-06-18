@@ -41,7 +41,6 @@ function controlePorta(){
 }
 
 socket.on('connection', function(client) {
-
   
   client.on('state', function(data){
       console.log('Valor de tempo recebido do HTML:' + data);

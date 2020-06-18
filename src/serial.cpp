@@ -108,6 +108,7 @@ void msgHandler()
 						case READ_ANALOG:
 						{ 
 							//analog_read_input(msg);
+							write_sol(msg);
 							break;
 						}
 
@@ -161,7 +162,7 @@ void update_screen(String msg)
 	int cortinaRoom = (msg[23]-'0')*100 + (msg[24]-'0')*10 +(msg[25]-'0');
 	int cortinaDine = (msg[26]-'0')*100 + (msg[27]-'0')*10 +(msg[28]-'0');
 
-	Le_temperatura();
+	Le_temperatura(); //*!  
 	atualiza[0] = temperatura;
 	sprintf(temp,"%02d", atualiza[0]);
 	msg[7]   = temp[0];
@@ -194,9 +195,8 @@ void update_screen(String msg)
 	}
 	/**
 	*? SIRENE*/
-	digitalWrite(porta[4], ON);
 	merda = digitalRead(porta[4]);
-	Serial.print("Estado saida: ");
+	Serial.print("Sirene: ");
 	Serial.println(merda);
 	sprintf(envia,"%01d", merda);
 	msg[19]   = envia[0];
@@ -204,7 +204,7 @@ void update_screen(String msg)
 	/**
 	*? PORTA*/
 	merda = digitalRead(porta[5]);
-	Serial.print("Estado entrada: ");
+	Serial.print("Porta: ");
 	Serial.println(merda);
 	sprintf(envia,"%01d", merda);
 	msg[20]   = envia[0];

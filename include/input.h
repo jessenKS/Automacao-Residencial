@@ -5,7 +5,7 @@
 #include "serial.h"
 #include "lm35.h"
 
-#define INPUT_OFFSET 11 // offset entradas 
+#define INPUT_OFFSET 13 // offset entradas 
 #define DOOR 14 
 
 #define ANALOG_INPUT_OFFSET 54

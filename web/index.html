@@ -17,36 +17,6 @@
         var flag = false, flagCortina1 = true, flagCortina2 = true;
         var EstadoCortina = [null, null];
 
-        function LeSaida(x)
-        {         
-            socket.emit('state', ['01', '0'+ x, '0000'] );
-            console.log('Lendo saida digital '+ x);
-        }
-
-        function LeEntrada(x)
-        {         
-            socket.emit('state', ['02', '0'+ x, '0000'] );
-            console.log('Lendo entrada digital '+ x);
-        }
-
-        function turnOn(x)
-        {         
-            socket.emit('state', ['05', '0'+ x, 'FF00'] );
-            console.log('Ligando saida '+ x);
-        }
-        
-        function turnOff(x)
-        {         
-            socket.emit('state', ['05', '0'+ x, '0000'] );
-            console.log('Desligando saida '+ x);
-        }
-        
-        function EntradaAnalog(x)
-        {         
-            socket.emit('state', ['06', '0'+ x, '0000'] );
-            console.log('Lendo entrada digital '+ x);
-        }
-
         function atualizaValor(x)
         {
             if(x == 1) var novoValor = document.getElementById("valorLuzSala").value;
@@ -222,7 +192,6 @@
         }
 
         setInterval(atualizaTela, 10000);
-        
 
         socket.on('lampada', function(data){
             var id = data.substring(4, 0)
@@ -301,8 +270,12 @@
 
         function desbloquearPorta(){
             if(document.getElementById("inputSenha").value == document.getElementById("senhaPorta").value)
+            {
                 // ENVIAR MENSAGEM PARA DESBLOQUEAR PORTA SOCKET.EMIT
                 console.log("SENHA CORRETA!");
+                socket.emit("state", ['06','01', '0000']);
+            }
+                
             else
                 alert("SENHA INCORRETA!");
         }

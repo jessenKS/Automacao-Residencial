@@ -13,19 +13,22 @@ void init_input()
 void read_input(String msg)
 {
     // numero da entrada
-    int contact = ((msg[5]-'0')*10 + (msg[6]-'0')) + INPUT_OFFSET;
+    int contact = ((msg[5]-'0')*10 + (msg[6]-'0')) + INPUT_OFFSET; 
 
     // debug
     Serial.print("Leitura na Entrada ");
     Serial.println(contact-INPUT_OFFSET);
 
+    contact =  digitalRead(contact);
+
     // Ligada ou desligada?
-    if(digitalRead(contact))
+    if(contact == 1)
     {
         msg[7]='F';
         msg[8]='F';
         msg[9]='0';
         msg[10]='0';
+        digitalWrite(SIR, ON);
     }
     else
     {
@@ -33,8 +36,8 @@ void read_input(String msg)
         msg[8]='0';
         msg[9]='0';
         msg[10]='0';
+        digitalWrite(SIR, OFF);
     }
-    
     // Resposta com o valor atual da entrada..
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);

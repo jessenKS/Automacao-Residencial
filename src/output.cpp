@@ -7,57 +7,36 @@ void init_output()
         pinMode(i , OUTPUT);
         digitalWrite(i, OFF);
     }
-    digitalWrite(EN1, ON);
-    digitalWrite(EN2, ON);
+    digitalWrite(SOLE, ON);
+    digitalWrite(EN1,  ON);
+    digitalWrite(EN2,  ON);
 }
 
-int ajustaAr(int value)
-{
-    switch (value)
-    {
-        case 17:
-            return value = 87;
-            break;
-        case 18:
-            return value = 92;
-            break;
-        case 19:
-            return value = 97;
-            break;
-        case 20:
-            return value = 102;
-            break;
-        case 21:
-            return value = 107;
-            break;
-        case 22:
-            return value = 112;
-            break;
-        case 23:
-            return value = 118;
-            break;
-        case 24:
-            return value = 123;
-            break;
-        case 25:
-            return value = 128;
-            break;
-    }
-    return 0;
-}
+// 51 valor fixo , 
 
 void write_init_output(String msg)
 {
-    int ar = ((msg[7]-'0')*10 + (msg[8]-'0')), banda = ((msg[9]-'0')*10 + (msg[10]-'0')); 						
+    int ar = ((msg[7]-'0')*10 + (msg[8]-'0'));
+    int banda = ((msg[9]-'0')*10 + (msg[10]-'0')); 						
     // debug
     Serial.print("Temp AR: ");
     Serial.println(ar);
-    ar = ajustaAr(ar);
+    ar = (51*ar)/10;
     analogWrite(ARC, ar);
     Serial.print("Banda morta:");
     Serial.println(banda);
     
     // Resposta com o valor atual da entrada..
+    Serial.print("Resposta do Escravo: ");
+    Serial.println(msg);
+}
+
+void write_sol(String msg)
+{
+    int coil = ((msg[5]-'0')*10 + (msg[6]-'0')) + OFFSET_SOLE;
+
+    digitalWrite(coil,  OFF);
+
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);
 }
@@ -82,26 +61,11 @@ void write_output(String msg)
     switch (coil)
     {
         case LAM_D:
-        {
             analogWrite(coil, value);
             break;
-        }
         case LAM_R:
-        {
             analogWrite(coil, value);
             break;
-        }/*
-        case EN1:
-        {
-            funcaoTeste(value, DINE);
-            break;
-        }
-            
-        case EN2:
-        {
-            funcaoTeste(value, ROOM);
-            break;
-        }       */
     }
 
     value = map(value, 0, 255, 0, 100);
@@ -127,14 +91,14 @@ void funcaoTeste(int value, int sensor)
     else 
         mot = 1;
 
-    int lado = analogRead(sensor);
-    lado = map(lado, 0, 1023, 0, 255);
-
+    int lado = (analogRead(sensor)/4);
+    //lado = map(lado, 0, 1023, 0, 255);
+/*
     Serial.print("Lado: ");
     Serial.println(lado);
     Serial.print("Value: ");
     Serial.println(value);
-
+*/
     if (value > lado) 
     {
         digitalWrite(hora[mot],  ON);
@@ -163,10 +127,8 @@ void analog_write_output(String msg)
     // debug
     Serial.print("Escrita na Saida Analogica ");
     Serial.println(aon-ANALOG_OUTPUT_OFFSET);
-    Serial.print("Valor: ");
-    Serial.println(value);
 
-    value = ajustaAr(value);
+    value = (51*value)/10;
     
     //escreve na saída
     analogWrite(aon, value);

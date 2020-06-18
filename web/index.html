@@ -14,7 +14,8 @@
     <script>
         var socket = io();
         var cortinaAbert, cortinaFech, cortinaMet, portSenha, portTemp, tempPadrao, tempBanheiro;
-        var flag = false;
+        var flag = false, flag2 = true;
+        var EstadoCortina = [null, null];
 
         function LeSaida(x)
         {         
@@ -48,6 +49,7 @@
 
         function atualizaValor(x)
         {
+            flag2 = true;
             if(x == 1) var novoValor = document.getElementById("valorLuzSala").value;
             else if(x == 2) var novoValor = document.getElementById("valorLuzQuarto").value;
             else if(x == 3) var novoValor = document.getElementById("valorCortina1").value;
@@ -139,7 +141,47 @@
             * TODO var novoValor = document.getElementById("valorCortina1").value;
             * TODO var novoValor = document.getElementById("valorCortina2").value;
             */
-            var EstadoCortina = [document.getElementById("valorCortina1").value, document.getElementById("valorCortina2").value];
+
+
+            if(EstadoCortina[0] == null && EstadoCortina[1] == null){
+                EstadoCortina = [128, 128];
+                console.log("Null");
+            }
+
+            if(flag2 == true){
+                EstadoCortina = [document.getElementById("valorCortina1").value, document.getElementById("valorCortina2").value];
+                console.log("Manual cortinas");
+            }
+                
+
+            var horaAtual = new Date();
+
+            if(horaAtual.getHours() < 10) 
+                var aux = '0' + horaAtual.getHours() + ':' + horaAtual.getMinutes();
+            else if(horaAtual.getMinutes() < 10) 
+                var aux = horaAtual.getHours() + ':' + '0' + horaAtual.getMinutes();
+            else if(horaAtual.getMinutes() < 10 && horaAtual.getHours() < 10) 
+                var aux = '0' + horaAtual.getHours() + ':' + '0' + horaAtual.getMinutes();
+            else 
+                var aux = horaAtual.getHours() + ':' + horaAtual.getMinutes();
+            
+            console.log(aux);
+
+            if(cortinaMet == aux) {
+                console.log("Cortina aberta pela metade!");
+                EstadoCortina = [128, 128];
+                flag2 = false;
+            }
+            else if(cortinaAbert == aux){
+                console.log("Cortina totalmente aberta");
+                EstadoCortina = [255, 255];
+                flag2 = false;
+            } 
+            else if(cortinaFech == aux){
+                console.log("Cortina totalmente fechada");
+                EstadoCortina = [0, 0];
+                flag2 = false;
+            }
 
             for (var i = 0; i < 2; i++) 
             {
@@ -157,10 +199,11 @@
                 }
             }
             socket.emit('atualizaTela', ['03', '00', '00'+'000'+'000'+'000'+'0'+'0'+'00'+EstadoCortina[0]+EstadoCortina[1]]);
-            console.log("Entrou");
         }
 
         setInterval(atualizaTela, 10000);
+
+        
 
         socket.on('lampada', function(data){
             var id = data.substring(4, 0)

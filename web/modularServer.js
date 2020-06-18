@@ -9,71 +9,76 @@ const port = 3000
 const mainPage = 'index.html'
 const myStyle  = 'style.css'
 
+
 // servidor ouvindo em 'port'
 var app = http.createServer(function(req, res) {
     
-    var content = '';   // conteúdo da resposta
-    var type = '';      // tipo da resposta: text/html, text/css
-    
-    if(req.url === '/') {   // requisição na raiz, carrega página principal
-        content = fs.readFileSync(mainPage);      
-        type = 'text/html';
-    }
-    else if(req.url === '/style.css') {
-        content = fs.readFileSync(myStyle);	// load css
-        type = 'text/css';
-    }
-    
-    console.log(req.url) // tipo de requisição realizada
-    res.writeHead(200, {'Content-Type': type}); // responde com tipo
-    res.end(content + '\n'); // envia conteúdo 
+  var content = '';   // conteúdo da resposta
+  var type = '';      // tipo da resposta: text/html, text/css
+  
+  if(req.url === '/') {   // requisição na raiz, carrega página principal
+      content = fs.readFileSync(mainPage);      
+      type = 'text/html';
+  }
+  else if(req.url === '/style.css') {
+      content = fs.readFileSync(myStyle);	// load css
+      type = 'text/css';
+  }
+  
+  console.log(req.url) // tipo de requisição realizada
+  res.writeHead(200, {'Content-Type': type}); // responde com tipo
+  res.end(content + '\n'); // envia conteúdo 
 }).listen(port)
 
 var socket = require('socket.io').listen(app);
 
+
 socket.on('connection', function(client) {
-    client.on('state', function(data){
-        console.log('Valor de tempo recebido do HTML:' + data);
-        slaveCmd = data[0]
-        slaveOut = data[1]
-        slaveState = data[2]
-        mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState//":030501FF00";
-        lrc = LRC(mensagem)
-        mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
-		sPort.write(mensagem)
-		console.log("Mensagem:" + mensagem)
-    });
 
-    client.on('configInicial', function(data){
-      console.log(data);
-
-      if(data[6] < 10)
-        slaveState = data[5] + '0' + data[6];
-      else 
-        slaveState = data[5] + data[6];
-
-      slaveCmd = '01';
-
-      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState//":030501FF00";
-      lrc = LRC(mensagem)
-      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
-      console.log("Mensagem:" + mensagem);
-      sPort.write(mensagem);
-    });
-
-    client.on('atualizaTela', function(data)
-    {
+  
+  client.on('state', function(data){
       console.log('Valor de tempo recebido do HTML:' + data);
       slaveCmd = data[0]
       slaveOut = data[1]
       slaveState = data[2]
-
-      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState;
+      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState//":030501FF00";
       lrc = LRC(mensagem)
-      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc;
-      console.log("Mensagem:" + mensagem);
-      sPort.write(mensagem);
-    });
+      mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
+  sPort.write(mensagem)
+  console.log("Mensagem:" + mensagem)
+  });
+
+  client.on('configInicial', function(data){
+    console.log(data);
+
+    if(data[6] < 10)
+      slaveState = data[5] + '0' + data[6];
+    else 
+      slaveState = data[5] + data[6];
+
+    slaveCmd = '01';
+
+    mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState//":030501FF00";
+    lrc = LRC(mensagem)
+    mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
+    console.log("Mensagem:" + mensagem);
+    
+    sPort.write(mensagem);
+  });
+
+  client.on('atualizaTela', function(data)
+  {
+    console.log('Valor de tempo recebido do HTML:' + data);
+    slaveCmd = data[0]
+    slaveOut = data[1]
+    slaveState = data[2]
+
+    mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState;
+    lrc = LRC(mensagem)
+    mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc;
+    console.log("Mensagem:" + mensagem);
+    sPort.write(mensagem);
+  });
 })
 
 function LRC(str) 

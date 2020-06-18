@@ -8,7 +8,7 @@ const port = 3000
 // pagina principal
 const mainPage = 'index.html'
 const myStyle  = 'style.css'
-
+var portTemp;
 
 // servidor ouvindo em 'port'
 var app = http.createServer(function(req, res) {
@@ -32,6 +32,13 @@ var app = http.createServer(function(req, res) {
 
 var socket = require('socket.io').listen(app);
 
+function controlePorta(){
+  // : 03 02 01 0000 LRC
+  var mensagem = ':' + '03' + '02' + '01' + '0000';
+  var lrc = LRC(mensagem);
+  mensagem = ':' + '03' + '02' + '01' + '0000' + lrc;
+  sPort.write(mensagem);
+}
 
 socket.on('connection', function(client) {
 
@@ -51,6 +58,8 @@ socket.on('connection', function(client) {
   client.on('configInicial', function(data){
     console.log(data);
 
+    portTemp = data[4];
+
     if(data[6] < 10)
       slaveState = data[5] + '0' + data[6];
     else 
@@ -62,7 +71,9 @@ socket.on('connection', function(client) {
     lrc = LRC(mensagem)
     mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
     console.log("Mensagem:" + mensagem);
-    
+
+    setInterval(controlePorta, portTemp*60000);
+
     sPort.write(mensagem);
   });
 
@@ -151,8 +162,7 @@ parser.on('data', (data) => {
     var resposta = data.substring(24)
 
     if(resposta[1] == '5')
-      socket.emit('lampada', resposta);  
-  
+      socket.emit('lampada', resposta);
       
   }
   else if(data.length == 52){

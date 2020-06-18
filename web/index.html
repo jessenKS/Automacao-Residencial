@@ -222,7 +222,6 @@
         }
 
         setInterval(atualizaTela, 10000);
-
         
 
         socket.on('lampada', function(data){
@@ -302,6 +301,7 @@
 
         function desbloquearPorta(){
             if(document.getElementById("inputSenha").value == document.getElementById("senhaPorta").value)
+                // ENVIAR MENSAGEM PARA DESBLOQUEAR PORTA SOCKET.EMIT
                 console.log("SENHA CORRETA!");
             else
                 alert("SENHA INCORRETA!");
@@ -309,6 +309,7 @@
 
         function desligarAlarme(){
             if(document.getElementById("inputSenha").value == document.getElementById("senhaPorta").value)
+                // ENVIAR MENSAGEM PARA DESLIGAR ALARME SOCKET.EMIT
                 console.log("SENHA CORRETA!");
             else
                 alert("SENHA INCORRETA!");

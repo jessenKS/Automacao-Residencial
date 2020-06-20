@@ -272,16 +272,18 @@
                 // ENVIAR MENSAGEM PARA DESBLOQUEAR PORTA SOCKET.EMIT
                 console.log("SENHA CORRETA!");
                 socket.emit("state", ['06','01', '0000']);
-            }
-                
+            } 
             else
                 alert("SENHA INCORRETA!");
         }
 
         function desligarAlarme(){
             if(document.getElementById("inputSenha").value == document.getElementById("senhaPorta").value)
+            {
                 // ENVIAR MENSAGEM PARA DESLIGAR ALARME SOCKET.EMIT
                 console.log("SENHA CORRETA!");
+                socket.emit("state", ['06','03', '0000']);
+            }
             else
                 alert("SENHA INCORRETA!");
         }

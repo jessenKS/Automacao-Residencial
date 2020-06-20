@@ -34,9 +34,9 @@ var socket = require('socket.io').listen(app);
 
 function controlePorta(){
   // : 03 02 01 0000 LRC
-  var mensagem = ':' + '03' + '02' + '01' + '0000';
+  var mensagem = ':'+slaveAdr+'02'+'01'+'0000';
   var lrc = LRC(mensagem);
-  mensagem = ':' + '03' + '02' + '01' + '0000' + lrc;
+  mensagem = ':'+slaveAdr+'02'+'01'+'0000'+lrc;
   sPort.write(mensagem);
 }
 
@@ -169,7 +169,6 @@ parser.on('data', (data) => {
     console.log(data.substring(21));
     var resposta = data.substring(21)
     socket.emit('updateScreen', resposta); 
-
   }
   else
   {

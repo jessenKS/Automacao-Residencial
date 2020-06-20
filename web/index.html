@@ -22,31 +22,33 @@
             if(x == 1) var novoValor = document.getElementById("valorLuzSala").value;
             else if(x == 2) var novoValor = document.getElementById("valorLuzQuarto").value;
             else if(x == 3){
-                var novoValor = document.getElementById("valorCortina1").value;
+                //var novoValor = document.getElementById("valorCortina1").value;
                 flagCortina1 = true;
             } 
             else if(x == 4){
-                var novoValor = document.getElementById("valorCortina2").value;
+                //var novoValor = document.getElementById("valorCortina2").value;
                 flagCortina2 = true;
             } 
-
-            if (novoValor >= 0 && novoValor < 10) 
-            {
-                socket.emit('state', ['05', '0'+x, '000'+novoValor] );
-                console.log('Novo valor PWM '+ novoValor);
+            
+            if (x == 1 || x == 2) {
+                if (novoValor >= 0 && novoValor < 10) 
+                {
+                    socket.emit('state', ['05', '0'+x, '000'+novoValor] );
+                    console.log('Novo valor PWM '+ novoValor);
+                }
+                else if(novoValor < 100)
+                {
+                    socket.emit('state', ['05', '0'+x, '00'+novoValor] );
+                    console.log('Novo valor PWM '+ novoValor);
+                }
+                else if(novoValor < 256)
+                {
+                    socket.emit('state', ['05', '0'+x, '0'+novoValor] );
+                    console.log('Novo valor PWM '+ novoValor);
+                }
+                else
+                    console.log('Valor PWM invalido');
             }
-            else if(novoValor < 100)
-            {
-                socket.emit('state', ['05', '0'+x, '00'+novoValor] );
-                console.log('Novo valor PWM '+ novoValor);
-            }
-            else if(novoValor < 256)
-            {
-                socket.emit('state', ['05', '0'+x, '0'+novoValor] );
-                console.log('Novo valor PWM '+ novoValor);
-            }
-            else
-                console.log('Valor PWM invalido');
         }
 
         function testeValores(){
@@ -116,8 +118,6 @@
             * TODO var novoValor = document.getElementById("valorCortina1").value;
             * TODO var novoValor = document.getElementById("valorCortina2").value;
             */
-
-
             if(EstadoCortina[0] == null && EstadoCortina[1] == null){
                 EstadoCortina = [128, 128];
                 console.log("Null");
@@ -134,7 +134,6 @@
                 console.log("Manual Cortina 2");
             }
                 
-
             var horaAtual = new Date();
 
             if(horaAtual.getHours() < 10) 
@@ -205,7 +204,7 @@
             var porta = document.getElementById("porta");
             var cortina1 = document.getElementById("cortina1");
             var cortina2 = document.getElementById("cortina2");
-            //:03030012100 1 0 0 1 0 0 0 5 4 0 5 4 1 1 0 0 FA
+        
             document.getElementById('inputTempBanheiro').value = data[7] + data[8] + '°C';
             document.getElementById('inputAnemometro').value = data[9] + data[10] + data[11] + 'Km/h';
             cortina1.style.width = data[12] + data[13] + data[14] + "%";
@@ -227,7 +226,7 @@
                     sirene.classList.add("fa-volume-up");
                 }
             }
-            if(data[19] == '0')//porta
+            if(data[19] == '1')//porta
             {
                 if(porta.classList.value == "fas fa-door-open")
                 {
@@ -235,7 +234,7 @@
                     porta.classList.add("fa-door-closed");
                 }
             }
-            else if(data[19] == '1')
+            else if(data[19] == '0')
             {
                 if(porta.classList.value == "fas fa-door-closed")
                 {
@@ -486,13 +485,13 @@
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 1 </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 26px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Fechado </label>
                                 <!--RANGE CORTINA 1-->
-                                <input id="valorCortina1" onchange=atualizaValor(3) type="range" min="0" max="255" step="1" class="border rounded shadow custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorCortina1" onchange=atualizaValor(3) type="range" min="0" max="100" step="1" class="border rounded shadow custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Aberto </label>
                                 <!--CORTINA 2-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Cortina 2 </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 26px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Fechado </label>
                                 <!--RANGE CORTINA 2-->
-                                <input id="valorCortina2" onchange=atualizaValor(4) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorCortina2" onchange=atualizaValor(4) type="range" min="0" max="100" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Aberto </label>
                                 <!--LUZ DA SALA-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Luz da Sala </label>

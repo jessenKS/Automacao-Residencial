@@ -24,7 +24,7 @@ void msgHandler()
 			
 			while(msg[tam] != '\0')
 				++tam;
-			
+
 			if(tam == 13) tam-=1;
 			else if(tam == 14) tam-=2;
 			
@@ -56,13 +56,14 @@ void msgHandler()
 				
 				t = (uint8_t)(sizeof(dado)) - 1;
 				valor = lrc(dado, t); //cálculo do lrc
+				
 				Serial.print("Valor LRC ");
 				Serial.println(valor);
 
 				Serial.print("Valor dado ");
 				Serial.println(dado[t]);
-
-				/*/compara se o LRC da msg é igual ao calculado
+				/*
+				//compara se o LRC da msg é igual ao calculado
 				
 				if (valor == dado[t])
 					Serial.println("LRC correto");
@@ -107,7 +108,6 @@ void msgHandler()
 						}
 						case READ_ANALOG:
 						{ 
-							//analog_read_input(msg);
 							write_sol(msg);
 							break;
 						}
@@ -148,21 +148,21 @@ void update_screen(String msg)
 	*? 54 - temperaturaBanheiro(00) 
 	*? 55 - Anemômetro(000) 
 	*? 56 - cortina1(000) 
-	*? 57 - cortina2(000)
+	*? 57 - cortina2(000) 
 	*? 12 - sirene(0) 
-	*? 14 - porta(0)
+	*? 14 - porta(0) 
 	*! 15 - temperaturaSala(00)
-	* todo Valor range cortina1
-	* todo Valor range cortina2
-	*? LRC (00)
+	* todo Valor range cortina1 
+	* todo Valor range cortina2 
+	*? LRC (00) 
 	*/
 	uint16_t atualiza[7];
-	int merda, aux, porta[7] = {LM35, WIND, DINE, ROOM, SIR, DOOR, DS18B20};
+	int passa, aux, porta[7] = {LM35, WIND, DINE, ROOM, SIR, DOOR, DS18B20};
 	char buf[4], envia[1], temp[2];
-	int cortinaRoom = (msg[23]-'0')*100 + (msg[24]-'0')*10 +(msg[25]-'0');
-	int cortinaDine = (msg[26]-'0')*100 + (msg[27]-'0')*10 +(msg[28]-'0');
+	int cortinaRoom = (msg[22]-'0')*100 + (msg[23]-'0')*10 +(msg[24]-'0');
+	int cortinaDine = (msg[25]-'0')*100 + (msg[26]-'0')*10 +(msg[27]-'0');
 
-	Le_temperatura(); //*!  
+	Le_temperatura(); 
 	atualiza[0] = temperatura;
 	sprintf(temp,"%02d", atualiza[0]);
 	msg[7]   = temp[0];
@@ -177,14 +177,12 @@ void update_screen(String msg)
 		Serial.println(atualiza[i]);
 
 		//*!colocar funcao anemometro para velocidade max
+		atualiza[i] = map(atualiza[i], 0, 1023, 0, 100);
 
 		if (porta[i] == DINE)
-			funcaoTeste(cortinaDine, porta[i]);
+			atualiza[i] = funcaoTeste(cortinaDine, porta[i]);
 		if(porta[i] == ROOM)
-			funcaoTeste(cortinaRoom, porta[i]);
-		
-
-		atualiza[i] = map(atualiza[i], 0, 1023, 0, 100);
+			atualiza[i] = funcaoTeste(cortinaRoom, porta[i]);
 		
 		sprintf(buf,"%03d", atualiza[i]);
 
@@ -194,22 +192,27 @@ void update_screen(String msg)
 		msg[aux+2] = buf[2];
 	}
 	/**
-	*? SIRENE*/
-	merda = digitalRead(porta[4]);
-	Serial.print("Sirene: ");
-	Serial.println(merda);
-	sprintf(envia,"%01d", merda);
+	*? PORTA*/
+	passa = digitalRead(porta[5]);
+	Serial.print("Porta: ");
+	Serial.println(passa);
+	sprintf(envia,"%01d", passa);
 	msg[19]   = envia[0];
 
+	if(passa == 1)
+		digitalWrite(SIR, OFF);
+	
 	/**
-	*? PORTA*/
-	merda = digitalRead(porta[5]);
-	Serial.print("Porta: ");
-	Serial.println(merda);
-	sprintf(envia,"%01d", merda);
-	msg[20]   = envia[0];
+	*? SIRENE*/
+	passa = digitalRead(porta[4]);
+	Serial.print("Sirene: ");
+	Serial.println(passa);
+	sprintf(envia,"%01d", passa);
+	msg[18]   = envia[0];
 
-	// *!temperatuda ds18b20 para enviar  msg[21]  e msg[22]
+	
+
+	// *!temperatuda ds18b20 para enviar  msg[20]  e msg[21]
 	
 	// Responde para o mestre
     Serial.print("Resposta do Escravo: ");

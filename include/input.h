@@ -17,6 +17,5 @@
 
 extern void init_input();
 extern void read_input(String msg);
-extern int  analog_read_input(int porta);
 
 #endif

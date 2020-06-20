@@ -12,7 +12,7 @@ void init_output()
     digitalWrite(EN2,  ON);
 }
 
-// 51 valor fixo , 
+// 51 valor fixo
 
 void write_init_output(String msg)
 {
@@ -47,16 +47,6 @@ void write_output(String msg)
     // string para inteiro aplicando offset, saida 1 no Arduino está mapeada para o pino 8, saída 2 para o pino 9 ....
     int coil = ((msg[5]-'0')*10 + (msg[6]-'0')) + OUTPUT_OFFSET;
     int value = (msg[7]-'0')*1000 + (msg[8]-'0')*100 + (msg[9]-'0')*10 +(msg[10]-'0');
-    
-    /** debug 
-    *? MSG :03 // validacao e escravo
-    *? 05 
-    *! 00   // saida 
-    *! 0255 // (DADO) recebe posicao da cortina ou brilho da lampada
-    *? LRC
-    *  TODO: cortina 1 = OUT1, OUT2, EN1
-    *  TODO: cortina 2 = OUT3, OUT4, EN2
-    */
 
     switch (coil)
     {
@@ -83,7 +73,7 @@ void write_output(String msg)
     Serial.println(msg);
 }
 
-void funcaoTeste(int value, int sensor)
+int funcaoTeste(int value, int sensor)
 {
     int mot, hora[2] = {OUT1, OUT3}, anti[2] = {OUT2, OUT4};
     if (sensor == DINE)
@@ -91,14 +81,16 @@ void funcaoTeste(int value, int sensor)
     else 
         mot = 1;
 
-    int lado = (analogRead(sensor)/4);
-    //lado = map(lado, 0, 1023, 0, 255);
-/*
-    Serial.print("Lado: ");
-    Serial.println(lado);
-    Serial.print("Value: ");
-    Serial.println(value);
-*/
+    int lado = (analogRead(sensor));
+    if(lado > 819)  lado = 819;
+    else if(lado < 205)   lado = 205;
+    lado = map(lado, 205, 819, 0, 100);
+
+    /** 
+    *! 4V = 818.4
+    *! 1V = 204.6
+    */
+
     if (value > lado) 
     {
         digitalWrite(hora[mot],  ON);
@@ -115,6 +107,8 @@ void funcaoTeste(int value, int sensor)
         digitalWrite(hora[mot], OFF);
         digitalWrite(anti[mot], OFF);
     }
+
+    return lado;
 }
 
 void analog_write_output(String msg)

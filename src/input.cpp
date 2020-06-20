@@ -34,8 +34,8 @@ void read_input(String msg) // funcao para ligar sirene se
     {
         msg[7]='F';
         msg[8]='F';
-        msg[9]='0';
-        msg[10]='0';
+        msg[9]='F';
+        msg[10]='F';
         digitalWrite(SIR, ON);
     }
     // Resposta com o valor atual da entrada..

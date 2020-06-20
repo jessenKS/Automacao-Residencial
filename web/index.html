@@ -97,6 +97,7 @@
                 socket.emit('configInicial', [cortinaMet, cortinaAbert, cortinaFech, portSenha, portTemp, tempPadrao, tempBanheiro]);
                 alert("Configuração concluida com sucesso!");
             }
+            setInterval(atualizaTela, 10000);
         }
 
         function validateConfig(x){
@@ -189,8 +190,6 @@
             console.log("Estado Cortinas: " + EstadoCortina);
             socket.emit('atualizaTela', ['03', '00', '00'+'000'+'000'+'000'+'0'+'0'+'00'+EstadoCortina[0]+EstadoCortina[1]]);
         }
-
-        setInterval(atualizaTela, 10000);
 
         socket.on('lampada', function(data){
             var id = data.substring(4, 0)
@@ -497,7 +496,7 @@
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Luz da Sala </label>
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;height: 53px;margin-right: 20px;margin-top: 0px;padding-top: 0px;padding-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente desligada </label>
                                 <!--RANGE LUZ DA SALA-->
-                                <input id="valorLuzSala" onchange=atualizaValor(1) type="range" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
+                                <input id="valorLuzSala" onchange=atualizaValor(1) type="range" aria-valuenow="0" min="0" max="255" step="1" class="border rounded custom-range" style="background-color: rgb(88,67,15);font-family: Bitter, serif;width: 205px;margin-top: 0px;" />
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 108px;margin-left: 20px;margin-bottom: 0px;background-color: rgb(88,67,15);"> Totalmente ligada </label>
                                 <!--LUZ DO QUARTO-->
                                 <label class="border rounded" style="color: rgb(255,255,255);width: 522px;margin-top: 25px;background-color: rgb(88,67,15);"> Luz do Quarto </label>

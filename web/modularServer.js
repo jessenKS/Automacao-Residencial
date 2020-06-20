@@ -71,8 +71,6 @@ socket.on('connection', function(client) {
     mensagem = ':'+slaveAdr+slaveCmd+slaveOut+slaveState+lrc//":030501FF00lrc";
     console.log("Mensagem:" + mensagem);
 
-    setInterval(controlePorta, portTemp*60000);
-
     sPort.write(mensagem);
   });
 
@@ -145,6 +143,7 @@ var slaveCmd = '05';
 var slaveOut = '01';
 var slaveState = '0000';
 var mensagem = ':' + slaveAdr + slaveCmd + slaveOut + slaveState;
+var flag = false
 
 sPort.open(function (err) {
   if(err) {
@@ -168,6 +167,24 @@ parser.on('data', (data) => {
     console.log("Volta arduino: ");
     console.log(data.substring(21));
     var resposta = data.substring(21)
+    var EstadoPorta = data.substring(40, 41)
+
+    if(EstadoPorta == 0)
+    {
+      console.log("Manda contar");
+      if(flag == false)
+      {
+        setTimeout(controlePorta, portTemp*60000);
+        flag = true
+      }
+    }
+    else
+    {
+      flag = false
+      console.log("Limpa variavel");
+    }
+      
+    
     socket.emit('updateScreen', resposta); 
   }
   else

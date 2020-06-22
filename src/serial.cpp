@@ -157,7 +157,7 @@ void update_screen(String msg)
 	*? LRC (00) 
 	*/
 	uint16_t atualiza[7];
-	int passa, aux, porta[7] = {LM35, WIND, DINE, ROOM, SIR, DOOR, DS18B20};
+	int passa, aux, tempSala, porta[6] = {LM35, WIND, DINE, ROOM, SIR, DOOR}, tempAtual = ((msg[20]-'0')*10 +(msg[21]-'0'));
 	char buf[4], envia[1], temp[2];
 	int cortinaRoom = (msg[22]-'0')*100 + (msg[23]-'0')*10 +(msg[24]-'0');
 	int cortinaDine = (msg[25]-'0')*100 + (msg[26]-'0')*10 +(msg[27]-'0');
@@ -210,9 +210,17 @@ void update_screen(String msg)
 	sprintf(envia,"%01d", passa);
 	msg[18]   = envia[0];
 
+	tempSala = read_ds18b20();
+	Serial.print("temperatura SALA: ");
+	Serial.println(tempSala);
+	if(tempAtual == tempSala)
+		digitalWrite(AR_SALA, ON);
+	else
+		digitalWrite(AR_SALA, OFF);
 	
-
-	// *!temperatuda ds18b20 para enviar  msg[20]  e msg[21]
+	sprintf(temp,"%02d", tempSala);
+	msg[20]   = temp[0];
+	msg[21]   = temp[1];
 	
 	// Responde para o mestre
     Serial.print("Resposta do Escravo: ");

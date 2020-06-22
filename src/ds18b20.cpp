@@ -1,26 +1,28 @@
 #include "ds18b20.h"
+#include "OneWire.h"
+#include "DallasTemperature.h"
 
 OneWire ourWire(DS18B20); 
 DallasTemperature sensors(&ourWire); 
 DeviceAddress sensor;
-float tempC, aux;
+int tempC;
+float aux;
 
 void init_ds18b20()
 {
-  sensors.begin();
-  sensors.getAddress(sensor, 0);
+    sensors.begin();
+    sensors.getAddress(sensor, 0);
+    delay(500);
 }
 
-void read_ds18b20()
+int read_ds18b20()
 {
-  tempC = sensors.getTempC(sensor);
-  if (tempC == -127.00) 
-    Serial.println(aux);
-  else 
-  {
-    Serial.println(tempC);
-    aux = tempC;
-  }
-  sensors.requestTemperatures();
-  delay(2000);
+    sensors.requestTemperatures();
+    aux = sensors.getTempC(sensor);
+    if (aux != -127.00 && aux != 85)
+        tempC = int(aux);
+    
+    sensors.requestTemperatures();
+
+    return tempC;
 }

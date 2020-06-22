@@ -13,6 +13,9 @@ enum{OUTPUT_OFFSET = 1, LAM_D, LAM_R, EN1, EN2, OUT1, OUT2, OUT3, OUT4, SOLE, AR
 #define ANALOG_OUTPUT_OFFSET 10
 #define OFFSET_SOLE 9
 
+#define AR_SALA 15
+#define HEAT 16
+
 extern int banda;
 
 extern void init_output();

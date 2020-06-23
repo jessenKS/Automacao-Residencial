@@ -1,4 +1,5 @@
-# Projeto Final - Automação e Monitoramento Residencial
+# Automação e Monitoramento Residencial
+## Trabalho final de Automação 2 / ECP-UPF
 
 * <b>Descrição geral</b>:
 
@@ -23,9 +24,10 @@
  </div>
  
  * <b>Esquemático</b>
+ 
  -----ESQUEMÁTICO PDF-----------
  
- * <b>Página Web</b>
+ * <b>Páginas Web</b>
  
  O sistema web contém 3 páginas para o controle e monitoramento do sistema.
  
@@ -33,11 +35,25 @@
     <img src="print_Home.png" alt="home" width="80%" height="80%"/></center>
  </div>
  
- A tela de home é apenas um "welcome" ao usuário do sistema.
+ A tela de home é apenas um *welcome* ao usuário do sistema.
  
  <div align="center">
     <img src="print_Config.png" alt="config" width="80%" height="80%"/></center>
  </div>
  
  A página de configuração permite ao usuário definir as variáveis do sistema.
+ 
+ * <b>Configurações de horários da cortina:</b>
+ 
+ Essa seção permite configurar um horário para que as cortinas se abram ou fechem automáticamente.
+  - Abertura na metade do curso
+  - Abertura total
+  - Fechamento total
+ 
+ * <b>Configurações da porta:</b>
+ 
+ Nessa seção se configura a senha da porta de entrada, assim como o tempo que ela pode permanecer aberta antes de disparar um alarme.
+  - Senha para porta de entrada
+  - Tempo que a porta pode permanecer aberta
+ 
  

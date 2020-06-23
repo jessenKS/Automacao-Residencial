@@ -49,11 +49,18 @@
   - Abertura na metade do curso
   - Abertura total
   - Fechamento total
+  
  ---------///----------
  * <b>Configurações da porta:</b>
  
  Nessa seção se configura a senha da porta de entrada, assim como o tempo que ela pode permanecer aberta antes de disparar um alarme.
   - Senha para porta de entrada
   - Tempo que a porta pode permanecer aberta
- 
+  
+  ---------///----------
+  * <b>Configurações de temperatura</b>
+  
+  Nessa seção é configurado a temperatura padrão do ar condicionado ao ser ligado, uma temperatura entre 17ºC e 25ºC. Também é possível configurar a banda morta para ligar o aquecedor do banheiro. A banda morta nada mais é do que a diferença de temperatura necessária para desligar o aquecedor do banheiro, sendo a temperatura padrão dele de 17ºC.
+  - Temperatura padrão do ar-condicionado
+  - Faixa da banda morta
  

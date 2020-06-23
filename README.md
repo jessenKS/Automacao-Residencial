@@ -74,3 +74,5 @@
     <img src="print_Monit.png" alt="config" width="80%" height="80%"/></center>
  </div>
  
+ Nessa tela, o usuário poderá configurar as variáveis do sistema de modo manual, assim como monitorar os valores de todos os elementos da casa.
+ 

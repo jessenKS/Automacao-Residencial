@@ -21,3 +21,7 @@
  <div align="center">
     <img src="mensagemModbus.png" alt="mensagem" width="50%" height="20%"/></center>
  </div>
+ 
+ -----ESQUEMÁTICO PDF-----------
+ 
+ 

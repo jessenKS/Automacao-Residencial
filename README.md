@@ -22,6 +22,22 @@
     <img src="mensagemModbus.png" alt="mensagem" width="50%" height="20%"/></center>
  </div>
  
+ * <b>Esquemático</b>
  -----ESQUEMÁTICO PDF-----------
  
+ * <b>Página Web</b>
+ 
+ O sistema web contém 3 páginas para o controle e monitoramento do sistema.
+ 
+ <div align="center">
+    <img src="print_Home.png" alt="home" width="80%" height="80%"/></center>
+ </div>
+ 
+ A tela de home é apenas um "welcome" ao usuário do sistema.
+ 
+ <div align="center">
+    <img src="print_Config.png" alt="config" width="80%" height="80%"/></center>
+ </div>
+ 
+ A página de configuração permite ao usuário definir as variáveis do sistema.
  

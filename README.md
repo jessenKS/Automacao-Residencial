@@ -26,7 +26,7 @@
  * <b>Esquemático</b>
  
  <div align="center">
-    <img src="esquematico.png" alt="mensagem" width="50%" height="20%"/></center>
+    <img src="esquemático.png" alt="mensagem" width="50%" height="20%"/></center>
  </div>
  
  * <b>Páginas Web</b>

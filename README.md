@@ -33,14 +33,14 @@
  
  O sistema web contém 3 páginas para o controle e monitoramento do sistema.
  
-  - <b>Tela Inicial</b>
+  1. <b>Tela Inicial</b>
  <div align="center">
     <img src="print_Home.png" alt="home" width="80%" height="80%"/></center>
  </div>
  
  A tela de home é apenas um *welcome* ao usuário do sistema.
  
-  - <b>Tela de Configuração</b>
+  2. <b>Tela de Configuração</b>
  <div align="center">
     <img src="print_Config.png" alt="config" width="80%" height="80%"/></center>
  </div>
@@ -67,4 +67,10 @@
   Nessa seção é configurado a temperatura padrão do ar condicionado ao ser ligado, uma temperatura entre 17ºC e 25ºC. Também é possível configurar a banda morta para ligar o aquecedor do banheiro. A banda morta nada mais é do que a diferença de temperatura necessária para desligar o aquecedor do banheiro, sendo a temperatura padrão dele de 17ºC.
   - Temperatura padrão do ar-condicionado
   - Faixa da banda morta
+  
+  3. <b>Tela de Monitoramento e Ações</b>
+  
+  <div align="center">
+    <img src="print_Monit.png" alt="config" width="80%" height="80%"/></center>
+ </div>
  

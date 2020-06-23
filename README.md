@@ -33,14 +33,14 @@
  
  O sistema web contém 3 páginas para o controle e monitoramento do sistema.
  
-  * <b>Tela Inicial</b>
+  - <b>Tela Inicial</b>
  <div align="center">
     <img src="print_Home.png" alt="home" width="80%" height="80%"/></center>
  </div>
  
  A tela de home é apenas um *welcome* ao usuário do sistema.
  
-  * <b>Tela de Configuração</b>
+  - <b>Tela de Configuração</b>
  <div align="center">
     <img src="print_Config.png" alt="config" width="80%" height="80%"/></center>
  </div>

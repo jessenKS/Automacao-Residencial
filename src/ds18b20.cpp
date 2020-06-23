@@ -2,10 +2,10 @@
 #include "OneWire.h"
 #include "DallasTemperature.h"
 
-OneWire ourWire(DS18B20); 
-DallasTemperature sensors(&ourWire); 
+OneWire ourWire(DS18B20);
+DallasTemperature sensors(&ourWire);
 DeviceAddress sensor;
-int tempC;
+int tempC; 
 float aux;
 
 void init_ds18b20()
@@ -20,9 +20,15 @@ int read_ds18b20()
     sensors.requestTemperatures();
     aux = sensors.getTempC(sensor);
     if (aux != -127.00 && aux != 85)
+    { // && aux != 0){
         tempC = int(aux);
-    
+    }
     sensors.requestTemperatures();
+
+    if (!sensors.getAddress(sensor, 0))
+    {
+        Serial.println("Sensores nao encontrados !");
+    }
 
     return tempC;
 }

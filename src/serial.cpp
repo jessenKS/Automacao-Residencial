@@ -157,8 +157,8 @@ void update_screen(String msg)
 	*? LRC (00) 
 	*/
 	uint16_t atualiza[7];
-	int passa, aux, tempSala, porta[6] = {LM35, WIND, DINE, ROOM, SIR, DOOR}, tempAtual = ((msg[20]-'0')*10 +(msg[21]-'0'));
-	char buf[4], envia[1], temp[2];
+	int passa, val, aux, tempSala, porta[6] = {LM35, WIND, DINE, ROOM, SIR, DOOR}, tempAtual = ((msg[20]-'0')*10 +(msg[21]-'0'));
+	char buf[4], envia[1], temp[2], tempS[2];
 	int cortinaRoom = (msg[22]-'0')*100 + (msg[23]-'0')*10 +(msg[24]-'0');
 	int cortinaDine = (msg[25]-'0')*100 + (msg[26]-'0')*10 +(msg[27]-'0');
 
@@ -177,13 +177,20 @@ void update_screen(String msg)
 		Serial.println(atualiza[i]);
 
 		//*!colocar funcao anemometro para velocidade max
-		atualiza[i] = map(atualiza[i], 0, 1023, 0, 100);
+		if(porta[i] == DINE && porta[i] == ROOM)
+			atualiza[i] = map(atualiza[i], 0, 1023, 0, 100);
 
 		if (porta[i] == DINE)
 			atualiza[i] = funcaoTeste(cortinaDine, porta[i]);
-		if(porta[i] == ROOM)
+		else if(porta[i] == ROOM)
 			atualiza[i] = funcaoTeste(cortinaRoom, porta[i]);
-		
+		else
+		{
+			val = (5 * atualiza[i])/1023;
+  			atualiza[i] = (val - 0.36206896551)/0.0275862069;
+		}
+
+
 		sprintf(buf,"%03d", atualiza[i]);
 
 		// monta valor de retorno

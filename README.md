@@ -49,7 +49,7 @@
   - Abertura na metade do curso
   - Abertura total
   - Fechamento total
- 
+ ---------///----------
  * <b>Configurações da porta:</b>
  
  Nessa seção se configura a senha da porta de entrada, assim como o tempo que ela pode permanecer aberta antes de disparar um alarme.

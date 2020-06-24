@@ -6,8 +6,6 @@
 #define LM35  54
 #define TAM  100
 
-extern float temperatura;
-
-extern void Le_temperatura();
+int Le_temperatura();
 
 #endif

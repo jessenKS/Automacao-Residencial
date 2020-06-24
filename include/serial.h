@@ -23,9 +23,12 @@
 #define SLAVE_ADR       "03"
 #define VAL tam/2  // tamanho de dado
 
-extern void init_serial();
-extern void msgHandler();
-extern void update_screen(String msg);
+#define PARAMETRO1 0.36206896551 
+#define PARAMETRO2 0.0275862069
+
+void init_serial();
+void msgHandler();
+void update_screen(String msg);
 uint8_t lrc(uint8_t *dado, uint8_t t);
 
 //extern void init_input();

@@ -1,10 +1,8 @@
 #include "lm35.h"
 
-float temperatura;
-
-void Le_temperatura()
+int Le_temperatura()
 {
-  int i;
+  int i, temperatura;
   float vet_temperatura[TAM], aux;
 
   aux = 0;
@@ -14,5 +12,7 @@ void Le_temperatura()
     aux += vet_temperatura[i];
   }
   aux = (aux / TAM);
-  temperatura = aux;
+  temperatura = (int)aux;
+
+  return temperatura;
 }

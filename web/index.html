@@ -96,8 +96,8 @@
                 aux.classList.remove("disabled");
                 socket.emit('configInicial', [cortinaMet, cortinaAbert, cortinaFech, portSenha, portTemp, tempPadrao, tempBanheiro]);
                 alert("Configuração concluida com sucesso!");
+                setInterval(atualizaTela, 20000);
             }
-            setInterval(atualizaTela, 10000);
         }
 
         function validateConfig(x){
@@ -199,6 +199,7 @@
         })
 
         socket.on('updateScreen', function(data){
+            console.log("resposta"+data);
             var sirene = document.getElementById("sirene");
             var porta = document.getElementById("porta");
             var cortina1 = document.getElementById("cortina1");

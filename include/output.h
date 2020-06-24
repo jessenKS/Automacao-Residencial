@@ -15,14 +15,13 @@ enum{OUTPUT_OFFSET = 1, LAM_D, LAM_R, EN1, EN2, OUT1, OUT2, OUT3, OUT4, SOLE, AR
 
 #define AR_SALA 15
 #define HEAT 16
+#define MAX_VENTO 50
 
-extern int banda;
-
-extern void init_output();
-int funcaoTeste(int value, int sensor);
-extern void write_init_output(String msg);
-extern void write_output(String msg);
-extern void write_sol(String msg);
-extern void analog_write_output(String msg);
+void init_output();
+int funcaoTeste(int value, int sensor, int vento);
+int  write_init_output(String msg);
+void write_output(String msg);
+void write_sol(String msg);
+void analog_write_output(String msg);
 
 #endif

@@ -12,7 +12,6 @@ void init_ds18b20()
 {
     sensors.begin();
     sensors.getAddress(sensor, 0);
-    delay(500);
 }
 
 int read_ds18b20()

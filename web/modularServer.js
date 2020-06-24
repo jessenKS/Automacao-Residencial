@@ -163,7 +163,8 @@ parser.on('data', (data) => {
       socket.emit('lampada', resposta);
       
   }
-  else if(data.length == 52){
+  else if(data.length == 52)
+  {
     console.log("Volta arduino: ");
     console.log(data.substring(21));
     var resposta = data.substring(21)
@@ -184,7 +185,7 @@ parser.on('data', (data) => {
       console.log("Limpa variavel");
     }
       
-    
+    console.log("Mensagem:"+resposta);
     socket.emit('updateScreen', resposta); 
   }
   else

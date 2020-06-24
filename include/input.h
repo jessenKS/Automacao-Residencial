@@ -15,7 +15,7 @@
 #define DINE 56
 #define ROOM 57
 
-extern void init_input();
-extern void read_input(String msg);
+void init_input();
+void read_input(String msg);
 
 #endif

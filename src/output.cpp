@@ -10,11 +10,12 @@ void init_output()
     digitalWrite(SOLE, ON);
     digitalWrite(EN1,  ON);
     digitalWrite(EN2,  ON);
+    digitalWrite(HEAT, OFF);
 }
 
 // 51 valor fixo
 
-void write_init_output(String msg)
+int write_init_output(String msg)
 {
     int ar = ((msg[7]-'0')*10 + (msg[8]-'0'));
     int banda = ((msg[9]-'0')*10 + (msg[10]-'0')); 						
@@ -23,12 +24,14 @@ void write_init_output(String msg)
     Serial.println(ar);
     ar = (51*ar)/10;
     analogWrite(ARC, ar);
-    Serial.print("Banda morta:");
+    Serial.print("Banda morta: ");
     Serial.println(banda);
     
     // Resposta com o valor atual da entrada..
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);
+
+    return banda;
 }
 
 void write_sol(String msg)
@@ -73,7 +76,7 @@ void write_output(String msg)
     Serial.println(msg);
 }
 
-int funcaoTeste(int value, int sensor)
+int funcaoTeste(int value, int sensor, int vento)
 {
     int mot, hora[2] = {OUT1, OUT3}, anti[2] = {OUT2, OUT4};
     if (sensor == DINE)
@@ -90,24 +93,30 @@ int funcaoTeste(int value, int sensor)
     *! 4V = 818.4
     *! 1V = 204.6
     */
-
-    if (value > lado) 
+    if (vento > MAX_VENTO)
     {
         digitalWrite(hora[mot],  ON);
         digitalWrite(anti[mot], OFF);
     }
-        
-    else if(value < lado)
-    {
-        digitalWrite(anti[mot],  ON);
-        digitalWrite(hora[mot], OFF);
-    }
     else
     {
-        digitalWrite(hora[mot], OFF);
-        digitalWrite(anti[mot], OFF);
+        if (value > lado) 
+        {
+            digitalWrite(hora[mot],  ON);
+            digitalWrite(anti[mot], OFF);
+        }
+            
+        else if(value < lado)
+        {
+            digitalWrite(anti[mot],  ON);
+            digitalWrite(hora[mot], OFF);
+        }
+        else
+        {
+            digitalWrite(hora[mot], OFF);
+            digitalWrite(anti[mot], OFF);
+        }
     }
-
     return lado;
 }
 

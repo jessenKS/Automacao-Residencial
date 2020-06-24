@@ -77,3 +77,5 @@
  Nessa tela, o usuário terá duas funcionalidades. Na parte da esquerda fica a monitoração do apartamento. Quando rodando, será colocado em tela os valores atuais das variáveis do sistema, como a porcentagem de fechamento das cortinas, se a porta está trancada ou aberta, temperatura do ar, velocidade do vento, etc. Na parte da direita, o usuário terá a opção de configurar manualmente as variáveis do sistema. Por exemplo, as cortinas estão configuradas para abrirem totalmente às 10:00 da manhã. O usuário pode entrar na página de ações e forçá-las a fechar totalmente a qualquer hora do dia, através dos slide bars.
  
 * <b>Vídeo de Funcionamento</b>
+
+https://www.youtube.com/watch?v=z078TkaXjzc&feature=youtu.be

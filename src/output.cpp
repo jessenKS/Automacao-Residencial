@@ -15,7 +15,7 @@ void init_output()
 
 // 51 valor fixo
 
-int write_init_output(String msg)
+void write_init_output(String msg)
 {
     int ar = ((msg[7]-'0')*10 + (msg[8]-'0'));
     int banda = ((msg[9]-'0')*10 + (msg[10]-'0')); 						
@@ -30,8 +30,6 @@ int write_init_output(String msg)
     // Resposta com o valor atual da entrada..
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);
-
-    return banda;
 }
 
 void write_sol(String msg)
@@ -95,8 +93,16 @@ int funcaoTeste(int value, int sensor, int vento)
     */
     if (vento > MAX_VENTO)
     {
-        digitalWrite(hora[mot],  ON);
-        digitalWrite(anti[mot], OFF);
+        if(lado < 100)
+        {
+            digitalWrite(hora[mot],  ON);
+            digitalWrite(anti[mot], OFF);
+        }
+        else
+        {
+            digitalWrite(hora[mot], OFF);
+            digitalWrite(anti[mot], OFF);
+        }
     }
     else
     {

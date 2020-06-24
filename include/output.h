@@ -19,7 +19,7 @@ enum{OUTPUT_OFFSET = 1, LAM_D, LAM_R, EN1, EN2, OUT1, OUT2, OUT3, OUT4, SOLE, AR
 
 void init_output();
 int funcaoTeste(int value, int sensor, int vento);
-int  write_init_output(String msg);
+void write_init_output(String msg);
 void write_output(String msg);
 void write_sol(String msg);
 void analog_write_output(String msg);

@@ -28,6 +28,7 @@ void msgHandler()
 
 			if(tam == 13) tam-=1;
 			else if(tam == 14) tam-=2;
+			else tam = 28;
 			
 			//início válido
 			if(msg[0] == ':')
@@ -63,9 +64,9 @@ void msgHandler()
 
 				Serial.print("Valor dado ");
 				Serial.println(dado[t]);
-				/*
-				//compara se o LRC da msg é igual ao calculado
 				
+				//compara se o LRC da msg é igual ao calculado
+				/*
 				if (valor == dado[t])
 					Serial.println("LRC correto");
 				else
@@ -80,13 +81,13 @@ void msgHandler()
 					Serial.println("Endereço do escravo correto");
 					
 					//processa a mensagem
-					int cmd = (msg[3]-'0')*10 + (msg[4]-'0'), banda;
+					int cmd = (msg[3]-'0')*10 + (msg[4]-'0');
 
 					switch (cmd)
 					{
 						case READ_COIL:
 						{
-							banda = write_init_output(msg);
+							write_init_output(msg);
 							break;
 						}
 							
@@ -173,8 +174,8 @@ void update_screen(String msg)
 	for (int i = 0; i < 3; i++, aux+=3)
 	{	
 		atualiza[i] = analogRead(porta[i]);
-		Serial.print("Leitura analogica: ");
-		Serial.println(atualiza[i]);
+		/*Serial.print("Leitura analogica: ");
+		Serial.println(atualiza[i]);*/
 
 		if(porta[i] == DINE && porta[i] == ROOM)
 			atualiza[i] = map(atualiza[i], 0, 1023, 0, 100);
@@ -200,9 +201,8 @@ void update_screen(String msg)
 	/**
 	*? PORTA*/
 	passa = digitalRead(DOOR);
-	Serial.print("Porta: ");
-	Serial.println(passa);
-	//sprintf(envia,"%01d", passa);
+	/*Serial.print("Porta: ");
+	Serial.println(passa);*/
 	msg[19]   = passa+'0';
 
 	if(passa == 1)
@@ -211,22 +211,17 @@ void update_screen(String msg)
 	/**
 	*? SIRENE*/
 	passa = digitalRead(SIR);
-	Serial.print("Sirene: ");
-	Serial.println(passa);
+	/*Serial.print("Sirene: ");
+	Serial.println(passa);*/
 	sprintf(envia,"%01d", passa);
 	msg[18]   = envia[0];
 	
-	
 	tempSala = read_ds18b20();
-	/*
-	!sprintf(sala,"%02d", tempSala);
-	*/
  	d = (tempSala/10); 
  	u = (tempSala-(d*10));
 	msg[20] = d+'0';
 	msg[21] = u+'0';
 	
-
 	// Responde para o mestre
     Serial.print("Resposta do Escravo: ");
     Serial.println(msg);

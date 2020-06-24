@@ -18,7 +18,7 @@ enum{OUTPUT_OFFSET = 1, LAM_D, LAM_R, EN1, EN2, OUT1, OUT2, OUT3, OUT4, SOLE, AR
 #define MAX_VENTO 50
 
 void init_output();
-int funcaoTeste(int value, int sensor, int vento);
+int EstadosMotores(int value, int sensor, int vento);
 void write_init_output(String msg);
 void write_output(String msg);
 void write_sol(String msg);

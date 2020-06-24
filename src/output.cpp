@@ -74,7 +74,7 @@ void write_output(String msg)
     Serial.println(msg);
 }
 
-int funcaoTeste(int value, int sensor, int vento)
+int EstadosMotores(int value, int sensor, int vento)
 {
     int mot, hora[2] = {OUT1, OUT3}, anti[2] = {OUT2, OUT4};
     if (sensor == DINE)

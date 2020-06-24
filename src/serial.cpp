@@ -28,7 +28,6 @@ void msgHandler()
 
 			if(tam == 13) tam-=1;
 			else if(tam == 14) tam-=2;
-			else tam = 28;
 			
 			//início válido
 			if(msg[0] == ':')
@@ -58,13 +57,13 @@ void msgHandler()
 				
 				t = (uint8_t)(sizeof(dado)) - 1;
 				valor = lrc(dado, t); //cálculo do lrc
-				
+				/*
 				Serial.print("Valor LRC ");
 				Serial.println(valor);
 
 				Serial.print("Valor dado ");
 				Serial.println(dado[t]);
-				
+				*/
 				//compara se o LRC da msg é igual ao calculado
 				/*
 				if (valor == dado[t])
@@ -187,9 +186,9 @@ void update_screen(String msg)
 		}
 		
 		else if (porta[i] == DINE)
-			atualiza[i] = funcaoTeste(cortinaDine, porta[i], vento);
+			atualiza[i] = EstadosMotores(cortinaDine, porta[i], vento);
 		else if(porta[i] == ROOM)
-			atualiza[i] = funcaoTeste(cortinaRoom, porta[i], vento);
+			atualiza[i] = EstadosMotores(cortinaRoom, porta[i], vento);
 
 		sprintf(buffer,"%03d", atualiza[i]);
 

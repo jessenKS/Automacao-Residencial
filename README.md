@@ -14,19 +14,19 @@
   O projeto utiliza o protocolo de comunicação mestre-escravo Modbus em modo ASCII via RS-232 (Recommendad Standart-232), o que só permite dois dispositivos na rede, comumente conhecido como conexão ponto-a-ponto, sendo o Modbus o mestre, e o Arduino o escravo.
   
  <div align="center">
-   <img src="figura1.png" alt="modbus" width="50%" height="20%"/></center>
+   <img src="imgs/figura1.png" alt="modbus" width="50%" height="20%"/></center>
 </div>
 
   Utilizando o Modbus ASCII, cada unidade de 8 bits transmite como dois caracteres ASCII. O ASCII pode ter até um segundo entre os caracteres sem criar um erro na comunicação. Quando uma mensagem é enviada entre um mestre e o escravo, o código de função (function code) é o responsável em dizer para o escravo que tipo de ação ele deve fazer. No Modbus ASCII, o function code será 2 caracteres na messagem enviada.
  
  <div align="center">
-    <img src="mensagemModbus.png" alt="mensagem" width="50%" height="20%"/></center>
+    <img src="imgs/mensagemModbus.png" alt="mensagem" width="50%" height="20%"/></center>
  </div>
  
  * <b>Esquemático</b>
  
  <div align="center">
-    <img src="esquemático.png" alt="mensagem" width="90%" height="60%"/></center>
+    <img src="imgs/esquemático.png" alt="mensagem" width="90%" height="60%"/></center>
  </div>
  
  * <b>Páginas Web</b>
@@ -35,14 +35,14 @@
  
   1. <b>Tela Inicial</b>
  <div align="center">
-    <img src="print_Home.png" alt="home" width="80%" height="80%"/></center>
+    <img src="imgs/print_Home.png" alt="home" width="80%" height="80%"/></center>
  </div>
  
  A tela de home é apenas um *welcome* ao usuário do sistema.
  
   2. <b>Tela de Configuração</b>
  <div align="center">
-    <img src="print_Config.png" alt="config" width="80%" height="80%"/></center>
+    <img src="imgs/print_Config.png" alt="config" width="80%" height="80%"/></center>
  </div>
  
  A página de configuração permite ao usuário definir as variáveis do sistema.
@@ -71,7 +71,7 @@
   3. <b>Tela de Monitoramento e Ações</b>
   
   <div align="center">
-    <img src="print_Monit.png" alt="config" width="80%" height="80%"/></center>
+    <img src="imgs/print_Monit.png" alt="config" width="80%" height="80%"/></center>
  </div>
  
  Nessa tela, o usuário terá duas funcionalidades. Na parte da esquerda fica a monitoração do apartamento. Quando rodando, será colocado em tela os valores atuais das variáveis do sistema, como a porcentagem de fechamento das cortinas, se a porta está trancada ou aberta, temperatura do ar, velocidade do vento, etc. Na parte da direita, o usuário terá a opção de configurar manualmente as variáveis do sistema. Por exemplo, as cortinas estão configuradas para abrirem totalmente às 10:00 da manhã. O usuário pode entrar na página de ações e forçá-las a fechar totalmente a qualquer hora do dia, através dos slide bars.
